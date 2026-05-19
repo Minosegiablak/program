@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<!-- saved from url=(0040)https://minosegiablak.github.io/program/ -->
-<html lang="hu"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minőségi Ablak — Dashboard</title>
-<link rel="preconnect" href="https://fonts.googleapis.com/">
-<link href="./index_files/css2" rel="stylesheet">
-<script src="./index_files/Sortable.min.js.letöltés"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
 <style>
   :root {
     --bg: #0d0d0d;
@@ -474,15 +475,15 @@
 <header>
   <div class="logo">
     <svg class="logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="2" y="4" width="12" height="24" rx="1" stroke="white" stroke-width="1.5"></rect>
-      <rect x="8" y="2" width="12" height="24" rx="1" stroke="#e63946" stroke-width="1.5"></rect>
-      <rect x="5.5" y="14.5" width="3" height="3" fill="#e63946" rx="0.5"></rect>
+      <rect x="2" y="4" width="12" height="24" rx="1" stroke="white" stroke-width="1.5"/>
+      <rect x="8" y="2" width="12" height="24" rx="1" stroke="#e63946" stroke-width="1.5"/>
+      <rect x="5.5" y="14.5" width="3" height="3" fill="#e63946" rx="0.5"/>
     </svg>
     <span class="logo-text">minőségi<span>ablak</span>.hu</span>
   </div>
   <div class="header-right">
-    <div class="week-badge">HÉT<span id="week-num">21</span></div>
-    <div id="clock">11:33</div>
+    <div class="week-badge">HÉT<span id="week-num">--</span></div>
+    <div id="clock">--:--</div>
   </div>
 </header>
 
@@ -493,47 +494,15 @@
   <main class="workspace">
     <div class="section">
       <div class="section-label">Programok</div>
-      <div class="cards-grid" id="grid-apps"><div class="card" data-id="1" role="button" tabindex="0" aria-label="Pergola">
-        
-        <span class="card-icon">📐</span>
-        <span class="card-title">Pergola</span>
-      </div><div class="card" data-id="2" role="button" tabindex="0" aria-label="Üvegfal">
-        
-        <span class="card-icon">🚪</span>
-        <span class="card-title">Üvegfal</span>
-      </div><div class="card" data-id="3" role="button" tabindex="0" aria-label="Karton Készítő">
-        
-        <span class="card-icon">📝</span>
-        <span class="card-title">Karton Készítő</span>
-      </div><div class="card" data-id="4" role="button" tabindex="0" aria-label="Napellenző">
-        <span class="badge-test">Teszt</span>
-        <span class="card-icon">⛱️</span>
-        <span class="card-title">Napellenző</span>
-      </div><div class="card" data-id="5" role="button" tabindex="0" aria-label="VisualWindow">
-        
-        <span class="card-icon">💻</span>
-        <span class="card-title">VisualWindow</span>
-      </div></div>
+      <div class="cards-grid" id="grid-apps"></div>
     </div>
     <div class="section">
       <div class="section-label">Fájlok</div>
-      <div class="cards-grid" id="grid-files"><div class="card" data-id="6" role="button" tabindex="0" aria-label="2026 Árlisták">
-        
-        <span class="card-icon">📁</span>
-        <span class="card-title">2026 Árlisták</span>
-      </div><div class="card" data-id="7" role="button" tabindex="0" aria-label="2026 Ajánlatok">
-        
-        <span class="card-icon">📂</span>
-        <span class="card-title">2026 Ajánlatok</span>
-      </div></div>
+      <div class="cards-grid" id="grid-files"></div>
     </div>
     <div class="section">
       <div class="section-label">Egyéb</div>
-      <div class="cards-grid" id="grid-other"><div class="card" data-id="8" role="button" tabindex="0" aria-label="Trello">
-        
-        <span class="card-icon">📋</span>
-        <span class="card-title">Trello</span>
-      </div></div>
+      <div class="cards-grid" id="grid-other"></div>
     </div>
   </main>
 
@@ -546,7 +515,10 @@
         <span class="panel-title">NAPTÁR</span>
       </div>
       <div class="calendar-frame">
-        <iframe src="./index_files/embed.html" loading="lazy" title="Google Naptár">
+        <iframe
+          src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FBudapest&showPrint=0&showTitle=0&showNav=0&showDate=0&showTabs=0&showCalendars=0&showTz=0&mode=AGENDA&src=c2xvYmVyc3pAZ21haWwuY29t&color=%23ff2968"
+          loading="lazy"
+          title="Google Naptár">
         </iframe>
       </div>
     </div>
@@ -557,7 +529,7 @@
         <span class="panel-title">FELADATOK</span>
         <button class="btn-sm" onclick="toggleTrelloConfig()">⚙ Beállítás</button>
       </div>
-      <div id="trello-config-panel" style="display: flex;">
+      <div id="trello-config-panel">
         <input type="text" id="trello-key" placeholder="Trello API Key">
         <input type="text" id="trello-token" placeholder="Trello Token">
         <input type="text" id="trello-lists" placeholder="Lista ID-k (vesszővel elválasztva)">
@@ -565,7 +537,7 @@
       </div>
       <div class="trello-controls">
         <select id="trello-list-selector" onchange="changeTrelloList()"></select>
-        <button class="btn-sm" onclick="fetchTrelloTasks(document.getElementById(&#39;trello-list-selector&#39;).value)">↻</button>
+        <button class="btn-sm" onclick="fetchTrelloTasks(document.getElementById('trello-list-selector').value)">↻</button>
       </div>
       <div id="trello-container">
         <p class="trello-empty">Állítsd be a Trello kapcsolatot a ⚙ gombbal.</p>
@@ -781,6 +753,5 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(updateClock, 30000);
 });
 </script>
-
-
-</body></html>
+</body>
+</html>
