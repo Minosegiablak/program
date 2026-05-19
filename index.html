@@ -1,13 +1,12 @@
-
 <!DOCTYPE html>
-<html lang="hu">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0046)file:///C:/Users/hori7/Downloads/index_18.html -->
+<html lang="hu"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minőségi Ablak — Dashboard</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./index_files/css2" rel="stylesheet">
+<script src="./index_files/Sortable.min.js.letöltés"></script>
 <style>
   :root {
     --bg: #0d0d0d;
@@ -193,7 +192,22 @@
     line-height: 1.3;
   }
 
-  .card:hover .card-title { color: var(--text); }
+  .card-edit-btn {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    background: rgba(255,255,255,0.07);
+    border: none;
+    color: var(--muted);
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+
+  .card:hover .card-edit-btn { opacity: 1; }
 
   .badge-test {
     position: absolute;
@@ -250,13 +264,13 @@
     color: var(--muted);
   }
 
-  /*  */
-  .-frame {
+  /* CALENDAR */
+  .calendar-frame {
     flex: 1;
     overflow: hidden;
   }
 
-  .-frame iframe {
+  .calendar-frame iframe {
     width: 100%;
     height: 100%;
     border: none;
@@ -475,15 +489,15 @@
 <header>
   <div class="logo">
     <svg class="logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="2" y="4" width="12" height="24" rx="1" stroke="white" stroke-width="1.5"/>
-      <rect x="8" y="2" width="12" height="24" rx="1" stroke="#e63946" stroke-width="1.5"/>
-      <rect x="5.5" y="14.5" width="3" height="3" fill="#e63946" rx="0.5"/>
+      <rect x="2" y="4" width="12" height="24" rx="1" stroke="white" stroke-width="1.5"></rect>
+      <rect x="8" y="2" width="12" height="24" rx="1" stroke="#e63946" stroke-width="1.5"></rect>
+      <rect x="5.5" y="14.5" width="3" height="3" fill="#e63946" rx="0.5"></rect>
     </svg>
     <span class="logo-text">minőségi<span>ablak</span>.hu</span>
   </div>
   <div class="header-right">
-    <div class="week-badge">HÉT<span id="week-num">--</span></div>
-    <div id="clock">--:--</div>
+    <div class="week-badge">HÉT<span id="week-num">21</span></div>
+    <div id="clock">13:01</div>
   </div>
 </header>
 
@@ -494,15 +508,55 @@
   <main class="workspace">
     <div class="section">
       <div class="section-label">Programok</div>
-      <div class="cards-grid" id="grid-apps"></div>
+      <div class="cards-grid" id="grid-apps"><div class="card" data-id="1" role="button" tabindex="0" aria-label="Pergola">
+        
+        <span class="card-icon">📐</span>
+        <span class="card-title">Pergola</span>
+        <button class="card-edit-btn" title="Szerkesztés">✎</button>
+      </div><div class="card" data-id="2" role="button" tabindex="0" aria-label="Üvegfal">
+        
+        <span class="card-icon">🚪</span>
+        <span class="card-title">Üvegfal</span>
+        <button class="card-edit-btn" title="Szerkesztés">✎</button>
+      </div><div class="card" data-id="3" role="button" tabindex="0" aria-label="Karton Készítő">
+        
+        <span class="card-icon">📝</span>
+        <span class="card-title">Karton Készítő</span>
+        <button class="card-edit-btn" title="Szerkesztés">✎</button>
+      </div><div class="card" data-id="4" role="button" tabindex="0" aria-label="Napellenző">
+        <span class="badge-test">Teszt</span>
+        <span class="card-icon">⛱️</span>
+        <span class="card-title">Napellenző</span>
+        <button class="card-edit-btn" title="Szerkesztés">✎</button>
+      </div><div class="card" data-id="5" role="button" tabindex="0" aria-label="VisualWindow">
+        
+        <span class="card-icon">💻</span>
+        <span class="card-title">VisualWindow</span>
+        <button class="card-edit-btn" title="Szerkesztés">✎</button>
+      </div></div>
     </div>
     <div class="section">
       <div class="section-label">Fájlok</div>
-      <div class="cards-grid" id="grid-files"></div>
+      <div class="cards-grid" id="grid-files"><div class="card" data-id="6" role="button" tabindex="0" aria-label="2026 Árlisták">
+        
+        <span class="card-icon">📁</span>
+        <span class="card-title">2026 Árlisták</span>
+        <button class="card-edit-btn" title="Szerkesztés">✎</button>
+      </div><div class="card" data-id="7" role="button" tabindex="0" aria-label="2026 Ajánlatok">
+        
+        <span class="card-icon">📂</span>
+        <span class="card-title">2026 Ajánlatok</span>
+        <button class="card-edit-btn" title="Szerkesztés">✎</button>
+      </div></div>
     </div>
     <div class="section">
       <div class="section-label">Egyéb</div>
-      <div class="cards-grid" id="grid-other"></div>
+      <div class="cards-grid" id="grid-other"><div class="card" data-id="8" role="button" tabindex="0" aria-label="Trello">
+        
+        <span class="card-icon">📋</span>
+        <span class="card-title">Trello</span>
+        <button class="card-edit-btn" title="Szerkesztés">✎</button>
+      </div></div>
     </div>
   </main>
 
@@ -514,11 +568,8 @@
       <div class="panel-header">
         <span class="panel-title">NAPTÁR</span>
       </div>
-      <div class="-frame">
-        <iframe
-          src="https://calendar.google.com/calendar/embed?src=slobersz%40gmail.com&ctz=Europe%2FBudapest&mode=AGENDA&showTitle=0&showNav=0&showDate=0&showTabs=0&showCalendars=0&showPrint=0"
-          loading="lazy"
-          title="Google Naptár">
+      <div class="calendar-frame">
+        <iframe src="./index_files/embed.html" loading="lazy" title="Google Naptár">
         </iframe>
       </div>
     </div>
@@ -537,7 +588,7 @@
       </div>
       <div class="trello-controls">
         <select id="trello-list-selector" onchange="changeTrelloList()"></select>
-        <button class="btn-sm" onclick="fetchTrelloTasks(document.getElementById('trello-list-selector').value)">↻</button>
+        <button class="btn-sm" onclick="fetchTrelloTasks(document.getElementById(&#39;trello-list-selector&#39;).value)">↻</button>
       </div>
       <div id="trello-container">
         <p class="trello-empty">Állítsd be a Trello kapcsolatot a ⚙ gombbal.</p>
@@ -545,6 +596,29 @@
     </div>
 
   </aside>
+</div>
+
+<!-- SZERKESZTŐ MODAL -->
+<div id="edit-modal" role="dialog" aria-modal="true" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:200; align-items:center; justify-content:center;">
+  <div class="modal-box">
+    <div class="modal-title">Kártya szerkesztése</div>
+    <div style="margin-bottom:16px;">
+      <label style="font-size:11px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:6px;">Neve</label>
+      <input type="text" id="edit-title" style="width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--text); font-family:var(--font-body); font-size:14px; padding:8px 10px; border-radius:var(--radius); outline:none;">
+    </div>
+    <div style="margin-bottom:16px;">
+      <label style="font-size:11px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:6px;">Ikon (emoji)</label>
+      <input type="text" id="edit-icon" style="width:80px; background:var(--surface2); border:1px solid var(--border); color:var(--text); font-family:var(--font-body); font-size:20px; padding:8px 10px; border-radius:var(--radius); outline:none; text-align:center;">
+    </div>
+    <div style="margin-bottom:20px;">
+      <label style="font-size:11px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:6px;">Link (Google Drive vagy https://)</label>
+      <input type="text" id="edit-url" style="width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--text); font-family:var(--font-body); font-size:12px; padding:8px 10px; border-radius:var(--radius); outline:none;">
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeEditModal()">Mégse</button>
+      <button class="btn-open" onclick="saveCardEdit()">Mentés</button>
+    </div>
+  </div>
 </div>
 
 <!-- LINK MODAL -->
@@ -590,8 +664,10 @@ function renderGrids() {
     grid.innerHTML = '';
     const ids = saved[sec] || CARDS.filter(c => c.section === sec).map(c => c.id);
     ids.forEach(id => {
-      const card = CARDS.find(c => c.id == id);
-      if (!card) return;
+      const baseCard = CARDS.find(c => c.id == id);
+      if (!baseCard) return;
+      const overrides = getSavedCards();
+      const card = overrides[id] ? { ...baseCard, ...overrides[id] } : baseCard;
       const el = document.createElement('div');
       el.className = 'card';
       el.dataset.id = card.id;
@@ -602,15 +678,61 @@ function renderGrids() {
         ${card.isTest ? '<span class="badge-test">Teszt</span>' : ''}
         <span class="card-icon">${card.icon}</span>
         <span class="card-title">${card.title}</span>
+        <button class="card-edit-btn" title="Szerkesztés">✎</button>
       `;
-      el.addEventListener('click', () => openCard(card));
+      el.addEventListener('click', (e) => {
+        if (e.target.classList.contains('card-edit-btn')) { e.stopPropagation(); openEditModal(card); return; }
+        openCard(card);
+      });
       el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openCard(card); });
       grid.appendChild(el);
     });
   });
 }
 
-/* ── LINK MEGNYITÁS ───────────────────────────── */
+/* ── KÁRTYA SZERKESZTÉS ───────────────────────── */
+let editingCardId = null;
+
+function getSavedCards() {
+  try { return JSON.parse(localStorage.getItem('ma_cards')) || {}; } catch { return {}; }
+}
+
+function openEditModal(card) {
+  editingCardId = card.id;
+  const overrides = getSavedCards();
+  const data = overrides[card.id] || card;
+  document.getElementById('edit-title').value = data.title;
+  document.getElementById('edit-icon').value = data.icon;
+  document.getElementById('edit-url').value = data.url;
+  document.getElementById('edit-modal').style.display = 'flex';
+}
+
+function closeEditModal() {
+  document.getElementById('edit-modal').style.display = 'none';
+  editingCardId = null;
+}
+
+function saveCardEdit() {
+  if (!editingCardId) return;
+  const overrides = getSavedCards();
+  const card = CARDS.find(c => c.id == editingCardId);
+  overrides[editingCardId] = {
+    ...card,
+    title: document.getElementById('edit-title').value.trim() || card.title,
+    icon: document.getElementById('edit-icon').value.trim() || card.icon,
+    url: document.getElementById('edit-url').value.trim() || card.url,
+  };
+  localStorage.setItem('ma_cards', JSON.stringify(overrides));
+  closeEditModal();
+  renderGrids();
+  initSortable();
+}
+
+document.getElementById('edit-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('edit-modal')) closeEditModal();
+});
+
+/* ── KÁRTYÁK RENDERELÉSE (override-dal) ───────── */
 function openCard(card) {
   if (card.isExternal) {
     window.open(card.url, '_blank', 'noopener');
@@ -753,5 +875,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(updateClock, 30000);
 });
 </script>
-</body>
-</html>
+
+
+</body></html>
