@@ -1,3 +1,843 @@
 
-<!-- saved from url=(0046)file:///C:/Users/hori7/Downloads/index_23.html -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="color-scheme" content="light dark"></head><body><div class="line-gutter-backdrop"></div><form autocomplete="off"><label class="line-wrap-control">Sorok tördelése<input type="checkbox" aria-label="Sorok tördelése"></label></form><table><tbody><tr><td class="line-number" value="1"></td><td class="line-content"><span class="html-doctype">&lt;!DOCTYPE html&gt;</span></td></tr><tr><td class="line-number" value="2"></td><td class="line-content"><span class="html-tag">&lt;html <span class="html-attribute-name">lang</span>="<span class="html-attribute-value">hu</span>"&gt;</span></td></tr><tr><td class="line-number" value="3"></td><td class="line-content"><span class="html-tag">&lt;head&gt;</span></td></tr><tr><td class="line-number" value="4"></td><td class="line-content"><span class="html-tag">&lt;meta <span class="html-attribute-name">charset</span>="<span class="html-attribute-value">UTF-8</span>"&gt;</span></td></tr><tr><td class="line-number" value="5"></td><td class="line-content"><span class="html-tag">&lt;meta <span class="html-attribute-name">name</span>="<span class="html-attribute-value">viewport</span>" <span class="html-attribute-name">content</span>="<span class="html-attribute-value">width=device-width, initial-scale=1.0</span>"&gt;</span></td></tr><tr><td class="line-number" value="6"></td><td class="line-content"><span class="html-tag">&lt;title&gt;</span>Minőségi Ablak — Dashboard<span class="html-tag">&lt;/title&gt;</span></td></tr><tr><td class="line-number" value="7"></td><td class="line-content"><span class="html-tag">&lt;link <span class="html-attribute-name">rel</span>="<span class="html-attribute-value">preconnect</span>" <span class="html-attribute-name">href</span>="<a class="html-attribute-value html-resource-link" target="_blank" href="https://fonts.googleapis.com/" rel="noreferrer noopener">https://fonts.googleapis.com</a>"&gt;</span></td></tr><tr><td class="line-number" value="8"></td><td class="line-content"><span class="html-tag">&lt;link <span class="html-attribute-name">href</span>="<a class="html-attribute-value html-resource-link" target="_blank" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="noreferrer noopener">https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Sans:wght@300;400;500&amp;display=swap</a>" <span class="html-attribute-name">rel</span>="<span class="html-attribute-value">stylesheet</span>"&gt;</span></td></tr><tr><td class="line-number" value="9"></td><td class="line-content"><span class="html-tag">&lt;script <span class="html-attribute-name">src</span>="<a class="html-attribute-value html-resource-link" target="_blank" href="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js" rel="noreferrer noopener">https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js</a>"&gt;</span><span class="html-tag">&lt;/script&gt;</span></td></tr><tr><td class="line-number" value="10"></td><td class="line-content"><span class="html-tag">&lt;style&gt;</span></td></tr><tr><td class="line-number" value="11"></td><td class="line-content">  :root {</td></tr><tr><td class="line-number" value="12"></td><td class="line-content">    --bg: #0d0d0d;</td></tr><tr><td class="line-number" value="13"></td><td class="line-content">    --surface: #161616;</td></tr><tr><td class="line-number" value="14"></td><td class="line-content">    --surface2: #1e1e1e;</td></tr><tr><td class="line-number" value="15"></td><td class="line-content">    --border: rgba(255,255,255,0.07);</td></tr><tr><td class="line-number" value="16"></td><td class="line-content">    --border-hover: rgba(230,57,70,0.5);</td></tr><tr><td class="line-number" value="17"></td><td class="line-content">    --red: #e63946;</td></tr><tr><td class="line-number" value="18"></td><td class="line-content">    --red-dim: rgba(230,57,70,0.12);</td></tr><tr><td class="line-number" value="19"></td><td class="line-content">    --text: #f0ede8;</td></tr><tr><td class="line-number" value="20"></td><td class="line-content">    --muted: #6b6b6b;</td></tr><tr><td class="line-number" value="21"></td><td class="line-content">    --font-display: 'Bebas Neue', sans-serif;</td></tr><tr><td class="line-number" value="22"></td><td class="line-content">    --font-body: 'DM Sans', sans-serif;</td></tr><tr><td class="line-number" value="23"></td><td class="line-content">    --radius: 6px;</td></tr><tr><td class="line-number" value="24"></td><td class="line-content">    --radius-lg: 10px;</td></tr><tr><td class="line-number" value="25"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="26"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="27"></td><td class="line-content">  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }</td></tr><tr><td class="line-number" value="28"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="29"></td><td class="line-content">  body {</td></tr><tr><td class="line-number" value="30"></td><td class="line-content">    background: var(--bg);</td></tr><tr><td class="line-number" value="31"></td><td class="line-content">    color: var(--text);</td></tr><tr><td class="line-number" value="32"></td><td class="line-content">    font-family: var(--font-body);</td></tr><tr><td class="line-number" value="33"></td><td class="line-content">    font-size: 14px;</td></tr><tr><td class="line-number" value="34"></td><td class="line-content">    height: 100dvh;</td></tr><tr><td class="line-number" value="35"></td><td class="line-content">    display: flex;</td></tr><tr><td class="line-number" value="36"></td><td class="line-content">    flex-direction: column;</td></tr><tr><td class="line-number" value="37"></td><td class="line-content">    overflow: hidden;</td></tr><tr><td class="line-number" value="38"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="39"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="40"></td><td class="line-content">  /* ── HEADER ─────────────────────────────────── */</td></tr><tr><td class="line-number" value="41"></td><td class="line-content">  header {</td></tr><tr><td class="line-number" value="42"></td><td class="line-content">    display: flex;</td></tr><tr><td class="line-number" value="43"></td><td class="line-content">    align-items: center;</td></tr><tr><td class="line-number" value="44"></td><td class="line-content">    justify-content: space-between;</td></tr><tr><td class="line-number" value="45"></td><td class="line-content">    padding: 0 24px;</td></tr><tr><td class="line-number" value="46"></td><td class="line-content">    height: 60px;</td></tr><tr><td class="line-number" value="47"></td><td class="line-content">    border-bottom: 1px solid var(--border);</td></tr><tr><td class="line-number" value="48"></td><td class="line-content">    flex-shrink: 0;</td></tr><tr><td class="line-number" value="49"></td><td class="line-content">    gap: 16px;</td></tr><tr><td class="line-number" value="50"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="51"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="52"></td><td class="line-content">  .logo {</td></tr><tr><td class="line-number" value="53"></td><td class="line-content">    display: flex;</td></tr><tr><td class="line-number" value="54"></td><td class="line-content">    align-items: center;</td></tr><tr><td class="line-number" value="55"></td><td class="line-content">    gap: 10px;</td></tr><tr><td class="line-number" value="56"></td><td class="line-content">    text-decoration: none;</td></tr><tr><td class="line-number" value="57"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="58"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="59"></td><td class="line-content">  .logo-mark {</td></tr><tr><td class="line-number" value="60"></td><td class="line-content">    width: 32px;</td></tr><tr><td class="line-number" value="61"></td><td class="line-content">    height: 32px;</td></tr><tr><td class="line-number" value="62"></td><td class="line-content">    flex-shrink: 0;</td></tr><tr><td class="line-number" value="63"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="64"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="65"></td><td class="line-content">  .logo-text {</td></tr><tr><td class="line-number" value="66"></td><td class="line-content">    font-family: var(--font-display);</td></tr><tr><td class="line-number" value="67"></td><td class="line-content">    font-size: 22px;</td></tr><tr><td class="line-number" value="68"></td><td class="line-content">    letter-spacing: 1px;</td></tr><tr><td class="line-number" value="69"></td><td class="line-content">    color: var(--text);</td></tr><tr><td class="line-number" value="70"></td><td class="line-content">    line-height: 1;</td></tr><tr><td class="line-number" value="71"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="72"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="73"></td><td class="line-content">  .logo-text span { color: var(--red); }</td></tr><tr><td class="line-number" value="74"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="75"></td><td class="line-content">  .header-right {</td></tr><tr><td class="line-number" value="76"></td><td class="line-content">    display: flex;</td></tr><tr><td class="line-number" value="77"></td><td class="line-content">    align-items: center;</td></tr><tr><td class="line-number" value="78"></td><td class="line-content">    gap: 20px;</td></tr><tr><td class="line-number" value="79"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="80"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="81"></td><td class="line-content">  .week-badge {</td></tr><tr><td class="line-number" value="82"></td><td class="line-content">    font-family: var(--font-display);</td></tr><tr><td class="line-number" value="83"></td><td class="line-content">    font-size: 14px;</td></tr><tr><td class="line-number" value="84"></td><td class="line-content">    letter-spacing: 2px;</td></tr><tr><td class="line-number" value="85"></td><td class="line-content">    color: var(--muted);</td></tr><tr><td class="line-number" value="86"></td><td class="line-content">    border: 1px solid var(--border);</td></tr><tr><td class="line-number" value="87"></td><td class="line-content">    padding: 3px 10px;</td></tr><tr><td class="line-number" value="88"></td><td class="line-content">    border-radius: var(--radius);</td></tr><tr><td class="line-number" value="89"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="90"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="91"></td><td class="line-content">  .week-badge span { color: var(--red); margin-left: 4px; }</td></tr><tr><td class="line-number" value="92"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="93"></td><td class="line-content">  #clock {</td></tr><tr><td class="line-number" value="94"></td><td class="line-content">    font-family: var(--font-display);</td></tr><tr><td class="line-number" value="95"></td><td class="line-content">    font-size: 28px;</td></tr><tr><td class="line-number" value="96"></td><td class="line-content">    letter-spacing: 2px;</td></tr><tr><td class="line-number" value="97"></td><td class="line-content">    color: var(--text);</td></tr><tr><td class="line-number" value="98"></td><td class="line-content">    line-height: 1;</td></tr><tr><td class="line-number" value="99"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="100"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="101"></td><td class="line-content">  /* ── LAYOUT ──────────────────────────────────── */</td></tr><tr><td class="line-number" value="102"></td><td class="line-content">  .layout {</td></tr><tr><td class="line-number" value="103"></td><td class="line-content">    display: flex;</td></tr><tr><td class="line-number" value="104"></td><td class="line-content">    flex: 1;</td></tr><tr><td class="line-number" value="105"></td><td class="line-content">    overflow: hidden;</td></tr><tr><td class="line-number" value="106"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="107"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="108"></td><td class="line-content">  /* ── WORKSPACE ───────────────────────────────── */</td></tr><tr><td class="line-number" value="109"></td><td class="line-content">  .workspace {</td></tr><tr><td class="line-number" value="110"></td><td class="line-content">    flex: 1;</td></tr><tr><td class="line-number" value="111"></td><td class="line-content">    overflow-y: auto;</td></tr><tr><td class="line-number" value="112"></td><td class="line-content">    padding: 20px;</td></tr><tr><td class="line-number" value="113"></td><td class="line-content">    display: flex;</td></tr><tr><td class="line-number" value="114"></td><td class="line-content">    flex-direction: column;</td></tr><tr><td class="line-number" value="115"></td><td class="line-content">    gap: 16px;</td></tr><tr><td class="line-number" value="116"></td><td class="line-content">    scrollbar-width: thin;</td></tr><tr><td class="line-number" value="117"></td><td class="line-content">    scrollbar-color: #2a2a2a transparent;</td></tr><tr><td class="line-number" value="118"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="119"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="120"></td><td class="line-content">  .section {</td></tr><tr><td class="line-number" value="121"></td><td class="line-content">    background: var(--surface);</td></tr><tr><td class="line-number" value="122"></td><td class="line-content">    border: 1px solid var(--border);</td></tr><tr><td class="line-number" value="123"></td><td class="line-content">    border-radius: var(--radius-lg);</td></tr><tr><td class="line-number" value="124"></td><td class="line-content">    padding: 16px;</td></tr><tr><td class="line-number" value="125"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="126"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="127"></td><td class="line-content">  .section-label {</td></tr><tr><td class="line-number" value="128"></td><td class="line-content">    font-family: var(--font-display);</td></tr><tr><td class="line-number" value="129"></td><td class="line-content">    font-size: 13px;</td></tr><tr><td class="line-number" value="130"></td><td class="line-content">    letter-spacing: 3px;</td></tr><tr><td class="line-number" value="131"></td><td class="line-content">    color: var(--red);</td></tr><tr><td class="line-number" value="132"></td><td class="line-content">    margin-bottom: 14px;</td></tr><tr><td class="line-number" value="133"></td><td class="line-content">    display: flex;</td></tr><tr><td class="line-number" value="134"></td><td class="line-content">    align-items: center;</td></tr><tr><td class="line-number" value="135"></td><td class="line-content">    gap: 8px;</td></tr><tr><td class="line-number" value="136"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="137"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="138"></td><td class="line-content">  .section-label::after {</td></tr><tr><td class="line-number" value="139"></td><td class="line-content">    content: '';</td></tr><tr><td class="line-number" value="140"></td><td class="line-content">    flex: 1;</td></tr><tr><td class="line-number" value="141"></td><td class="line-content">    height: 1px;</td></tr><tr><td class="line-number" value="142"></td><td class="line-content">    background: var(--border);</td></tr><tr><td class="line-number" value="143"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="144"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="145"></td><td class="line-content">  .cards-grid {</td></tr><tr><td class="line-number" value="146"></td><td class="line-content">    display: grid;</td></tr><tr><td class="line-number" value="147"></td><td class="line-content">    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));</td></tr><tr><td class="line-number" value="148"></td><td class="line-content">    gap: 10px;</td></tr><tr><td class="line-number" value="149"></td><td class="line-content">    min-height: 60px;</td></tr><tr><td class="line-number" value="150"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="151"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="152"></td><td class="line-content">  /* ── CARD ────────────────────────────────────── */</td></tr><tr><td class="line-number" value="153"></td><td class="line-content">  .card {</td></tr><tr><td class="line-number" value="154"></td><td class="line-content">    position: relative;</td></tr><tr><td class="line-number" value="155"></td><td class="line-content">    background: var(--surface2);</td></tr><tr><td class="line-number" value="156"></td><td class="line-content">    border: 1px solid var(--border);</td></tr><tr><td class="line-number" value="157"></td><td class="line-content">    border-radius: var(--radius-lg);</td></tr><tr><td class="line-number" value="158"></td><td class="line-content">    display: flex;</td></tr><tr><td class="line-number" value="159"></td><td class="line-content">    flex-direction: column;</td></tr><tr><td class="line-number" value="160"></td><td class="line-content">    align-items: center;</td></tr><tr><td class="line-number" value="161"></td><td class="line-content">    justify-content: center;</td></tr><tr><td class="line-number" value="162"></td><td class="line-content">    gap: 8px;</td></tr><tr><td class="line-number" value="163"></td><td class="line-content">    padding: 16px 10px;</td></tr><tr><td class="line-number" value="164"></td><td class="line-content">    cursor: pointer;</td></tr><tr><td class="line-number" value="165"></td><td class="line-content">    text-decoration: none;</td></tr><tr><td class="line-number" value="166"></td><td class="line-content">    color: var(--text);</td></tr><tr><td class="line-number" value="167"></td><td class="line-content">    text-align: center;</td></tr><tr><td class="line-number" value="168"></td><td class="line-content">    transition: border-color 0.18s, background 0.18s, transform 0.12s;</td></tr><tr><td class="line-number" value="169"></td><td class="line-content">    user-select: none;</td></tr><tr><td class="line-number" value="170"></td><td class="line-content">    min-height: 100px;</td></tr><tr><td class="line-number" value="171"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="172"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="173"></td><td class="line-content">  .card:hover {</td></tr><tr><td class="line-number" value="174"></td><td class="line-content">    border-color: var(--border-hover);</td></tr><tr><td class="line-number" value="175"></td><td class="line-content">    background: #222;</td></tr><tr><td class="line-number" value="176"></td><td class="line-content">    transform: translateY(-1px);</td></tr><tr><td class="line-number" value="177"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="178"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="179"></td><td class="line-content">  .card:active { transform: scale(0.97); }</td></tr><tr><td class="line-number" value="180"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="181"></td><td class="line-content">  .card-icon {</td></tr><tr><td class="line-number" value="182"></td><td class="line-content">    font-size: 28px;</td></tr><tr><td class="line-number" value="183"></td><td class="line-content">    line-height: 1;</td></tr><tr><td class="line-number" value="184"></td><td class="line-content">    display: block;</td></tr><tr><td class="line-number" value="185"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="186"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="187"></td><td class="line-content">  .card-title {</td></tr><tr><td class="line-number" value="188"></td><td class="line-content">    font-size: 13px;</td></tr><tr><td class="line-number" value="189"></td><td class="line-content">    font-weight: 500;</td></tr><tr><td class="line-number" value="190"></td><td class="line-content">    letter-spacing: 0.5px;</td></tr><tr><td class="line-number" value="191"></td><td class="line-content">    color: var(--text);</td></tr><tr><td class="line-number" value="192"></td><td class="line-content">    line-height: 1.3;</td></tr><tr><td class="line-number" value="193"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="194"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="195"></td><td class="line-content">  .card-edit-btn {</td></tr><tr><td class="line-number" value="196"></td><td class="line-content">    position: absolute;</td></tr><tr><td class="line-number" value="197"></td><td class="line-content">    bottom: 6px;</td></tr><tr><td class="line-number" value="198"></td><td class="line-content">    right: 6px;</td></tr><tr><td class="line-number" value="199"></td><td class="line-content">    background: rgba(255,255,255,0.07);</td></tr><tr><td class="line-number" value="200"></td><td class="line-content">    border: none;</td></tr><tr><td class="line-number" value="201"></td><td class="line-content">    color: var(--muted);</td></tr><tr><td class="line-number" value="202"></td><td class="line-content">    font-size: 11px;</td></tr><tr><td class="line-number" value="203"></td><td class="line-content">    padding: 2px 6px;</td></tr><tr><td class="line-number" value="204"></td><td class="line-content">    border-radius: 4px;</td></tr><tr><td class="line-number" value="205"></td><td class="line-content">    cursor: pointer;</td></tr><tr><td class="line-number" value="206"></td><td class="line-content">    opacity: 0;</td></tr><tr><td class="line-number" value="207"></td><td class="line-content">    transition: opacity 0.15s;</td></tr><tr><td class="line-number" value="208"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="209"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="210"></td><td class="line-content">  .card:hover .card-edit-btn { opacity: 1; }</td></tr><tr><td class="line-number" value="211"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="212"></td><td class="line-content">  .badge-test {</td></tr><tr><td class="line-number" value="213"></td><td class="line-content">    position: absolute;</td></tr><tr><td class="line-number" value="214"></td><td class="line-content">    top: 6px;</td></tr><tr><td class="line-number" value="215"></td><td class="line-content">    right: 6px;</td></tr><tr><td class="line-number" value="216"></td><td class="line-content">    background: #f1c40f;</td></tr><tr><td class="line-number" value="217"></td><td class="line-content">    color: #000;</td></tr><tr><td class="line-number" value="218"></td><td class="line-content">    font-size: 8px;</td></tr><tr><td class="line-number" value="219"></td><td class="line-content">    font-weight: 700;</td></tr><tr><td class="line-number" value="220"></td><td class="line-content">    letter-spacing: 1px;</td></tr><tr><td class="line-number" value="221"></td><td class="line-content">    padding: 2px 5px;</td></tr><tr><td class="line-number" value="222"></td><td class="line-content">    border-radius: 3px;</td></tr><tr><td class="line-number" value="223"></td><td class="line-content">    text-transform: uppercase;</td></tr><tr><td class="line-number" value="224"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="225"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="226"></td><td class="line-content">  /* Drag ghost */</td></tr><tr><td class="line-number" value="227"></td><td class="line-content">  .sortable-ghost { opacity: 0.3; }</td></tr><tr><td class="line-number" value="228"></td><td class="line-content">  .sortable-drag { opacity: 0.9; cursor: grabbing; }</td></tr><tr><td class="line-number" value="229"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="230"></td><td class="line-content">  /* ── SIDEBAR ─────────────────────────────────── */</td></tr><tr><td class="line-number" value="231"></td><td class="line-content">  .sidebar {</td></tr><tr><td class="line-number" value="232"></td><td class="line-content">    width: 360px;</td></tr><tr><td class="line-number" value="233"></td><td class="line-content">    flex-shrink: 0;</td></tr><tr><td class="line-number" value="234"></td><td class="line-content">    display: flex;</td></tr><tr><td class="line-number" value="235"></td><td class="line-content">    flex-direction: column;</td></tr><tr><td class="line-number" value="236"></td><td class="line-content">    border-left: 1px solid var(--border);</td></tr><tr><td class="line-number" value="237"></td><td class="line-content">    border-left-color: rgba(230,57,70,0.3);</td></tr><tr><td class="line-number" value="238"></td><td class="line-content">    background: var(--surface);</td></tr><tr><td class="line-number" value="239"></td><td class="line-content">    overflow: hidden;</td></tr><tr><td class="line-number" value="240"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="241"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="242"></td><td class="line-content">  .sidebar-panel {</td></tr><tr><td class="line-number" value="243"></td><td class="line-content">    display: flex;</td></tr><tr><td class="line-number" value="244"></td><td class="line-content">    flex-direction: column;</td></tr><tr><td class="line-number" value="245"></td><td class="line-content">    flex: 1;</td></tr><tr><td class="line-number" value="246"></td><td class="line-content">    overflow: hidden;</td></tr><tr><td class="line-number" value="247"></td><td class="line-content">    border-bottom: 1px solid var(--border);</td></tr><tr><td class="line-number" value="248"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="249"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="250"></td><td class="line-content">  .panel-header {</td></tr><tr><td class="line-number" value="251"></td><td class="line-content">    display: flex;</td></tr><tr><td class="line-number" value="252"></td><td class="line-content">    align-items: center;</td></tr><tr><td class="line-number" value="253"></td><td class="line-content">    justify-content: space-between;</td></tr><tr><td class="line-number" value="254"></td><td class="line-content">    padding: 10px 16px;</td></tr><tr><td class="line-number" value="255"></td><td class="line-content">    background: var(--bg);</td></tr><tr><td class="line-number" value="256"></td><td class="line-content">    border-bottom: 1px solid var(--border);</td></tr><tr><td class="line-number" value="257"></td><td class="line-content">    flex-shrink: 0;</td></tr><tr><td class="line-number" value="258"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="259"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="260"></td><td class="line-content">  .panel-title {</td></tr><tr><td class="line-number" value="261"></td><td class="line-content">    font-family: var(--font-display);</td></tr><tr><td class="line-number" value="262"></td><td class="line-content">    font-size: 13px;</td></tr><tr><td class="line-number" value="263"></td><td class="line-content">    letter-spacing: 2px;</td></tr><tr><td class="line-number" value="264"></td><td class="line-content">    color: var(--muted);</td></tr><tr><td class="line-number" value="265"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="266"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="267"></td><td class="line-content">  /* CALENDAR */</td></tr><tr><td class="line-number" value="268"></td><td class="line-content">  .calendar-frame {</td></tr><tr><td class="line-number" value="269"></td><td class="line-content">    flex: 1;</td></tr><tr><td class="line-number" value="270"></td><td class="line-content">    overflow: hidden;</td></tr><tr><td class="line-number" value="271"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="272"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="273"></td><td class="line-content">  .calendar-frame iframe {</td></tr><tr><td class="line-number" value="274"></td><td class="line-content">    width: 100%;</td></tr><tr><td class="line-number" value="275"></td><td class="line-content">    height: 100%;</td></tr><tr><td class="line-number" value="276"></td><td class="line-content">    border: none;</td></tr><tr><td class="line-number" value="277"></td><td class="line-content">    filter: invert(92%) hue-rotate(180deg) brightness(0.95) saturate(0.9);</td></tr><tr><td class="line-number" value="278"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="279"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="280"></td><td class="line-content">  /* TRELLO */</td></tr><tr><td class="line-number" value="281"></td><td class="line-content">  .trello-controls {</td></tr><tr><td class="line-number" value="282"></td><td class="line-content">    display: flex;</td></tr><tr><td class="line-number" value="283"></td><td class="line-content">    align-items: center;</td></tr><tr><td class="line-number" value="284"></td><td class="line-content">    gap: 8px;</td></tr><tr><td class="line-number" value="285"></td><td class="line-content">    padding: 10px 16px;</td></tr><tr><td class="line-number" value="286"></td><td class="line-content">    background: var(--bg);</td></tr><tr><td class="line-number" value="287"></td><td class="line-content">    border-bottom: 1px solid var(--border);</td></tr><tr><td class="line-number" value="288"></td><td class="line-content">    flex-shrink: 0;</td></tr><tr><td class="line-number" value="289"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="290"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="291"></td><td class="line-content">  #trello-list-selector {</td></tr><tr><td class="line-number" value="292"></td><td class="line-content">    flex: 1;</td></tr><tr><td class="line-number" value="293"></td><td class="line-content">    background: var(--surface2);</td></tr><tr><td class="line-number" value="294"></td><td class="line-content">    color: var(--text);</td></tr><tr><td class="line-number" value="295"></td><td class="line-content">    border: 1px solid var(--border);</td></tr><tr><td class="line-number" value="296"></td><td class="line-content">    border-radius: var(--radius);</td></tr><tr><td class="line-number" value="297"></td><td class="line-content">    padding: 5px 8px;</td></tr><tr><td class="line-number" value="298"></td><td class="line-content">    font-family: var(--font-body);</td></tr><tr><td class="line-number" value="299"></td><td class="line-content">    font-size: 12px;</td></tr><tr><td class="line-number" value="300"></td><td class="line-content">    outline: none;</td></tr><tr><td class="line-number" value="301"></td><td class="line-content">    cursor: pointer;</td></tr><tr><td class="line-number" value="302"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="303"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="304"></td><td class="line-content">  .btn-sm {</td></tr><tr><td class="line-number" value="305"></td><td class="line-content">    background: transparent;</td></tr><tr><td class="line-number" value="306"></td><td class="line-content">    border: 1px solid var(--border);</td></tr><tr><td class="line-number" value="307"></td><td class="line-content">    color: var(--muted);</td></tr><tr><td class="line-number" value="308"></td><td class="line-content">    font-size: 11px;</td></tr><tr><td class="line-number" value="309"></td><td class="line-content">    font-family: var(--font-body);</td></tr><tr><td class="line-number" value="310"></td><td class="line-content">    padding: 5px 10px;</td></tr><tr><td class="line-number" value="311"></td><td class="line-content">    border-radius: var(--radius);</td></tr><tr><td class="line-number" value="312"></td><td class="line-content">    cursor: pointer;</td></tr><tr><td class="line-number" value="313"></td><td class="line-content">    white-space: nowrap;</td></tr><tr><td class="line-number" value="314"></td><td class="line-content">    transition: border-color 0.15s, color 0.15s;</td></tr><tr><td class="line-number" value="315"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="316"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="317"></td><td class="line-content">  .btn-sm:hover { border-color: var(--red); color: var(--text); }</td></tr><tr><td class="line-number" value="318"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="319"></td><td class="line-content">  #trello-config-panel {</td></tr><tr><td class="line-number" value="320"></td><td class="line-content">    display: none;</td></tr><tr><td class="line-number" value="321"></td><td class="line-content">    padding: 14px 16px;</td></tr><tr><td class="line-number" value="322"></td><td class="line-content">    background: #111;</td></tr><tr><td class="line-number" value="323"></td><td class="line-content">    border-bottom: 1px solid var(--border);</td></tr><tr><td class="line-number" value="324"></td><td class="line-content">    gap: 8px;</td></tr><tr><td class="line-number" value="325"></td><td class="line-content">    flex-direction: column;</td></tr><tr><td class="line-number" value="326"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="327"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="328"></td><td class="line-content">  #trello-config-panel input {</td></tr><tr><td class="line-number" value="329"></td><td class="line-content">    width: 100%;</td></tr><tr><td class="line-number" value="330"></td><td class="line-content">    background: var(--surface2);</td></tr><tr><td class="line-number" value="331"></td><td class="line-content">    border: 1px solid var(--border);</td></tr><tr><td class="line-number" value="332"></td><td class="line-content">    color: var(--text);</td></tr><tr><td class="line-number" value="333"></td><td class="line-content">    font-family: var(--font-body);</td></tr><tr><td class="line-number" value="334"></td><td class="line-content">    font-size: 12px;</td></tr><tr><td class="line-number" value="335"></td><td class="line-content">    padding: 7px 10px;</td></tr><tr><td class="line-number" value="336"></td><td class="line-content">    border-radius: var(--radius);</td></tr><tr><td class="line-number" value="337"></td><td class="line-content">    outline: none;</td></tr><tr><td class="line-number" value="338"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="339"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="340"></td><td class="line-content">  #trello-config-panel input:focus { border-color: rgba(230,57,70,0.4); }</td></tr><tr><td class="line-number" value="341"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="342"></td><td class="line-content">  .btn-save {</td></tr><tr><td class="line-number" value="343"></td><td class="line-content">    background: var(--red);</td></tr><tr><td class="line-number" value="344"></td><td class="line-content">    color: white;</td></tr><tr><td class="line-number" value="345"></td><td class="line-content">    border: none;</td></tr><tr><td class="line-number" value="346"></td><td class="line-content">    font-family: var(--font-display);</td></tr><tr><td class="line-number" value="347"></td><td class="line-content">    font-size: 13px;</td></tr><tr><td class="line-number" value="348"></td><td class="line-content">    letter-spacing: 1px;</td></tr><tr><td class="line-number" value="349"></td><td class="line-content">    padding: 8px;</td></tr><tr><td class="line-number" value="350"></td><td class="line-content">    border-radius: var(--radius);</td></tr><tr><td class="line-number" value="351"></td><td class="line-content">    cursor: pointer;</td></tr><tr><td class="line-number" value="352"></td><td class="line-content">    transition: opacity 0.15s;</td></tr><tr><td class="line-number" value="353"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="354"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="355"></td><td class="line-content">  .btn-save:hover { opacity: 0.85; }</td></tr><tr><td class="line-number" value="356"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="357"></td><td class="line-content">  #trello-container {</td></tr><tr><td class="line-number" value="358"></td><td class="line-content">    flex: 1;</td></tr><tr><td class="line-number" value="359"></td><td class="line-content">    overflow-y: auto;</td></tr><tr><td class="line-number" value="360"></td><td class="line-content">    padding: 10px;</td></tr><tr><td class="line-number" value="361"></td><td class="line-content">    scrollbar-width: thin;</td></tr><tr><td class="line-number" value="362"></td><td class="line-content">    scrollbar-color: #2a2a2a transparent;</td></tr><tr><td class="line-number" value="363"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="364"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="365"></td><td class="line-content">  .trello-card {</td></tr><tr><td class="line-number" value="366"></td><td class="line-content">    background: var(--surface2);</td></tr><tr><td class="line-number" value="367"></td><td class="line-content">    border: 1px solid var(--border);</td></tr><tr><td class="line-number" value="368"></td><td class="line-content">    border-left: 2px solid var(--red);</td></tr><tr><td class="line-number" value="369"></td><td class="line-content">    border-radius: var(--radius);</td></tr><tr><td class="line-number" value="370"></td><td class="line-content">    padding: 10px 12px;</td></tr><tr><td class="line-number" value="371"></td><td class="line-content">    margin-bottom: 7px;</td></tr><tr><td class="line-number" value="372"></td><td class="line-content">    font-size: 12px;</td></tr><tr><td class="line-number" value="373"></td><td class="line-content">    color: var(--text);</td></tr><tr><td class="line-number" value="374"></td><td class="line-content">    text-decoration: none;</td></tr><tr><td class="line-number" value="375"></td><td class="line-content">    display: block;</td></tr><tr><td class="line-number" value="376"></td><td class="line-content">    transition: border-color 0.15s, background 0.15s;</td></tr><tr><td class="line-number" value="377"></td><td class="line-content">    line-height: 1.4;</td></tr><tr><td class="line-number" value="378"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="379"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="380"></td><td class="line-content">  .trello-card:hover { background: #242424; border-left-color: #ff6b76; }</td></tr><tr><td class="line-number" value="381"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="382"></td><td class="line-content">  .trello-empty {</td></tr><tr><td class="line-number" value="383"></td><td class="line-content">    color: var(--muted);</td></tr><tr><td class="line-number" value="384"></td><td class="line-content">    font-size: 12px;</td></tr><tr><td class="line-number" value="385"></td><td class="line-content">    text-align: center;</td></tr><tr><td class="line-number" value="386"></td><td class="line-content">    padding: 24px 0;</td></tr><tr><td class="line-number" value="387"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="388"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="389"></td><td class="line-content">  /* ── MODAL OVERLAY ───────────────────────────── */</td></tr><tr><td class="line-number" value="390"></td><td class="line-content">  #link-modal {</td></tr><tr><td class="line-number" value="391"></td><td class="line-content">    display: none;</td></tr><tr><td class="line-number" value="392"></td><td class="line-content">    position: fixed;</td></tr><tr><td class="line-number" value="393"></td><td class="line-content">    inset: 0;</td></tr><tr><td class="line-number" value="394"></td><td class="line-content">    background: rgba(0,0,0,0.75);</td></tr><tr><td class="line-number" value="395"></td><td class="line-content">    z-index: 200;</td></tr><tr><td class="line-number" value="396"></td><td class="line-content">    align-items: center;</td></tr><tr><td class="line-number" value="397"></td><td class="line-content">    justify-content: center;</td></tr><tr><td class="line-number" value="398"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="399"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="400"></td><td class="line-content">  #link-modal.open { display: flex; }</td></tr><tr><td class="line-number" value="401"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="402"></td><td class="line-content">  .modal-box {</td></tr><tr><td class="line-number" value="403"></td><td class="line-content">    background: var(--surface);</td></tr><tr><td class="line-number" value="404"></td><td class="line-content">    border: 1px solid rgba(230,57,70,0.3);</td></tr><tr><td class="line-number" value="405"></td><td class="line-content">    border-radius: var(--radius-lg);</td></tr><tr><td class="line-number" value="406"></td><td class="line-content">    padding: 28px 24px 20px;</td></tr><tr><td class="line-number" value="407"></td><td class="line-content">    width: 340px;</td></tr><tr><td class="line-number" value="408"></td><td class="line-content">    max-width: 90vw;</td></tr><tr><td class="line-number" value="409"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="410"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="411"></td><td class="line-content">  .modal-title {</td></tr><tr><td class="line-number" value="412"></td><td class="line-content">    font-family: var(--font-display);</td></tr><tr><td class="line-number" value="413"></td><td class="line-content">    font-size: 18px;</td></tr><tr><td class="line-number" value="414"></td><td class="line-content">    letter-spacing: 1px;</td></tr><tr><td class="line-number" value="415"></td><td class="line-content">    margin-bottom: 6px;</td></tr><tr><td class="line-number" value="416"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="417"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="418"></td><td class="line-content">  .modal-url {</td></tr><tr><td class="line-number" value="419"></td><td class="line-content">    font-size: 11px;</td></tr><tr><td class="line-number" value="420"></td><td class="line-content">    color: var(--muted);</td></tr><tr><td class="line-number" value="421"></td><td class="line-content">    word-break: break-all;</td></tr><tr><td class="line-number" value="422"></td><td class="line-content">    margin-bottom: 20px;</td></tr><tr><td class="line-number" value="423"></td><td class="line-content">    line-height: 1.4;</td></tr><tr><td class="line-number" value="424"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="425"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="426"></td><td class="line-content">  .modal-actions {</td></tr><tr><td class="line-number" value="427"></td><td class="line-content">    display: flex;</td></tr><tr><td class="line-number" value="428"></td><td class="line-content">    gap: 8px;</td></tr><tr><td class="line-number" value="429"></td><td class="line-content">    justify-content: flex-end;</td></tr><tr><td class="line-number" value="430"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="431"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="432"></td><td class="line-content">  .btn-cancel {</td></tr><tr><td class="line-number" value="433"></td><td class="line-content">    background: transparent;</td></tr><tr><td class="line-number" value="434"></td><td class="line-content">    border: 1px solid var(--border);</td></tr><tr><td class="line-number" value="435"></td><td class="line-content">    color: var(--muted);</td></tr><tr><td class="line-number" value="436"></td><td class="line-content">    font-family: var(--font-body);</td></tr><tr><td class="line-number" value="437"></td><td class="line-content">    font-size: 13px;</td></tr><tr><td class="line-number" value="438"></td><td class="line-content">    padding: 8px 16px;</td></tr><tr><td class="line-number" value="439"></td><td class="line-content">    border-radius: var(--radius);</td></tr><tr><td class="line-number" value="440"></td><td class="line-content">    cursor: pointer;</td></tr><tr><td class="line-number" value="441"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="442"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="443"></td><td class="line-content">  .btn-open {</td></tr><tr><td class="line-number" value="444"></td><td class="line-content">    background: var(--red);</td></tr><tr><td class="line-number" value="445"></td><td class="line-content">    color: white;</td></tr><tr><td class="line-number" value="446"></td><td class="line-content">    border: none;</td></tr><tr><td class="line-number" value="447"></td><td class="line-content">    font-family: var(--font-display);</td></tr><tr><td class="line-number" value="448"></td><td class="line-content">    font-size: 14px;</td></tr><tr><td class="line-number" value="449"></td><td class="line-content">    letter-spacing: 1px;</td></tr><tr><td class="line-number" value="450"></td><td class="line-content">    padding: 8px 20px;</td></tr><tr><td class="line-number" value="451"></td><td class="line-content">    border-radius: var(--radius);</td></tr><tr><td class="line-number" value="452"></td><td class="line-content">    cursor: pointer;</td></tr><tr><td class="line-number" value="453"></td><td class="line-content">    transition: opacity 0.15s;</td></tr><tr><td class="line-number" value="454"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="455"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="456"></td><td class="line-content">  .btn-open:hover { opacity: 0.85; }</td></tr><tr><td class="line-number" value="457"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="458"></td><td class="line-content">  /* ── FOOTER ──────────────────────────────────── */</td></tr><tr><td class="line-number" value="459"></td><td class="line-content">  footer {</td></tr><tr><td class="line-number" value="460"></td><td class="line-content">    padding: 6px 24px;</td></tr><tr><td class="line-number" value="461"></td><td class="line-content">    font-size: 10px;</td></tr><tr><td class="line-number" value="462"></td><td class="line-content">    letter-spacing: 2px;</td></tr><tr><td class="line-number" value="463"></td><td class="line-content">    color: #333;</td></tr><tr><td class="line-number" value="464"></td><td class="line-content">    text-transform: uppercase;</td></tr><tr><td class="line-number" value="465"></td><td class="line-content">    border-top: 1px solid var(--border);</td></tr><tr><td class="line-number" value="466"></td><td class="line-content">    flex-shrink: 0;</td></tr><tr><td class="line-number" value="467"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="468"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="469"></td><td class="line-content">  /* ── RESPONSIVE ──────────────────────────────── */</td></tr><tr><td class="line-number" value="470"></td><td class="line-content">  @media (max-width: 900px) {</td></tr><tr><td class="line-number" value="471"></td><td class="line-content">    body { height: auto; overflow: auto; }</td></tr><tr><td class="line-number" value="472"></td><td class="line-content">    .layout { flex-direction: column; overflow: visible; }</td></tr><tr><td class="line-number" value="473"></td><td class="line-content">    .sidebar { width: 100%; border-left: none; border-top: 1px solid rgba(230,57,70,0.3); }</td></tr><tr><td class="line-number" value="474"></td><td class="line-content">    .sidebar-panel { min-height: 380px; }</td></tr><tr><td class="line-number" value="475"></td><td class="line-content">    .workspace { overflow: visible; }</td></tr><tr><td class="line-number" value="476"></td><td class="line-content">    #clock { font-size: 22px; }</td></tr><tr><td class="line-number" value="477"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="478"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="479"></td><td class="line-content">  @media (max-width: 600px) {</td></tr><tr><td class="line-number" value="480"></td><td class="line-content">    .logo-text { font-size: 16px; }</td></tr><tr><td class="line-number" value="481"></td><td class="line-content">    .week-badge { display: none; }</td></tr><tr><td class="line-number" value="482"></td><td class="line-content">    .cards-grid { grid-template-columns: repeat(2, 1fr); }</td></tr><tr><td class="line-number" value="483"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="484"></td><td class="line-content"><span class="html-tag">&lt;/style&gt;</span></td></tr><tr><td class="line-number" value="485"></td><td class="line-content"><span class="html-tag">&lt;/head&gt;</span></td></tr><tr><td class="line-number" value="486"></td><td class="line-content"><span class="html-tag">&lt;body&gt;</span></td></tr><tr><td class="line-number" value="487"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="488"></td><td class="line-content"><span class="html-comment">&lt;!-- HEADER --&gt;</span></td></tr><tr><td class="line-number" value="489"></td><td class="line-content"><span class="html-tag">&lt;header&gt;</span></td></tr><tr><td class="line-number" value="490"></td><td class="line-content">  <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">logo</span>"&gt;</span></td></tr><tr><td class="line-number" value="491"></td><td class="line-content">    <span class="html-tag">&lt;svg <span class="html-attribute-name">class</span>="<span class="html-attribute-value">logo-mark</span>" <span class="html-attribute-name">viewBox</span>="<span class="html-attribute-value">0 0 32 32</span>" <span class="html-attribute-name">fill</span>="<span class="html-attribute-value">none</span>" <span class="html-attribute-name">xmlns</span>="<span class="html-attribute-value">http://www.w3.org/2000/svg</span>"&gt;</span></td></tr><tr><td class="line-number" value="492"></td><td class="line-content">      <span class="html-tag">&lt;rect <span class="html-attribute-name">x</span>="<span class="html-attribute-value">2</span>" <span class="html-attribute-name">y</span>="<span class="html-attribute-value">4</span>" <span class="html-attribute-name">width</span>="<span class="html-attribute-value">12</span>" <span class="html-attribute-name">height</span>="<span class="html-attribute-value">24</span>" <span class="html-attribute-name">rx</span>="<span class="html-attribute-value">1</span>" <span class="html-attribute-name">stroke</span>="<span class="html-attribute-value">white</span>" <span class="html-attribute-name">stroke-width</span>="<span class="html-attribute-value">1.5</span>"/&gt;</span></td></tr><tr><td class="line-number" value="493"></td><td class="line-content">      <span class="html-tag">&lt;rect <span class="html-attribute-name">x</span>="<span class="html-attribute-value">8</span>" <span class="html-attribute-name">y</span>="<span class="html-attribute-value">2</span>" <span class="html-attribute-name">width</span>="<span class="html-attribute-value">12</span>" <span class="html-attribute-name">height</span>="<span class="html-attribute-value">24</span>" <span class="html-attribute-name">rx</span>="<span class="html-attribute-value">1</span>" <span class="html-attribute-name">stroke</span>="<span class="html-attribute-value">#e63946</span>" <span class="html-attribute-name">stroke-width</span>="<span class="html-attribute-value">1.5</span>"/&gt;</span></td></tr><tr><td class="line-number" value="494"></td><td class="line-content">      <span class="html-tag">&lt;rect <span class="html-attribute-name">x</span>="<span class="html-attribute-value">5.5</span>" <span class="html-attribute-name">y</span>="<span class="html-attribute-value">14.5</span>" <span class="html-attribute-name">width</span>="<span class="html-attribute-value">3</span>" <span class="html-attribute-name">height</span>="<span class="html-attribute-value">3</span>" <span class="html-attribute-name">fill</span>="<span class="html-attribute-value">#e63946</span>" <span class="html-attribute-name">rx</span>="<span class="html-attribute-value">0.5</span>"/&gt;</span></td></tr><tr><td class="line-number" value="495"></td><td class="line-content">    <span class="html-tag">&lt;/svg&gt;</span></td></tr><tr><td class="line-number" value="496"></td><td class="line-content">    <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">logo-text</span>"&gt;</span>minőségi<span class="html-tag">&lt;span&gt;</span>ablak<span class="html-tag">&lt;/span&gt;</span>.hu<span class="html-tag">&lt;/span&gt;</span></td></tr><tr><td class="line-number" value="497"></td><td class="line-content">  <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="498"></td><td class="line-content">  <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">header-right</span>"&gt;</span></td></tr><tr><td class="line-number" value="499"></td><td class="line-content">    <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">week-badge</span>"&gt;</span>HÉT<span class="html-tag">&lt;span <span class="html-attribute-name">id</span>="<span class="html-attribute-value">week-num</span>"&gt;</span>--<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="500"></td><td class="line-content">    <span class="html-tag">&lt;div <span class="html-attribute-name">id</span>="<span class="html-attribute-value">clock</span>"&gt;</span>--:--<span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="501"></td><td class="line-content">  <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="502"></td><td class="line-content"><span class="html-tag">&lt;/header&gt;</span></td></tr><tr><td class="line-number" value="503"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="504"></td><td class="line-content"><span class="html-comment">&lt;!-- LAYOUT --&gt;</span></td></tr><tr><td class="line-number" value="505"></td><td class="line-content"><span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">layout</span>"&gt;</span></td></tr><tr><td class="line-number" value="506"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="507"></td><td class="line-content">  <span class="html-comment">&lt;!-- WORKSPACE --&gt;</span></td></tr><tr><td class="line-number" value="508"></td><td class="line-content">  <span class="html-tag">&lt;main <span class="html-attribute-name">class</span>="<span class="html-attribute-value">workspace</span>"&gt;</span></td></tr><tr><td class="line-number" value="509"></td><td class="line-content">    <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">section</span>"&gt;</span></td></tr><tr><td class="line-number" value="510"></td><td class="line-content">      <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">section-label</span>"&gt;</span>Programok<span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="511"></td><td class="line-content">      <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">cards-grid</span>" <span class="html-attribute-name">id</span>="<span class="html-attribute-value">grid-apps</span>"&gt;</span><span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="512"></td><td class="line-content">    <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="513"></td><td class="line-content">    <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">section</span>"&gt;</span></td></tr><tr><td class="line-number" value="514"></td><td class="line-content">      <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">section-label</span>"&gt;</span>Fájlok<span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="515"></td><td class="line-content">      <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">cards-grid</span>" <span class="html-attribute-name">id</span>="<span class="html-attribute-value">grid-files</span>"&gt;</span><span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="516"></td><td class="line-content">    <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="517"></td><td class="line-content">    <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">section</span>"&gt;</span></td></tr><tr><td class="line-number" value="518"></td><td class="line-content">      <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">section-label</span>"&gt;</span>Egyéb<span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="519"></td><td class="line-content">      <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">cards-grid</span>" <span class="html-attribute-name">id</span>="<span class="html-attribute-value">grid-other</span>"&gt;</span><span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="520"></td><td class="line-content">    <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="521"></td><td class="line-content">  <span class="html-tag">&lt;/main&gt;</span></td></tr><tr><td class="line-number" value="522"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="523"></td><td class="line-content">  <span class="html-comment">&lt;!-- SIDEBAR --&gt;</span></td></tr><tr><td class="line-number" value="524"></td><td class="line-content">  <span class="html-tag">&lt;aside <span class="html-attribute-name">class</span>="<span class="html-attribute-value">sidebar</span>"&gt;</span></td></tr><tr><td class="line-number" value="525"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="526"></td><td class="line-content">    <span class="html-comment">&lt;!-- NAPTÁR --&gt;</span></td></tr><tr><td class="line-number" value="527"></td><td class="line-content">    <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">sidebar-panel</span>"&gt;</span></td></tr><tr><td class="line-number" value="528"></td><td class="line-content">      <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">panel-header</span>"&gt;</span></td></tr><tr><td class="line-number" value="529"></td><td class="line-content">        <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">panel-title</span>"&gt;</span>NAPTÁR<span class="html-tag">&lt;/span&gt;</span></td></tr><tr><td class="line-number" value="530"></td><td class="line-content">      <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="531"></td><td class="line-content">      <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">calendar-frame</span>"&gt;</span></td></tr><tr><td class="line-number" value="532"></td><td class="line-content">        <span class="html-tag">&lt;iframe</span></td></tr><tr><td class="line-number" value="533"></td><td class="line-content"><span class="html-tag">          <span class="html-attribute-name">src</span>="<a class="html-attribute-value html-resource-link" target="_blank" href="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;ctz=Europe%2FBudapest&amp;showPrint=0&amp;showTitle=0&amp;showNav=0&amp;showDate=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;src=c2xvYmVyc3pAZ21haWwuY29t&amp;color=%23ff2968" rel="noreferrer noopener">https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;ctz=Europe%2FBudapest&amp;showPrint=0&amp;showTitle=0&amp;showNav=0&amp;showDate=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;src=c2xvYmVyc3pAZ21haWwuY29t&amp;color=%23ff2968</a>"</span></td></tr><tr><td class="line-number" value="534"></td><td class="line-content"><span class="html-tag">          <span class="html-attribute-name">loading</span>="<span class="html-attribute-value">lazy</span>"</span></td></tr><tr><td class="line-number" value="535"></td><td class="line-content"><span class="html-tag">          <span class="html-attribute-name">title</span>="<span class="html-attribute-value">Google Naptár</span>"&gt;</span></td></tr><tr><td class="line-number" value="536"></td><td class="line-content">        <span class="html-tag">&lt;/iframe&gt;</span></td></tr><tr><td class="line-number" value="537"></td><td class="line-content">      <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="538"></td><td class="line-content">    <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="539"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="540"></td><td class="line-content">    <span class="html-comment">&lt;!-- TRELLO --&gt;</span></td></tr><tr><td class="line-number" value="541"></td><td class="line-content">    <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">sidebar-panel</span>" <span class="html-attribute-name">style</span>="<span class="html-attribute-value">flex: 1.2;</span>"&gt;</span></td></tr><tr><td class="line-number" value="542"></td><td class="line-content">      <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">panel-header</span>"&gt;</span></td></tr><tr><td class="line-number" value="543"></td><td class="line-content">        <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">panel-title</span>"&gt;</span>FELADATOK<span class="html-tag">&lt;/span&gt;</span></td></tr><tr><td class="line-number" value="544"></td><td class="line-content">        <span class="html-tag">&lt;button <span class="html-attribute-name">class</span>="<span class="html-attribute-value">btn-sm</span>" <span class="html-attribute-name">onclick</span>="<span class="html-attribute-value">toggleTrelloConfig()</span>"&gt;</span>⚙ Beállítás<span class="html-tag">&lt;/button&gt;</span></td></tr><tr><td class="line-number" value="545"></td><td class="line-content">      <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="546"></td><td class="line-content">      <span class="html-tag">&lt;div <span class="html-attribute-name">id</span>="<span class="html-attribute-value">trello-config-panel</span>"&gt;</span></td></tr><tr><td class="line-number" value="547"></td><td class="line-content">        <span class="html-tag">&lt;input <span class="html-attribute-name">type</span>="<span class="html-attribute-value">text</span>" <span class="html-attribute-name">id</span>="<span class="html-attribute-value">trello-key</span>" <span class="html-attribute-name">placeholder</span>="<span class="html-attribute-value">Trello API Key</span>"&gt;</span></td></tr><tr><td class="line-number" value="548"></td><td class="line-content">        <span class="html-tag">&lt;input <span class="html-attribute-name">type</span>="<span class="html-attribute-value">text</span>" <span class="html-attribute-name">id</span>="<span class="html-attribute-value">trello-token</span>" <span class="html-attribute-name">placeholder</span>="<span class="html-attribute-value">Trello Token</span>"&gt;</span></td></tr><tr><td class="line-number" value="549"></td><td class="line-content">        <span class="html-tag">&lt;input <span class="html-attribute-name">type</span>="<span class="html-attribute-value">text</span>" <span class="html-attribute-name">id</span>="<span class="html-attribute-value">trello-lists</span>" <span class="html-attribute-name">placeholder</span>="<span class="html-attribute-value">Lista ID-k (vesszővel elválasztva)</span>"&gt;</span></td></tr><tr><td class="line-number" value="550"></td><td class="line-content">        <span class="html-tag">&lt;button <span class="html-attribute-name">class</span>="<span class="html-attribute-value">btn-save</span>" <span class="html-attribute-name">onclick</span>="<span class="html-attribute-value">saveTrelloConfig()</span>"&gt;</span>MENTÉS<span class="html-tag">&lt;/button&gt;</span></td></tr><tr><td class="line-number" value="551"></td><td class="line-content">      <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="552"></td><td class="line-content">      <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">trello-controls</span>"&gt;</span></td></tr><tr><td class="line-number" value="553"></td><td class="line-content">        <span class="html-tag">&lt;select <span class="html-attribute-name">id</span>="<span class="html-attribute-value">trello-list-selector</span>" <span class="html-attribute-name">onchange</span>="<span class="html-attribute-value">changeTrelloList()</span>"&gt;</span><span class="html-tag">&lt;/select&gt;</span></td></tr><tr><td class="line-number" value="554"></td><td class="line-content">        <span class="html-tag">&lt;button <span class="html-attribute-name">class</span>="<span class="html-attribute-value">btn-sm</span>" <span class="html-attribute-name">onclick</span>="<span class="html-attribute-value">fetchTrelloTasks(document.getElementById('trello-list-selector').value)</span>"&gt;</span>↻<span class="html-tag">&lt;/button&gt;</span></td></tr><tr><td class="line-number" value="555"></td><td class="line-content">      <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="556"></td><td class="line-content">      <span class="html-tag">&lt;div <span class="html-attribute-name">id</span>="<span class="html-attribute-value">trello-container</span>"&gt;</span></td></tr><tr><td class="line-number" value="557"></td><td class="line-content">        <span class="html-tag">&lt;p <span class="html-attribute-name">class</span>="<span class="html-attribute-value">trello-empty</span>"&gt;</span>Állítsd be a Trello kapcsolatot a ⚙ gombbal.<span class="html-tag">&lt;/p&gt;</span></td></tr><tr><td class="line-number" value="558"></td><td class="line-content">      <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="559"></td><td class="line-content">    <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="560"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="561"></td><td class="line-content">  <span class="html-tag">&lt;/aside&gt;</span></td></tr><tr><td class="line-number" value="562"></td><td class="line-content"><span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="563"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="564"></td><td class="line-content"><span class="html-comment">&lt;!-- SZERKESZTŐ MODAL --&gt;</span></td></tr><tr><td class="line-number" value="565"></td><td class="line-content"><span class="html-tag">&lt;div <span class="html-attribute-name">id</span>="<span class="html-attribute-value">edit-modal</span>" <span class="html-attribute-name">role</span>="<span class="html-attribute-value">dialog</span>" <span class="html-attribute-name">aria-modal</span>="<span class="html-attribute-value">true</span>" <span class="html-attribute-name">style</span>="<span class="html-attribute-value">display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:200; align-items:center; justify-content:center;</span>"&gt;</span></td></tr><tr><td class="line-number" value="566"></td><td class="line-content">  <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">modal-box</span>"&gt;</span></td></tr><tr><td class="line-number" value="567"></td><td class="line-content">    <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">modal-title</span>"&gt;</span>Kártya szerkesztése<span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="568"></td><td class="line-content">    <span class="html-tag">&lt;div <span class="html-attribute-name">style</span>="<span class="html-attribute-value">margin-bottom:16px;</span>"&gt;</span></td></tr><tr><td class="line-number" value="569"></td><td class="line-content">      <span class="html-tag">&lt;label <span class="html-attribute-name">style</span>="<span class="html-attribute-value">font-size:11px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:6px;</span>"&gt;</span>Neve<span class="html-tag">&lt;/label&gt;</span></td></tr><tr><td class="line-number" value="570"></td><td class="line-content">      <span class="html-tag">&lt;input <span class="html-attribute-name">type</span>="<span class="html-attribute-value">text</span>" <span class="html-attribute-name">id</span>="<span class="html-attribute-value">edit-title</span>" <span class="html-attribute-name">style</span>="<span class="html-attribute-value">width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--text); font-family:var(--font-body); font-size:14px; padding:8px 10px; border-radius:var(--radius); outline:none;</span>"&gt;</span></td></tr><tr><td class="line-number" value="571"></td><td class="line-content">    <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="572"></td><td class="line-content">    <span class="html-tag">&lt;div <span class="html-attribute-name">style</span>="<span class="html-attribute-value">margin-bottom:16px;</span>"&gt;</span></td></tr><tr><td class="line-number" value="573"></td><td class="line-content">      <span class="html-tag">&lt;label <span class="html-attribute-name">style</span>="<span class="html-attribute-value">font-size:11px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:6px;</span>"&gt;</span>Ikon (emoji)<span class="html-tag">&lt;/label&gt;</span></td></tr><tr><td class="line-number" value="574"></td><td class="line-content">      <span class="html-tag">&lt;input <span class="html-attribute-name">type</span>="<span class="html-attribute-value">text</span>" <span class="html-attribute-name">id</span>="<span class="html-attribute-value">edit-icon</span>" <span class="html-attribute-name">style</span>="<span class="html-attribute-value">width:80px; background:var(--surface2); border:1px solid var(--border); color:var(--text); font-family:var(--font-body); font-size:20px; padding:8px 10px; border-radius:var(--radius); outline:none; text-align:center;</span>"&gt;</span></td></tr><tr><td class="line-number" value="575"></td><td class="line-content">    <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="576"></td><td class="line-content">    <span class="html-tag">&lt;div <span class="html-attribute-name">style</span>="<span class="html-attribute-value">margin-bottom:20px;</span>"&gt;</span></td></tr><tr><td class="line-number" value="577"></td><td class="line-content">      <span class="html-tag">&lt;label <span class="html-attribute-name">style</span>="<span class="html-attribute-value">font-size:11px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:6px;</span>"&gt;</span>Link (Google Drive vagy https://)<span class="html-tag">&lt;/label&gt;</span></td></tr><tr><td class="line-number" value="578"></td><td class="line-content">      <span class="html-tag">&lt;input <span class="html-attribute-name">type</span>="<span class="html-attribute-value">text</span>" <span class="html-attribute-name">id</span>="<span class="html-attribute-value">edit-url</span>" <span class="html-attribute-name">style</span>="<span class="html-attribute-value">width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--text); font-family:var(--font-body); font-size:12px; padding:8px 10px; border-radius:var(--radius); outline:none;</span>"&gt;</span></td></tr><tr><td class="line-number" value="579"></td><td class="line-content">    <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="580"></td><td class="line-content">    <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">modal-actions</span>"&gt;</span></td></tr><tr><td class="line-number" value="581"></td><td class="line-content">      <span class="html-tag">&lt;button <span class="html-attribute-name">class</span>="<span class="html-attribute-value">btn-cancel</span>" <span class="html-attribute-name">onclick</span>="<span class="html-attribute-value">closeEditModal()</span>"&gt;</span>Mégse<span class="html-tag">&lt;/button&gt;</span></td></tr><tr><td class="line-number" value="582"></td><td class="line-content">      <span class="html-tag">&lt;button <span class="html-attribute-name">class</span>="<span class="html-attribute-value">btn-open</span>" <span class="html-attribute-name">onclick</span>="<span class="html-attribute-value">saveCardEdit()</span>"&gt;</span>Mentés<span class="html-tag">&lt;/button&gt;</span></td></tr><tr><td class="line-number" value="583"></td><td class="line-content">    <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="584"></td><td class="line-content">  <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="585"></td><td class="line-content"><span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="586"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="587"></td><td class="line-content"><span class="html-comment">&lt;!-- LINK MODAL --&gt;</span></td></tr><tr><td class="line-number" value="588"></td><td class="line-content"><span class="html-tag">&lt;div <span class="html-attribute-name">id</span>="<span class="html-attribute-value">link-modal</span>" <span class="html-attribute-name">role</span>="<span class="html-attribute-value">dialog</span>" <span class="html-attribute-name">aria-modal</span>="<span class="html-attribute-value">true</span>" <span class="html-attribute-name">aria-labelledby</span>="<span class="html-attribute-value">modal-title-el</span>"&gt;</span></td></tr><tr><td class="line-number" value="589"></td><td class="line-content">  <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">modal-box</span>"&gt;</span></td></tr><tr><td class="line-number" value="590"></td><td class="line-content">    <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">modal-title</span>" <span class="html-attribute-name">id</span>="<span class="html-attribute-value">modal-title-el</span>"&gt;</span>Megnyitás<span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="591"></td><td class="line-content">    <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">modal-url</span>" <span class="html-attribute-name">id</span>="<span class="html-attribute-value">modal-url-el</span>"&gt;</span><span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="592"></td><td class="line-content">    <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">modal-actions</span>"&gt;</span></td></tr><tr><td class="line-number" value="593"></td><td class="line-content">      <span class="html-tag">&lt;button <span class="html-attribute-name">class</span>="<span class="html-attribute-value">btn-cancel</span>" <span class="html-attribute-name">onclick</span>="<span class="html-attribute-value">closeModal()</span>"&gt;</span>Mégse<span class="html-tag">&lt;/button&gt;</span></td></tr><tr><td class="line-number" value="594"></td><td class="line-content">      <span class="html-tag">&lt;button <span class="html-attribute-name">class</span>="<span class="html-attribute-value">btn-open</span>" <span class="html-attribute-name">id</span>="<span class="html-attribute-value">modal-open-btn</span>"&gt;</span>Megnyitás ↗<span class="html-tag">&lt;/button&gt;</span></td></tr><tr><td class="line-number" value="595"></td><td class="line-content">    <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="596"></td><td class="line-content">  <span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="597"></td><td class="line-content"><span class="html-tag">&lt;/div&gt;</span></td></tr><tr><td class="line-number" value="598"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="599"></td><td class="line-content"><span class="html-tag">&lt;footer&gt;</span>Belső használatra — minőségiablak.hu<span class="html-tag">&lt;/footer&gt;</span></td></tr><tr><td class="line-number" value="600"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="601"></td><td class="line-content"><span class="html-tag">&lt;script&gt;</span></td></tr><tr><td class="line-number" value="602"></td><td class="line-content">/* ════════════════════════════════════════════════</td></tr><tr><td class="line-number" value="603"></td><td class="line-content">   KONFIGURÁCIÓ</td></tr><tr><td class="line-number" value="604"></td><td class="line-content">   ════════════════════════════════════════════════</td></tr><tr><td class="line-number" value="605"></td><td class="line-content">   A kártyák adatait itt szerkeszd.</td></tr><tr><td class="line-number" value="606"></td><td class="line-content">   url: Google Drive megosztott link, vagy bármilyen https:// cím</td></tr><tr><td class="line-number" value="607"></td><td class="line-content">   isExternal: true → új lapon nyílik meg; false → megerősítő modal</td></tr><tr><td class="line-number" value="608"></td><td class="line-content">*/</td></tr><tr><td class="line-number" value="609"></td><td class="line-content">const CARDS = [</td></tr><tr><td class="line-number" value="610"></td><td class="line-content">  { id: 1,  section: 'apps',  icon: '📐', title: 'Pergola',        url: 'pergola.html',      isExternal: true },</td></tr><tr><td class="line-number" value="611"></td><td class="line-content">  { id: 2,  section: 'apps',  icon: '🚪', title: 'Üvegfal',        url: 'uvegfal.html',      isExternal: true },</td></tr><tr><td class="line-number" value="612"></td><td class="line-content">  { id: 3,  section: 'apps',  icon: '📝', title: 'Karton Készítő', url: 'https://drive.google.com/file/d/KARTON_ID/view',        isExternal: true },</td></tr><tr><td class="line-number" value="613"></td><td class="line-content">  { id: 4,  section: 'apps',  icon: '⛱️', title: 'Napellenző',     url: 'https://drive.google.com/file/d/NAPELLENZO_ID/view',   isExternal: true, isTest: true },</td></tr><tr><td class="line-number" value="614"></td><td class="line-content">  { id: 9,  section: 'apps',  icon: '📧', title: 'Thunderbird',    url: 'openapp-thunderbird://open',       isExternal: true },</td></tr><tr><td class="line-number" value="615"></td><td class="line-content">  { id: 6,  section: 'files', icon: '📁', title: '2026 Árlisták',  url: 'https://drive.google.com/drive/folders/ARLISTAK_ID',   isExternal: true },</td></tr><tr><td class="line-number" value="616"></td><td class="line-content">  { id: 7,  section: 'files', icon: '📂', title: '2026 Ajánlatok', url: 'https://drive.google.com/drive/folders/AJANLATOK_ID',  isExternal: true },</td></tr><tr><td class="line-number" value="617"></td><td class="line-content">  { id: 8,  section: 'other', icon: '📋', title: 'Trello',         url: 'https://trello.com/b/BOARD_ID',                        isExternal: true },</td></tr><tr><td class="line-number" value="618"></td><td class="line-content">];</td></tr><tr><td class="line-number" value="619"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="620"></td><td class="line-content">const SECTION_MAP = { apps: 'grid-apps', files: 'grid-files', other: 'grid-other' };</td></tr><tr><td class="line-number" value="621"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="622"></td><td class="line-content">/* ── KÁRTYÁK RENDERELÉSE ──────────────────────── */</td></tr><tr><td class="line-number" value="623"></td><td class="line-content">function renderGrids() {</td></tr><tr><td class="line-number" value="624"></td><td class="line-content">  const saved = getSavedLayout();</td></tr><tr><td class="line-number" value="625"></td><td class="line-content">  Object.entries(SECTION_MAP).forEach(([sec, gridId]) =&gt; {</td></tr><tr><td class="line-number" value="626"></td><td class="line-content">    const grid = document.getElementById(gridId);</td></tr><tr><td class="line-number" value="627"></td><td class="line-content">    grid.innerHTML = '';</td></tr><tr><td class="line-number" value="628"></td><td class="line-content">    const ids = saved[sec] || CARDS.filter(c =&gt; c.section === sec).map(c =&gt; c.id);</td></tr><tr><td class="line-number" value="629"></td><td class="line-content">    ids.forEach(id =&gt; {</td></tr><tr><td class="line-number" value="630"></td><td class="line-content">      const baseCard = CARDS.find(c =&gt; c.id == id);</td></tr><tr><td class="line-number" value="631"></td><td class="line-content">      if (!baseCard) return;</td></tr><tr><td class="line-number" value="632"></td><td class="line-content">      const overrides = getSavedCards();</td></tr><tr><td class="line-number" value="633"></td><td class="line-content">      const card = overrides[id] ? { ...baseCard, ...overrides[id] } : baseCard;</td></tr><tr><td class="line-number" value="634"></td><td class="line-content">      const el = document.createElement('div');</td></tr><tr><td class="line-number" value="635"></td><td class="line-content">      el.className = 'card';</td></tr><tr><td class="line-number" value="636"></td><td class="line-content">      el.dataset.id = card.id;</td></tr><tr><td class="line-number" value="637"></td><td class="line-content">      el.setAttribute('role', 'button');</td></tr><tr><td class="line-number" value="638"></td><td class="line-content">      el.setAttribute('tabindex', '0');</td></tr><tr><td class="line-number" value="639"></td><td class="line-content">      el.setAttribute('aria-label', card.title);</td></tr><tr><td class="line-number" value="640"></td><td class="line-content">      el.innerHTML = `</td></tr><tr><td class="line-number" value="641"></td><td class="line-content">        ${card.isTest ? '&lt;span class="badge-test"&gt;Teszt&lt;/span&gt;' : ''}</td></tr><tr><td class="line-number" value="642"></td><td class="line-content">        &lt;span class="card-icon"&gt;${card.icon}&lt;/span&gt;</td></tr><tr><td class="line-number" value="643"></td><td class="line-content">        &lt;span class="card-title"&gt;${card.title}&lt;/span&gt;</td></tr><tr><td class="line-number" value="644"></td><td class="line-content">        &lt;button class="card-edit-btn" title="Szerkesztés"&gt;✎&lt;/button&gt;</td></tr><tr><td class="line-number" value="645"></td><td class="line-content">      `;</td></tr><tr><td class="line-number" value="646"></td><td class="line-content">      el.addEventListener('click', (e) =&gt; {</td></tr><tr><td class="line-number" value="647"></td><td class="line-content">        if (e.target.classList.contains('card-edit-btn')) { e.stopPropagation(); openEditModal(card); return; }</td></tr><tr><td class="line-number" value="648"></td><td class="line-content">        openCard(card);</td></tr><tr><td class="line-number" value="649"></td><td class="line-content">      });</td></tr><tr><td class="line-number" value="650"></td><td class="line-content">      el.addEventListener('keydown', e =&gt; { if (e.key === 'Enter' || e.key === ' ') openCard(card); });</td></tr><tr><td class="line-number" value="651"></td><td class="line-content">      grid.appendChild(el);</td></tr><tr><td class="line-number" value="652"></td><td class="line-content">    });</td></tr><tr><td class="line-number" value="653"></td><td class="line-content">  });</td></tr><tr><td class="line-number" value="654"></td><td class="line-content">}</td></tr><tr><td class="line-number" value="655"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="656"></td><td class="line-content">/* ── KÁRTYA SZERKESZTÉS ───────────────────────── */</td></tr><tr><td class="line-number" value="657"></td><td class="line-content">let editingCardId = null;</td></tr><tr><td class="line-number" value="658"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="659"></td><td class="line-content">function getSavedCards() {</td></tr><tr><td class="line-number" value="660"></td><td class="line-content">  try { return JSON.parse(localStorage.getItem('ma_cards')) || {}; } catch { return {}; }</td></tr><tr><td class="line-number" value="661"></td><td class="line-content">}</td></tr><tr><td class="line-number" value="662"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="663"></td><td class="line-content">function openEditModal(card) {</td></tr><tr><td class="line-number" value="664"></td><td class="line-content">  editingCardId = card.id;</td></tr><tr><td class="line-number" value="665"></td><td class="line-content">  const overrides = getSavedCards();</td></tr><tr><td class="line-number" value="666"></td><td class="line-content">  const data = overrides[card.id] || card;</td></tr><tr><td class="line-number" value="667"></td><td class="line-content">  document.getElementById('edit-title').value = data.title;</td></tr><tr><td class="line-number" value="668"></td><td class="line-content">  document.getElementById('edit-icon').value = data.icon;</td></tr><tr><td class="line-number" value="669"></td><td class="line-content">  document.getElementById('edit-url').value = data.url;</td></tr><tr><td class="line-number" value="670"></td><td class="line-content">  document.getElementById('edit-modal').style.display = 'flex';</td></tr><tr><td class="line-number" value="671"></td><td class="line-content">}</td></tr><tr><td class="line-number" value="672"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="673"></td><td class="line-content">function closeEditModal() {</td></tr><tr><td class="line-number" value="674"></td><td class="line-content">  document.getElementById('edit-modal').style.display = 'none';</td></tr><tr><td class="line-number" value="675"></td><td class="line-content">  editingCardId = null;</td></tr><tr><td class="line-number" value="676"></td><td class="line-content">}</td></tr><tr><td class="line-number" value="677"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="678"></td><td class="line-content">function saveCardEdit() {</td></tr><tr><td class="line-number" value="679"></td><td class="line-content">  if (!editingCardId) return;</td></tr><tr><td class="line-number" value="680"></td><td class="line-content">  const overrides = getSavedCards();</td></tr><tr><td class="line-number" value="681"></td><td class="line-content">  const card = CARDS.find(c =&gt; c.id == editingCardId);</td></tr><tr><td class="line-number" value="682"></td><td class="line-content">  overrides[editingCardId] = {</td></tr><tr><td class="line-number" value="683"></td><td class="line-content">    ...card,</td></tr><tr><td class="line-number" value="684"></td><td class="line-content">    title: document.getElementById('edit-title').value.trim() || card.title,</td></tr><tr><td class="line-number" value="685"></td><td class="line-content">    icon: document.getElementById('edit-icon').value.trim() || card.icon,</td></tr><tr><td class="line-number" value="686"></td><td class="line-content">    url: document.getElementById('edit-url').value.trim() || card.url,</td></tr><tr><td class="line-number" value="687"></td><td class="line-content">  };</td></tr><tr><td class="line-number" value="688"></td><td class="line-content">  localStorage.setItem('ma_cards', JSON.stringify(overrides));</td></tr><tr><td class="line-number" value="689"></td><td class="line-content">  closeEditModal();</td></tr><tr><td class="line-number" value="690"></td><td class="line-content">  renderGrids();</td></tr><tr><td class="line-number" value="691"></td><td class="line-content">  initSortable();</td></tr><tr><td class="line-number" value="692"></td><td class="line-content">}</td></tr><tr><td class="line-number" value="693"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="694"></td><td class="line-content">document.getElementById('edit-modal').addEventListener('click', e =&gt; {</td></tr><tr><td class="line-number" value="695"></td><td class="line-content">  if (e.target === document.getElementById('edit-modal')) closeEditModal();</td></tr><tr><td class="line-number" value="696"></td><td class="line-content">});</td></tr><tr><td class="line-number" value="697"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="698"></td><td class="line-content">/* ── KÁRTYÁK RENDERELÉSE (override-dal) ───────── */</td></tr><tr><td class="line-number" value="699"></td><td class="line-content">function openCard(card) {</td></tr><tr><td class="line-number" value="700"></td><td class="line-content">  if (card.isExternal) {</td></tr><tr><td class="line-number" value="701"></td><td class="line-content">    window.open(card.url, '_blank', 'noopener');</td></tr><tr><td class="line-number" value="702"></td><td class="line-content">  } else {</td></tr><tr><td class="line-number" value="703"></td><td class="line-content">    showModal(card.title, card.url);</td></tr><tr><td class="line-number" value="704"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="705"></td><td class="line-content">}</td></tr><tr><td class="line-number" value="706"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="707"></td><td class="line-content">function showModal(title, url) {</td></tr><tr><td class="line-number" value="708"></td><td class="line-content">  document.getElementById('modal-title-el').textContent = title;</td></tr><tr><td class="line-number" value="709"></td><td class="line-content">  document.getElementById('modal-url-el').textContent = url;</td></tr><tr><td class="line-number" value="710"></td><td class="line-content">  document.getElementById('modal-open-btn').onclick = () =&gt; { window.open(url, '_blank', 'noopener'); closeModal(); };</td></tr><tr><td class="line-number" value="711"></td><td class="line-content">  document.getElementById('link-modal').classList.add('open');</td></tr><tr><td class="line-number" value="712"></td><td class="line-content">}</td></tr><tr><td class="line-number" value="713"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="714"></td><td class="line-content">function closeModal() {</td></tr><tr><td class="line-number" value="715"></td><td class="line-content">  document.getElementById('link-modal').classList.remove('open');</td></tr><tr><td class="line-number" value="716"></td><td class="line-content">}</td></tr><tr><td class="line-number" value="717"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="718"></td><td class="line-content">document.getElementById('link-modal').addEventListener('click', e =&gt; {</td></tr><tr><td class="line-number" value="719"></td><td class="line-content">  if (e.target === document.getElementById('link-modal')) closeModal();</td></tr><tr><td class="line-number" value="720"></td><td class="line-content">});</td></tr><tr><td class="line-number" value="721"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="722"></td><td class="line-content">/* ── LAYOUT MENTÉS ────────────────────────────── */</td></tr><tr><td class="line-number" value="723"></td><td class="line-content">function getSavedLayout() {</td></tr><tr><td class="line-number" value="724"></td><td class="line-content">  try {</td></tr><tr><td class="line-number" value="725"></td><td class="line-content">    return JSON.parse(localStorage.getItem('ma_layout')) || {};</td></tr><tr><td class="line-number" value="726"></td><td class="line-content">  } catch { return {}; }</td></tr><tr><td class="line-number" value="727"></td><td class="line-content">}</td></tr><tr><td class="line-number" value="728"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="729"></td><td class="line-content">function saveLayout() {</td></tr><tr><td class="line-number" value="730"></td><td class="line-content">  const layout = {};</td></tr><tr><td class="line-number" value="731"></td><td class="line-content">  Object.entries(SECTION_MAP).forEach(([sec, gridId]) =&gt; {</td></tr><tr><td class="line-number" value="732"></td><td class="line-content">    layout[sec] = Array.from(document.getElementById(gridId).children).map(el =&gt; +el.dataset.id);</td></tr><tr><td class="line-number" value="733"></td><td class="line-content">  });</td></tr><tr><td class="line-number" value="734"></td><td class="line-content">  localStorage.setItem('ma_layout', JSON.stringify(layout));</td></tr><tr><td class="line-number" value="735"></td><td class="line-content">}</td></tr><tr><td class="line-number" value="736"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="737"></td><td class="line-content">/* ── DRAG &amp; DROP ──────────────────────────────── */</td></tr><tr><td class="line-number" value="738"></td><td class="line-content">function initSortable() {</td></tr><tr><td class="line-number" value="739"></td><td class="line-content">  Object.values(SECTION_MAP).forEach(gridId =&gt; {</td></tr><tr><td class="line-number" value="740"></td><td class="line-content">    new Sortable(document.getElementById(gridId), {</td></tr><tr><td class="line-number" value="741"></td><td class="line-content">      group: 'workspace',</td></tr><tr><td class="line-number" value="742"></td><td class="line-content">      animation: 150,</td></tr><tr><td class="line-number" value="743"></td><td class="line-content">      ghostClass: 'sortable-ghost',</td></tr><tr><td class="line-number" value="744"></td><td class="line-content">      dragClass: 'sortable-drag',</td></tr><tr><td class="line-number" value="745"></td><td class="line-content">      onEnd: saveLayout,</td></tr><tr><td class="line-number" value="746"></td><td class="line-content">    });</td></tr><tr><td class="line-number" value="747"></td><td class="line-content">  });</td></tr><tr><td class="line-number" value="748"></td><td class="line-content">}</td></tr><tr><td class="line-number" value="749"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="750"></td><td class="line-content">/* ── ÓRA ──────────────────────────────────────── */</td></tr><tr><td class="line-number" value="751"></td><td class="line-content">function updateClock() {</td></tr><tr><td class="line-number" value="752"></td><td class="line-content">  const now = new Date();</td></tr><tr><td class="line-number" value="753"></td><td class="line-content">  document.getElementById('clock').textContent =</td></tr><tr><td class="line-number" value="754"></td><td class="line-content">    now.toLocaleTimeString('hu-HU', { hour: '2-digit', minute: '2-digit' });</td></tr><tr><td class="line-number" value="755"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="756"></td><td class="line-content">  const d = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));</td></tr><tr><td class="line-number" value="757"></td><td class="line-content">  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));</td></tr><tr><td class="line-number" value="758"></td><td class="line-content">  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));</td></tr><tr><td class="line-number" value="759"></td><td class="line-content">  const week = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);</td></tr><tr><td class="line-number" value="760"></td><td class="line-content">  document.getElementById('week-num').textContent = week;</td></tr><tr><td class="line-number" value="761"></td><td class="line-content">}</td></tr><tr><td class="line-number" value="762"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="763"></td><td class="line-content">/* ── TRELLO ───────────────────────────────────── */</td></tr><tr><td class="line-number" value="764"></td><td class="line-content">function toggleTrelloConfig() {</td></tr><tr><td class="line-number" value="765"></td><td class="line-content">  const panel = document.getElementById('trello-config-panel');</td></tr><tr><td class="line-number" value="766"></td><td class="line-content">  const isOpen = panel.style.display === 'flex';</td></tr><tr><td class="line-number" value="767"></td><td class="line-content">  panel.style.display = isOpen ? 'none' : 'flex';</td></tr><tr><td class="line-number" value="768"></td><td class="line-content">  if (!isOpen) {</td></tr><tr><td class="line-number" value="769"></td><td class="line-content">    document.getElementById('trello-key').value = localStorage.getItem('t_key') || '';</td></tr><tr><td class="line-number" value="770"></td><td class="line-content">    document.getElementById('trello-token').value = localStorage.getItem('t_token') || '';</td></tr><tr><td class="line-number" value="771"></td><td class="line-content">    document.getElementById('trello-lists').value = localStorage.getItem('t_lists') || '';</td></tr><tr><td class="line-number" value="772"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="773"></td><td class="line-content">}</td></tr><tr><td class="line-number" value="774"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="775"></td><td class="line-content">function saveTrelloConfig() {</td></tr><tr><td class="line-number" value="776"></td><td class="line-content">  localStorage.setItem('t_key', document.getElementById('trello-key').value.trim());</td></tr><tr><td class="line-number" value="777"></td><td class="line-content">  localStorage.setItem('t_token', document.getElementById('trello-token').value.trim());</td></tr><tr><td class="line-number" value="778"></td><td class="line-content">  localStorage.setItem('t_lists', document.getElementById('trello-lists').value.trim());</td></tr><tr><td class="line-number" value="779"></td><td class="line-content">  document.getElementById('trello-config-panel').style.display = 'none';</td></tr><tr><td class="line-number" value="780"></td><td class="line-content">  initTrelloSelector();</td></tr><tr><td class="line-number" value="781"></td><td class="line-content">}</td></tr><tr><td class="line-number" value="782"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="783"></td><td class="line-content">async function initTrelloSelector() {</td></tr><tr><td class="line-number" value="784"></td><td class="line-content">  const key = localStorage.getItem('t_key');</td></tr><tr><td class="line-number" value="785"></td><td class="line-content">  const token = localStorage.getItem('t_token');</td></tr><tr><td class="line-number" value="786"></td><td class="line-content">  const listsStr = localStorage.getItem('t_lists') || '';</td></tr><tr><td class="line-number" value="787"></td><td class="line-content">  const selector = document.getElementById('trello-list-selector');</td></tr><tr><td class="line-number" value="788"></td><td class="line-content">  selector.innerHTML = '';</td></tr><tr><td class="line-number" value="789"></td><td class="line-content">  if (!key || !token || !listsStr) return;</td></tr><tr><td class="line-number" value="790"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="791"></td><td class="line-content">  for (const id of listsStr.split(',').map(s =&gt; s.trim()).filter(Boolean)) {</td></tr><tr><td class="line-number" value="792"></td><td class="line-content">    try {</td></tr><tr><td class="line-number" value="793"></td><td class="line-content">      const res = await fetch(`https://api.trello.com/1/lists/${id}?key=${key}&amp;token=${token}`);</td></tr><tr><td class="line-number" value="794"></td><td class="line-content">      if (!res.ok) continue;</td></tr><tr><td class="line-number" value="795"></td><td class="line-content">      const data = await res.json();</td></tr><tr><td class="line-number" value="796"></td><td class="line-content">      const opt = document.createElement('option');</td></tr><tr><td class="line-number" value="797"></td><td class="line-content">      opt.value = id;</td></tr><tr><td class="line-number" value="798"></td><td class="line-content">      opt.textContent = data.name;</td></tr><tr><td class="line-number" value="799"></td><td class="line-content">      selector.appendChild(opt);</td></tr><tr><td class="line-number" value="800"></td><td class="line-content">    } catch {}</td></tr><tr><td class="line-number" value="801"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="802"></td><td class="line-content">  if (selector.options.length &gt; 0) fetchTrelloTasks(selector.value);</td></tr><tr><td class="line-number" value="803"></td><td class="line-content">}</td></tr><tr><td class="line-number" value="804"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="805"></td><td class="line-content">async function fetchTrelloTasks(listId) {</td></tr><tr><td class="line-number" value="806"></td><td class="line-content">  const key = localStorage.getItem('t_key');</td></tr><tr><td class="line-number" value="807"></td><td class="line-content">  const token = localStorage.getItem('t_token');</td></tr><tr><td class="line-number" value="808"></td><td class="line-content">  const container = document.getElementById('trello-container');</td></tr><tr><td class="line-number" value="809"></td><td class="line-content">  if (!key || !token || !listId) return;</td></tr><tr><td class="line-number" value="810"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="811"></td><td class="line-content">  container.innerHTML = '&lt;p class="trello-empty"&gt;Betöltés…&lt;/p&gt;';</td></tr><tr><td class="line-number" value="812"></td><td class="line-content">  try {</td></tr><tr><td class="line-number" value="813"></td><td class="line-content">    const res = await fetch(`https://api.trello.com/1/lists/${listId}/cards?key=${key}&amp;token=${token}`);</td></tr><tr><td class="line-number" value="814"></td><td class="line-content">    if (!res.ok) throw new Error();</td></tr><tr><td class="line-number" value="815"></td><td class="line-content">    const cards = await res.json();</td></tr><tr><td class="line-number" value="816"></td><td class="line-content">    if (cards.length === 0) {</td></tr><tr><td class="line-number" value="817"></td><td class="line-content">      container.innerHTML = '&lt;p class="trello-empty"&gt;Nincs kártya ebben a listában.&lt;/p&gt;';</td></tr><tr><td class="line-number" value="818"></td><td class="line-content">      return;</td></tr><tr><td class="line-number" value="819"></td><td class="line-content">    }</td></tr><tr><td class="line-number" value="820"></td><td class="line-content">    container.innerHTML = cards.map(c =&gt;</td></tr><tr><td class="line-number" value="821"></td><td class="line-content">      `&lt;a href="${c.shortUrl}" target="_blank" rel="noopener" class="trello-card"&gt;${c.name}&lt;/a&gt;`</td></tr><tr><td class="line-number" value="822"></td><td class="line-content">    ).join('');</td></tr><tr><td class="line-number" value="823"></td><td class="line-content">  } catch {</td></tr><tr><td class="line-number" value="824"></td><td class="line-content">    container.innerHTML = '&lt;p class="trello-empty"&gt;Hiba a betöltés során. Ellenőrizd a beállításokat.&lt;/p&gt;';</td></tr><tr><td class="line-number" value="825"></td><td class="line-content">  }</td></tr><tr><td class="line-number" value="826"></td><td class="line-content">}</td></tr><tr><td class="line-number" value="827"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="828"></td><td class="line-content">function changeTrelloList() {</td></tr><tr><td class="line-number" value="829"></td><td class="line-content">  fetchTrelloTasks(document.getElementById('trello-list-selector').value);</td></tr><tr><td class="line-number" value="830"></td><td class="line-content">}</td></tr><tr><td class="line-number" value="831"></td><td class="line-content"><br></td></tr><tr><td class="line-number" value="832"></td><td class="line-content">/* ── INIT ─────────────────────────────────────── */</td></tr><tr><td class="line-number" value="833"></td><td class="line-content">document.addEventListener('DOMContentLoaded', () =&gt; {</td></tr><tr><td class="line-number" value="834"></td><td class="line-content">  renderGrids();</td></tr><tr><td class="line-number" value="835"></td><td class="line-content">  initSortable();</td></tr><tr><td class="line-number" value="836"></td><td class="line-content">  initTrelloSelector();</td></tr><tr><td class="line-number" value="837"></td><td class="line-content">  updateClock();</td></tr><tr><td class="line-number" value="838"></td><td class="line-content">  setInterval(updateClock, 30000);</td></tr><tr><td class="line-number" value="839"></td><td class="line-content">});</td></tr><tr><td class="line-number" value="840"></td><td class="line-content"><span class="html-tag">&lt;/script&gt;</span></td></tr><tr><td class="line-number" value="841"></td><td class="line-content"><span class="html-tag">&lt;/body&gt;</span></td></tr><tr><td class="line-number" value="842"></td><td class="line-content"><span class="html-tag">&lt;/html&gt;</span></td></tr><tr><td class="line-number" value="843"></td><td class="line-content"></td></tr></tbody></table></body></html>
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minőségi Ablak — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #161616;
+    --surface2: #1e1e1e;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(230,57,70,0.5);
+    --red: #e63946;
+    --red-dim: rgba(230,57,70,0.12);
+    --text: #f0ede8;
+    --muted: #6b6b6b;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --radius: 6px;
+    --radius-lg: 10px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── HEADER ─────────────────────────────────── */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    height: 60px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    gap: 16px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-family: var(--font-display);
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .logo-text span { color: var(--red); }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .week-badge {
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    border-radius: var(--radius);
+  }
+
+  .week-badge span { color: var(--red); margin-left: 4px; }
+
+  #clock {
+    font-family: var(--font-display);
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  /* ── LAYOUT ──────────────────────────────────── */
+  .layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* ── WORKSPACE ───────────────────────────────── */
+  .workspace {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    scrollbar-width: thin;
+    scrollbar-color: #2a2a2a transparent;
+  }
+
+  .section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+  }
+
+  .section-label {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--red);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+    min-height: 60px;
+  }
+
+  /* ── CARD ────────────────────────────────────── */
+  .card {
+    position: relative;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text);
+    text-align: center;
+    transition: border-color 0.18s, background 0.18s, transform 0.12s;
+    user-select: none;
+    min-height: 100px;
+  }
+
+  .card:hover {
+    border-color: var(--border-hover);
+    background: #222;
+    transform: translateY(-1px);
+  }
+
+  .card:active { transform: scale(0.97); }
+
+  .card-icon {
+    font-size: 28px;
+    line-height: 1;
+    display: block;
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .card-edit-btn {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    background: rgba(255,255,255,0.07);
+    border: none;
+    color: var(--muted);
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+
+  .card:hover .card-edit-btn { opacity: 1; }
+
+  .badge-test {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: #f1c40f;
+    color: #000;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 2px 5px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+
+  /* Drag ghost */
+  .sortable-ghost { opacity: 0.3; }
+  .sortable-drag { opacity: 0.9; cursor: grabbing; }
+
+  /* ── SIDEBAR ─────────────────────────────────── */
+  .sidebar {
+    width: 360px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid var(--border);
+    border-left-color: rgba(230,57,70,0.3);
+    background: var(--surface);
+    overflow: hidden;
+  }
+
+  .sidebar-panel {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .panel-title {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--muted);
+  }
+
+  /* CALENDAR */
+  .calendar-frame {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .calendar-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    filter: invert(92%) hue-rotate(180deg) brightness(0.95) saturate(0.9);
+  }
+
+  /* TRELLO */
+  .trello-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  #trello-list-selector {
+    flex: 1;
+    background: var(--surface2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 5px 8px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .btn-sm {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    font-family: var(--font-body);
+    padding: 5px 10px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .btn-sm:hover { border-color: var(--red); color: var(--text); }
+
+  #trello-config-panel {
+    display: none;
+    padding: 14px 16px;
+    background: #111;
+    border-bottom: 1px solid var(--border);
+    gap: 8px;
+    flex-direction: column;
+  }
+
+  #trello-config-panel input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 12px;
+    padding: 7px 10px;
+    border-radius: var(--radius);
+    outline: none;
+  }
+
+  #trello-config-panel input:focus { border-color: rgba(230,57,70,0.4); }
+
+  .btn-save {
+    background: var(--red);
+    color: white;
+    border: none;
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding: 8px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .btn-save:hover { opacity: 0.85; }
+
+  #trello-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #2a2a2a transparent;
+  }
+
+  .trello-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--red);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    margin-bottom: 7px;
+    font-size: 12px;
+    color: var(--text);
+    text-decoration: none;
+    display: block;
+    transition: border-color 0.15s, background 0.15s;
+    line-height: 1.4;
+  }
+
+  .trello-card:hover { background: #242424; border-left-color: #ff6b76; }
+
+  .trello-empty {
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+    padding: 24px 0;
+  }
+
+  /* ── MODAL OVERLAY ───────────────────────────── */
+  #link-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #link-modal.open { display: flex; }
+
+  .modal-box {
+    background: var(--surface);
+    border: 1px solid rgba(230,57,70,0.3);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px 20px;
+    width: 340px;
+    max-width: 90vw;
+  }
+
+  .modal-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .modal-url {
+    font-size: 11px;
+    color: var(--muted);
+    word-break: break-all;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+
+  .btn-cancel {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-size: 13px;
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    cursor: pointer;
+  }
+
+  .btn-open {
+    background: var(--red);
+    color: white;
+    border: none;
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 8px 20px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .btn-open:hover { opacity: 0.85; }
+
+  /* ── FOOTER ──────────────────────────────────── */
+  footer {
+    padding: 6px 24px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #333;
+    text-transform: uppercase;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────── */
+  @media (max-width: 900px) {
+    body { height: auto; overflow: auto; }
+    .layout { flex-direction: column; overflow: visible; }
+    .sidebar { width: 100%; border-left: none; border-top: 1px solid rgba(230,57,70,0.3); }
+    .sidebar-panel { min-height: 380px; }
+    .workspace { overflow: visible; }
+    #clock { font-size: 22px; }
+  }
+
+  @media (max-width: 600px) {
+    .logo-text { font-size: 16px; }
+    .week-badge { display: none; }
+    .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <svg class="logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="4" width="12" height="24" rx="1" stroke="white" stroke-width="1.5"/>
+      <rect x="8" y="2" width="12" height="24" rx="1" stroke="#e63946" stroke-width="1.5"/>
+      <rect x="5.5" y="14.5" width="3" height="3" fill="#e63946" rx="0.5"/>
+    </svg>
+    <span class="logo-text">minőségi<span>ablak</span>.hu</span>
+  </div>
+  <div class="header-right">
+    <div class="week-badge">HÉT<span id="week-num">--</span></div>
+    <div id="clock">--:--</div>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- WORKSPACE -->
+  <main class="workspace">
+    <div class="section">
+      <div class="section-label">Programok</div>
+      <div class="cards-grid" id="grid-apps"></div>
+    </div>
+    <div class="section">
+      <div class="section-label">Fájlok</div>
+      <div class="cards-grid" id="grid-files"></div>
+    </div>
+    <div class="section">
+      <div class="section-label">Egyéb</div>
+      <div class="cards-grid" id="grid-other"></div>
+    </div>
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- NAPTÁR -->
+    <div class="sidebar-panel">
+      <div class="panel-header">
+        <span class="panel-title">NAPTÁR</span>
+      </div>
+      <div class="calendar-frame">
+        <iframe
+          src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FBudapest&showPrint=0&showTitle=0&showNav=0&showDate=0&showTabs=0&showCalendars=0&showTz=0&mode=AGENDA&src=c2xvYmVyc3pAZ21haWwuY29t&color=%23ff2968"
+          loading="lazy"
+          title="Google Naptár">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- TRELLO -->
+    <div class="sidebar-panel" style="flex: 1.2;">
+      <div class="panel-header">
+        <span class="panel-title">FELADATOK</span>
+        <button class="btn-sm" onclick="toggleTrelloConfig()">⚙ Beállítás</button>
+      </div>
+      <div id="trello-config-panel">
+        <input type="text" id="trello-key" placeholder="Trello API Key">
+        <input type="text" id="trello-token" placeholder="Trello Token">
+        <input type="text" id="trello-lists" placeholder="Lista ID-k (vesszővel elválasztva)">
+        <button class="btn-save" onclick="saveTrelloConfig()">MENTÉS</button>
+      </div>
+      <div class="trello-controls">
+        <select id="trello-list-selector" onchange="changeTrelloList()"></select>
+        <button class="btn-sm" onclick="fetchTrelloTasks(document.getElementById('trello-list-selector').value)">↻</button>
+      </div>
+      <div id="trello-container">
+        <p class="trello-empty">Állítsd be a Trello kapcsolatot a ⚙ gombbal.</p>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- SZERKESZTŐ MODAL -->
+<div id="edit-modal" role="dialog" aria-modal="true" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:200; align-items:center; justify-content:center;">
+  <div class="modal-box">
+    <div class="modal-title">Kártya szerkesztése</div>
+    <div style="margin-bottom:16px;">
+      <label style="font-size:11px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:6px;">Neve</label>
+      <input type="text" id="edit-title" style="width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--text); font-family:var(--font-body); font-size:14px; padding:8px 10px; border-radius:var(--radius); outline:none;">
+    </div>
+    <div style="margin-bottom:16px;">
+      <label style="font-size:11px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:6px;">Ikon (emoji)</label>
+      <input type="text" id="edit-icon" style="width:80px; background:var(--surface2); border:1px solid var(--border); color:var(--text); font-family:var(--font-body); font-size:20px; padding:8px 10px; border-radius:var(--radius); outline:none; text-align:center;">
+    </div>
+    <div style="margin-bottom:20px;">
+      <label style="font-size:11px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:6px;">Link (Google Drive vagy https://)</label>
+      <input type="text" id="edit-url" style="width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--text); font-family:var(--font-body); font-size:12px; padding:8px 10px; border-radius:var(--radius); outline:none;">
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeEditModal()">Mégse</button>
+      <button class="btn-open" onclick="saveCardEdit()">Mentés</button>
+    </div>
+  </div>
+</div>
+
+<!-- LINK MODAL -->
+<div id="link-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-el">
+  <div class="modal-box">
+    <div class="modal-title" id="modal-title-el">Megnyitás</div>
+    <div class="modal-url" id="modal-url-el"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Mégse</button>
+      <button class="btn-open" id="modal-open-btn">Megnyitás ↗</button>
+    </div>
+  </div>
+</div>
+
+<footer>Belső használatra — minőségiablak.hu</footer>
+
+<script>
+/* ════════════════════════════════════════════════
+   KONFIGURÁCIÓ
+   ════════════════════════════════════════════════
+   A kártyák adatait itt szerkeszd.
+   url: Google Drive megosztott link, vagy bármilyen https:// cím
+   isExternal: true → új lapon nyílik meg; false → megerősítő modal
+*/
+const CARDS = [
+  { id: 1,  section: 'apps',  icon: '📐', title: 'Pergola',        url: 'pergola.html',      isExternal: true },
+  { id: 2,  section: 'apps',  icon: '🚪', title: 'Üvegfal',        url: 'uvegfal.html',      isExternal: true },
+  { id: 3,  section: 'apps',  icon: '📝', title: 'Karton Készítő', url: 'https://drive.google.com/file/d/KARTON_ID/view',        isExternal: true },
+  { id: 4,  section: 'apps',  icon: '⛱️', title: 'Napellenző',     url: 'https://drive.google.com/file/d/NAPELLENZO_ID/view',   isExternal: true, isTest: true },
+  { id: 9,  section: 'apps',  icon: '📧', title: 'Thunderbird',    url: 'openapp-thunderbird://open',       isExternal: true },
+  { id: 6,  section: 'files', icon: '📁', title: '2026 Árlisták',  url: 'https://drive.google.com/drive/folders/ARLISTAK_ID',   isExternal: true },
+  { id: 7,  section: 'files', icon: '📂', title: '2026 Ajánlatok', url: 'https://drive.google.com/drive/folders/AJANLATOK_ID',  isExternal: true },
+  { id: 8,  section: 'other', icon: '📋', title: 'Trello',         url: 'https://trello.com/b/BOARD_ID',                        isExternal: true },
+];
+
+const SECTION_MAP = { apps: 'grid-apps', files: 'grid-files', other: 'grid-other' };
+
+/* ── KÁRTYÁK RENDERELÉSE ──────────────────────── */
+function renderGrids() {
+  const saved = getSavedLayout();
+  Object.entries(SECTION_MAP).forEach(([sec, gridId]) => {
+    const grid = document.getElementById(gridId);
+    grid.innerHTML = '';
+    const ids = saved[sec] || CARDS.filter(c => c.section === sec).map(c => c.id);
+    ids.forEach(id => {
+      const baseCard = CARDS.find(c => c.id == id);
+      if (!baseCard) return;
+      const overrides = getSavedCards();
+      const card = overrides[id] ? { ...baseCard, ...overrides[id] } : baseCard;
+      const el = document.createElement('div');
+      el.className = 'card';
+      el.dataset.id = card.id;
+      el.setAttribute('role', 'button');
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('aria-label', card.title);
+      el.innerHTML = `
+        ${card.isTest ? '<span class="badge-test">Teszt</span>' : ''}
+        <span class="card-icon">${card.icon}</span>
+        <span class="card-title">${card.title}</span>
+        <button class="card-edit-btn" title="Szerkesztés">✎</button>
+      `;
+      el.addEventListener('click', (e) => {
+        if (e.target.classList.contains('card-edit-btn')) { e.stopPropagation(); openEditModal(card); return; }
+        openCard(card);
+      });
+      el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openCard(card); });
+      grid.appendChild(el);
+    });
+  });
+}
+
+/* ── KÁRTYA SZERKESZTÉS ───────────────────────── */
+let editingCardId = null;
+
+function getSavedCards() {
+  try { return JSON.parse(localStorage.getItem('ma_cards')) || {}; } catch { return {}; }
+}
+
+function openEditModal(card) {
+  editingCardId = card.id;
+  const overrides = getSavedCards();
+  const data = overrides[card.id] || card;
+  document.getElementById('edit-title').value = data.title;
+  document.getElementById('edit-icon').value = data.icon;
+  document.getElementById('edit-url').value = data.url;
+  document.getElementById('edit-modal').style.display = 'flex';
+}
+
+function closeEditModal() {
+  document.getElementById('edit-modal').style.display = 'none';
+  editingCardId = null;
+}
+
+function saveCardEdit() {
+  if (!editingCardId) return;
+  const overrides = getSavedCards();
+  const card = CARDS.find(c => c.id == editingCardId);
+  overrides[editingCardId] = {
+    ...card,
+    title: document.getElementById('edit-title').value.trim() || card.title,
+    icon: document.getElementById('edit-icon').value.trim() || card.icon,
+    url: document.getElementById('edit-url').value.trim() || card.url,
+  };
+  localStorage.setItem('ma_cards', JSON.stringify(overrides));
+  closeEditModal();
+  renderGrids();
+  initSortable();
+}
+
+document.getElementById('edit-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('edit-modal')) closeEditModal();
+});
+
+/* ── KÁRTYÁK RENDERELÉSE (override-dal) ───────── */
+function openCard(card) {
+  if (card.isExternal) {
+    window.open(card.url, '_blank', 'noopener');
+  } else {
+    showModal(card.title, card.url);
+  }
+}
+
+function showModal(title, url) {
+  document.getElementById('modal-title-el').textContent = title;
+  document.getElementById('modal-url-el').textContent = url;
+  document.getElementById('modal-open-btn').onclick = () => { window.open(url, '_blank', 'noopener'); closeModal(); };
+  document.getElementById('link-modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('link-modal').classList.remove('open');
+}
+
+document.getElementById('link-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('link-modal')) closeModal();
+});
+
+/* ── LAYOUT MENTÉS ────────────────────────────── */
+function getSavedLayout() {
+  try {
+    return JSON.parse(localStorage.getItem('ma_layout')) || {};
+  } catch { return {}; }
+}
+
+function saveLayout() {
+  const layout = {};
+  Object.entries(SECTION_MAP).forEach(([sec, gridId]) => {
+    layout[sec] = Array.from(document.getElementById(gridId).children).map(el => +el.dataset.id);
+  });
+  localStorage.setItem('ma_layout', JSON.stringify(layout));
+}
+
+/* ── DRAG & DROP ──────────────────────────────── */
+function initSortable() {
+  Object.values(SECTION_MAP).forEach(gridId => {
+    new Sortable(document.getElementById(gridId), {
+      group: 'workspace',
+      animation: 150,
+      ghostClass: 'sortable-ghost',
+      dragClass: 'sortable-drag',
+      onEnd: saveLayout,
+    });
+  });
+}
+
+/* ── ÓRA ──────────────────────────────────────── */
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.toLocaleTimeString('hu-HU', { hour: '2-digit', minute: '2-digit' });
+
+  const d = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const week = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+  document.getElementById('week-num').textContent = week;
+}
+
+/* ── TRELLO ───────────────────────────────────── */
+function toggleTrelloConfig() {
+  const panel = document.getElementById('trello-config-panel');
+  const isOpen = panel.style.display === 'flex';
+  panel.style.display = isOpen ? 'none' : 'flex';
+  if (!isOpen) {
+    document.getElementById('trello-key').value = localStorage.getItem('t_key') || '';
+    document.getElementById('trello-token').value = localStorage.getItem('t_token') || '';
+    document.getElementById('trello-lists').value = localStorage.getItem('t_lists') || '';
+  }
+}
+
+function saveTrelloConfig() {
+  localStorage.setItem('t_key', document.getElementById('trello-key').value.trim());
+  localStorage.setItem('t_token', document.getElementById('trello-token').value.trim());
+  localStorage.setItem('t_lists', document.getElementById('trello-lists').value.trim());
+  document.getElementById('trello-config-panel').style.display = 'none';
+  initTrelloSelector();
+}
+
+async function initTrelloSelector() {
+  const key = localStorage.getItem('t_key');
+  const token = localStorage.getItem('t_token');
+  const listsStr = localStorage.getItem('t_lists') || '';
+  const selector = document.getElementById('trello-list-selector');
+  selector.innerHTML = '';
+  if (!key || !token || !listsStr) return;
+
+  for (const id of listsStr.split(',').map(s => s.trim()).filter(Boolean)) {
+    try {
+      const res = await fetch(`https://api.trello.com/1/lists/${id}?key=${key}&token=${token}`);
+      if (!res.ok) continue;
+      const data = await res.json();
+      const opt = document.createElement('option');
+      opt.value = id;
+      opt.textContent = data.name;
+      selector.appendChild(opt);
+    } catch {}
+  }
+  if (selector.options.length > 0) fetchTrelloTasks(selector.value);
+}
+
+async function fetchTrelloTasks(listId) {
+  const key = localStorage.getItem('t_key');
+  const token = localStorage.getItem('t_token');
+  const container = document.getElementById('trello-container');
+  if (!key || !token || !listId) return;
+
+  container.innerHTML = '<p class="trello-empty">Betöltés…</p>';
+  try {
+    const res = await fetch(`https://api.trello.com/1/lists/${listId}/cards?key=${key}&token=${token}`);
+    if (!res.ok) throw new Error();
+    const cards = await res.json();
+    if (cards.length === 0) {
+      container.innerHTML = '<p class="trello-empty">Nincs kártya ebben a listában.</p>';
+      return;
+    }
+    container.innerHTML = cards.map(c =>
+      `<a href="${c.shortUrl}" target="_blank" rel="noopener" class="trello-card">${c.name}</a>`
+    ).join('');
+  } catch {
+    container.innerHTML = '<p class="trello-empty">Hiba a betöltés során. Ellenőrizd a beállításokat.</p>';
+  }
+}
+
+function changeTrelloList() {
+  fetchTrelloTasks(document.getElementById('trello-list-selector').value);
+}
+
+/* ── INIT ─────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  renderGrids();
+  initSortable();
+  initTrelloSelector();
+  updateClock();
+  setInterval(updateClock, 30000);
+});
+</script>
+</body>
+</html>
