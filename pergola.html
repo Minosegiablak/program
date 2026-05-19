@@ -1,0 +1,989 @@
+
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pergola Kalkulátor — Minőségi Ablak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #121212;
+    --surface2: #1a1a1a;
+    --surface3: #222;
+    --border: #2a2a2a;
+    --gold: #d4af37;
+    --gold-dim: rgba(212,175,55,0.12);
+    --red: #e63946;
+    --text: #e0e0e0;
+    --muted: #666;
+    --warning: #ff9800;
+    --error: #ff4444;
+    --success: #4caf50;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --radius: 6px;
+    --radius-lg: 10px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ── TOP BAR ─────────────────────────────────── */
+  .topbar {
+    width: 100%;
+    max-width: 1060px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .back-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: var(--radius);
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .back-btn:hover { color: var(--text); border-color: #444; }
+
+  .topbar-title {
+    font-family: var(--font-display);
+    font-size: 24px;
+    letter-spacing: 2px;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .topbar-title span { color: var(--gold); }
+
+  /* ── CARD ────────────────────────────────────── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    width: 100%;
+    max-width: 1060px;
+  }
+
+  /* ── SYSTEM NAV ──────────────────────────────── */
+  .system-nav {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 24px;
+    background: #000;
+    padding: 5px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .system-btn {
+    flex: 1;
+    min-width: 110px;
+    padding: 9px 8px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    border-radius: var(--radius);
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 1px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .system-btn.active { background: var(--gold); color: #000; }
+  .system-btn:hover:not(.active) { background: var(--surface3); color: var(--text); }
+
+  /* ── TABS ────────────────────────────────────── */
+  .tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tab {
+    padding: 10px 22px;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 12px;
+    font-family: var(--font-display);
+    letter-spacing: 2px;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .tab:hover:not(.active) { color: var(--text); }
+
+  .content-section { display: none; }
+  .content-section.active { display: block; }
+
+  /* ── GRID ────────────────────────────────────── */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 30px;
+    align-items: start;
+  }
+
+  /* ── LABELS ──────────────────────────────────── */
+  .section-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: block;
+    margin: 18px 0 8px;
+  }
+
+  .section-label:first-child { margin-top: 0; }
+
+  /* ── INPUTS ──────────────────────────────────── */
+  .input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+  .input-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .input-sub {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .input-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 12px;
+    width: 100%;
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .input-box:focus { border-color: var(--gold); }
+
+  .raster-note {
+    font-size: 11px;
+    color: var(--warning);
+    min-height: 18px;
+    margin-bottom: 4px;
+  }
+
+  /* ── SWATCHES ────────────────────────────────── */
+  .swatch-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .swatch {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s, border-color 0.15s;
+    outline: none;
+  }
+
+  .swatch.active { border-color: var(--gold); transform: translateY(-2px); }
+  .swatch:hover { transform: translateY(-1px); }
+
+  .swatch-label {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: var(--font-mono);
+  }
+
+  /* ── ADDONS ──────────────────────────────────── */
+  .addon-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: var(--surface2);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin-bottom: 6px;
+    transition: border-color 0.15s;
+  }
+
+  .addon-item.checked { border-color: rgba(212,175,55,0.3); }
+
+  .addon-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+  }
+
+  .addon-left input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--gold);
+    cursor: pointer;
+  }
+
+  .addon-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .qty-input {
+    width: 50px !important;
+    padding: 5px 8px !important;
+    text-align: center;
+    border-color: rgba(212,175,55,0.4) !important;
+    font-size: 13px !important;
+  }
+
+  .addon-price {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--gold);
+    min-width: 60px;
+    text-align: right;
+  }
+
+  /* ── RESULT PANEL ────────────────────────────── */
+  .result-panel {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    position: sticky;
+    top: 20px;
+  }
+
+  .result-label {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .price-big {
+    font-family: var(--font-mono);
+    font-size: 2.6rem;
+    color: var(--gold);
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .error-box {
+    color: var(--error);
+    border: 1px dashed var(--error);
+    padding: 16px;
+    border-radius: var(--radius);
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .tech-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 16px;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 8px;
+    background: var(--surface3);
+    border-radius: 4px;
+    font-size: 10px;
+    color: var(--gold);
+    border: 1px solid #444;
+    font-family: var(--font-mono);
+    letter-spacing: 0.5px;
+  }
+
+  .summary-table {
+    width: 100%;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+    margin-top: 4px;
+  }
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 3px 0;
+    color: var(--muted);
+  }
+
+  .summary-row span:last-child { color: var(--text); font-family: var(--font-mono); }
+
+  /* ── PRICE BREAKDOWN ─────────────────────────── */
+  .breakdown {
+    margin-top: 14px;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+
+  .breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 4px 0;
+    color: var(--muted);
+  }
+
+  .breakdown-row.total {
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 500;
+    border-top: 1px solid var(--border);
+    margin-top: 6px;
+    padding-top: 8px;
+  }
+
+  .breakdown-row span:last-child { font-family: var(--font-mono); }
+
+  /* ── BUTTONS ─────────────────────────────────── */
+  .btn-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.15s, background 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn-primary { background: var(--gold); color: #000; }
+  .btn-primary:hover { opacity: 0.85; }
+
+  .btn-secondary { background: var(--surface3); color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:hover { border-color: #555; }
+
+  /* ── ADMIN ───────────────────────────────────── */
+  .admin-warning {
+    background: rgba(255,152,0,0.08);
+    border: 1px solid var(--warning);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .admin-warning-label {
+    color: var(--warning);
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .admin-warning small {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 3px;
+  }
+
+  .admin-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  /* ── PRINT AREA ──────────────────────────────── */
+  .print-client-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  /* ── TOAST ───────────────────────────────────── */
+  #toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--success);
+    color: white;
+    padding: 10px 18px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-family: var(--font-body);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  #toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ──────────────────────────────── */
+  @media (max-width: 800px) {
+    .main-grid { grid-template-columns: 1fr; }
+    .result-panel { position: static; }
+    .print-client-fields { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 500px) {
+    body { padding: 10px; }
+    .card { padding: 16px; }
+    .input-row { grid-template-columns: 1fr; }
+  }
+
+  /* ── PRINT ───────────────────────────────────── */
+  @media print {
+    body { background: white; color: black; padding: 0; }
+    .topbar, .system-nav, .tabs, .controls, #toast { display: none !important; }
+    .card { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+    .main-grid { grid-template-columns: 1fr; }
+    .result-panel { position: static; background: white; border: 1px solid #ccc; color: black; }
+    .price-big { color: #b8860b; }
+    .badge { background: #f5f5f5; color: #555; border-color: #ccc; }
+    .summary-row, .breakdown-row { color: #444; }
+    .summary-row span:last-child, .breakdown-row span:last-child { color: black; }
+    .btn-row { display: none; }
+    .print-header { display: block !important; }
+    .print-client-section { display: block !important; }
+  }
+
+  .print-header { display: none; padding-bottom: 20px; border-bottom: 2px solid #ccc; margin-bottom: 20px; }
+  .print-client-section { display: none; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a href="index.html" class="back-btn">← Vissza</a>
+  <div class="topbar-title">PERGOLA <span>KALKULÁTOR</span></div>
+  <div style="font-size:11px; color:var(--muted); font-family:var(--font-mono);" id="topbar-date"></div>
+</div>
+
+<!-- PRINT HEADER (csak nyomtatáskor látható) -->
+<div class="print-header" id="print-header">
+  <div style="font-size:28px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px;">PERGOLA ÁRAJÁNLAT</div>
+  <div style="font-size:12px; color:#666; margin-top:4px;" id="print-date-line"></div>
+</div>
+
+<!-- MAIN CARD -->
+<div class="card">
+
+  <!-- PRINT CLIENT SECTION -->
+  <div class="print-client-section" id="print-client-section">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; padding:16px; border:1px solid #ccc; border-radius:6px;">
+      <div><div style="font-size:10px;color:#888;margin-bottom:3px;">ÜGYFÉL NEVE</div><div id="pc-name" style="font-size:14px;"></div></div>
+      <div><div style="font-size:10px;color:#888;margin-bottom:3px;">TELEFONSZÁM</div><div id="pc-phone" style="font-size:14px;"></div></div>
+      <div><div style="font-size:10px;color:#888;margin-bottom:3px;">E-MAIL</div><div id="pc-email" style="font-size:14px;"></div></div>
+      <div><div style="font-size:10px;color:#888;margin-bottom:3px;">MEGJEGYZÉS</div><div id="pc-note" style="font-size:14px;"></div></div>
+    </div>
+  </div>
+
+  <div class="system-nav" id="system-nav"></div>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="calc">Konfigurátor</div>
+    <div class="tab" data-tab="client">Ügyfél adatok</div>
+    <div class="tab" data-tab="admin">Admin</div>
+  </div>
+
+  <!-- KONFIGURÁTOR -->
+  <div id="calc-section" class="content-section active">
+    <div class="main-grid">
+      <div class="controls">
+
+        <span class="section-label">Méretek (mm)</span>
+        <div class="input-row">
+          <div class="input-wrap">
+            <span class="input-sub">SZÉLESSÉG</span>
+            <input type="number" id="width" class="input-box" value="3000" min="2000" oninput="calculate()">
+          </div>
+          <div class="input-wrap">
+            <span class="input-sub">KINYÚLÁS</span>
+            <input type="number" id="length" class="input-box" value="3000" min="2000" oninput="calculate()">
+          </div>
+        </div>
+        <div class="raster-note" id="raster-warning"></div>
+
+        <span class="section-label">Szerkezet színe</span>
+        <div class="swatch-row">
+          <div class="swatch active" style="background:#fdfdfd" data-ral="9016" data-name="Fehér" role="button" tabindex="0" title="RAL 9016 – Fehér" onclick="setSwatch(this,'frame')"></div>
+          <div class="swatch" style="background:#373f41" data-ral="7016" data-name="Antracit" role="button" tabindex="0" title="RAL 7016 – Antracit" onclick="setSwatch(this,'frame')"></div>
+          <div class="swatch" style="background:#d2b48c" data-ral="1019" data-name="Homok" role="button" tabindex="0" title="RAL 1019 – Homok" onclick="setSwatch(this,'frame')"></div>
+          <span class="swatch-label" id="frame-label">RAL 9016 – Fehér</span>
+        </div>
+
+        <span class="section-label">Lamella színe</span>
+        <div class="swatch-row">
+          <div class="swatch active" style="background:#fdfdfd" data-ral="9016" data-name="Fehér" role="button" tabindex="0" title="RAL 9016 – Fehér" onclick="setSwatch(this,'blade')"></div>
+          <div class="swatch" style="background:#373f41" data-ral="7016" data-name="Antracit" role="button" tabindex="0" title="RAL 7016 – Antracit" onclick="setSwatch(this,'blade')"></div>
+          <div class="swatch" style="background:#e9e0d2" data-ral="1013" data-name="Gyöngyház" role="button" tabindex="0" title="RAL 1013 – Gyöngyház" onclick="setSwatch(this,'blade')"></div>
+          <span class="swatch-label" id="blade-label">RAL 9016 – Fehér</span>
+        </div>
+
+        <span class="section-label">Kiegészítők</span>
+        <div id="addons-container"></div>
+
+      </div>
+
+      <!-- RESULT -->
+      <div>
+        <div class="result-panel">
+          <span class="result-label">Kalkulált nettó ár</span>
+          <div id="price-display">
+            <div class="price-big" id="total-price">0 €</div>
+          </div>
+          <div class="tech-badges" id="tech-specs"></div>
+          <div class="summary-table" id="summary-info"></div>
+          <div class="breakdown" id="price-breakdown"></div>
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="printOffer()">🖨 Ajánlat nyomtatása</button>
+            <button class="btn btn-secondary" onclick="saveState()">💾 Mentés</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÜGYFÉL ADATOK -->
+  <div id="client-section" class="content-section">
+    <div style="max-width:500px;">
+      <span class="section-label">Ügyfél neve</span>
+      <input type="text" id="client-name" class="input-box" placeholder="Pl. Kiss János" style="margin-bottom:12px;">
+
+      <span class="section-label">Telefonszám</span>
+      <input type="text" id="client-phone" class="input-box" placeholder="+36 30 123 4567" style="margin-bottom:12px;">
+
+      <span class="section-label">E-mail cím</span>
+      <input type="email" id="client-email" class="input-box" placeholder="pelda@email.hu" style="margin-bottom:12px;">
+
+      <span class="section-label">Megjegyzés</span>
+      <textarea id="client-note" class="input-box" rows="4" placeholder="Egyéb megjegyzések az ajánlathoz..." style="resize:vertical; font-family:var(--font-body);"></textarea>
+
+      <div style="margin-top:16px; display:flex; gap:8px;">
+        <button class="btn btn-primary" style="flex:none; padding:10px 20px;" onclick="saveState()">💾 Adatok mentése</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN -->
+  <div id="admin-section" class="content-section">
+    <div class="admin-warning">
+      <div>
+        <div class="admin-warning-label">Globális szorzó</div>
+        <small>Az összes árat befolyásolja. 1.0 = eredeti ár</small>
+      </div>
+      <input type="number" id="global-multiplier" class="input-box" value="1.0" step="0.05" min="0.1" oninput="calculate()" style="width:90px; border-color:var(--warning);">
+    </div>
+    <div id="admin-prices-list"></div>
+    <div style="margin-top:16px; display:flex; gap:8px;">
+      <button class="btn btn-primary" style="flex:none; padding:10px 20px;" onclick="saveState()">💾 Beállítások mentése</button>
+      <button class="btn btn-secondary" style="flex:none; padding:10px 20px;" onclick="resetAdmin()">↺ Alaphelyzet</button>
+    </div>
+  </div>
+
+</div>
+
+<div id="toast">✓ Mentve</div>
+
+<script>
+/* ══════════════════════════════════════════
+   ÁRMATRICÁK
+══════════════════════════════════════════ */
+const m130 = [[2585,2732,2878,3024,3169,3227,3727],[2696,2853,3008,3165,3320,3376,3888],[2809,2975,3141,3307,3471,3538,4049],[2921,3096,3272,3448,3623,3694,4178],[3033,3218,3405,3589,3774,3849,4373],[3145,3340,3536,3731,3926,4004,4534],[3257,3462,3667,3873,4079,4160,4695],[3369,3584,3799,4014,4230,4315,4856],[3481,3705,3930,4156,4381,4471,5018],[3593,3828,4029,4297,4529,4626,5179],[3704,3949,4194,4439,4684,4782,5341],[3817,4071,4327,4581,4836,4937,5502],[3928,4193,4457,4722,4987,5092,5663],[4041,4315,4590,4864,5138,5248,5825],[4152,4436,4721,5005,5290,5403,5986],[4264,4558,4853,5147,5442,5559,6147]];
+const m131 = [[2205,2353,2502,2650,2797,2856,3363],[2318,2477,2567,2793,2951,3014,3527],[2432,2600,2768,2937,3104,3171,3690],[2546,2724,2901,3079,3258,3329,3854],[2659,2847,3036,3223,3411,3487,4018],[2773,2971,3169,3367,3565,3645,4181],[2887,3091,3303,3510,3719,3802,4345],[3000,3218,3436,3654,3873,3960,4508],[3113,3341,3569,3798,4026,4118,4672],[3226,3465,3703,3945,4180,4275,4815],[3340,3589,3837,4085,4334,4432,4999],[3454,3712,3971,4229,4487,4590,5167],[3567,3836,4104,4372,4641,4747,5326],[3681,3959,4237,4516,4794,4905,5490],[3794,4082,4371,4659,4948,5063,5653],[3907,4206,4505,4803,5101,5221,5817]];
+const m160 = [[3482,3679,3876,4073,4268,4347,5020,5750],[3632,3843,4053,4263,4473,4547,5238,5978],[3784,4007,4231,4454,4676,4766,5454,6205],[3935,4171,4408,4644,4881,4976,5628,6434],[4086,4335,4586,4835,5084,5185,5890,6662],[4236,4499,4763,5026,5289,5394,6107,6888],[4387,4664,4940,5217,5494,5603,6325,7116],[4538,4828,5118,5407,5697,5812,6542,7342],[4689,4991,5294,5599,5901,6023,6759,7570],[4839,5156,5427,5788,6101,6232,6977,7799],[4990,5320,5650,5979,6310,6442,7194,8026],[5142,5484,5828,6170,6514,6650,7411,8254],[5291,5648,6004,6361,6717,6859,7628,8526],[5443,5812,6182,6552,6921,7069,7846,8710],[5594,5976,6360,6742,7126,7279,8063,8937],[5744,6140,6537,6934,7330,7488,8280,9164]];
+const m161 = [[2929,3126,3323,3520,3716,3794,4467,5192],[3079,3290,3409,3710,3920,4003,4685,5419],[3231,3454,3677,3901,4123,4213,4901,5645],[3382,3618,3854,4090,4328,4422,5119,5874],[3532,3782,4032,4282,4532,4631,5337,6103],[3683,3946,4210,4472,4736,4841,5554,6329],[3835,4106,4387,4663,4940,5050,5772,6557],[3985,4274,4565,4854,5144,5260,5989,6784],[4135,4438,4741,5045,5348,5470,6206,7011],[4286,4603,4919,5240,5552,5679,6396,7240],[4437,4767,5096,5426,5757,5887,6641,7468],[4588,4930,5275,5617,5961,6097,6863,7695],[4738,5095,5451,5807,6164,6306,7075,7922],[4890,5259,5629,5999,6368,6516,7293,8151],[5040,5422,5806,6189,6573,6725,7510,8378],[5190,5587,5984,6380,6776,6936,7727,8605]];
+const m200 = [[3704,3914,4124,4333,4541,4625,5341,6117],[3864,4088,4311,4535,4758,4837,5572,6360],[4026,4263,4501,4739,4975,5070,5802,6601],[4186,4437,4689,4940,5192,5294,5987,6844],[4346,4612,4879,5143,5409,5516,6266,7087],[4507,4787,5067,5346,5626,5738,6497,7328],[4668,4961,5256,5550,5845,5961,6728,7571],[4828,5136,5445,5752,6061,6183,6959,7811],[4988,5310,5632,5956,6278,6407,7190,8054],[5148,5485,5773,6157,6490,6629,7422,8297],[5308,5659,6010,6361,6713,6853,7653,8539],[5470,5834,6200,6564,6930,7074,7884,8781],[5629,6009,6387,6767,7146,7297,8115,9071],[5790,6183,6577,6970,7363,7520,8347,9266],[5951,6358,6766,7172,7581,7743,8578,9508],[6110,6532,6955,7376,7798,7966,8809,9748],[6272,6707,7142,7579,8014,8189,9664,10589],[6432,6881,7331,7781,8231,8411,9895,10831],[6592,7056,7520,7984,8449,8634,10126,11075],[6753,7231,7708,8188,8677,8856,10358,11317],[6912,7406,7898,8390,8882,9080,10589,11559]];
+const m201 = [[3116,3325,3535,3744,3953,4036,4752,5523],[3276,3500,3627,3947,4170,4259,4984,5765],[3437,3674,3912,4150,4387,4482,5214,6006],[3598,3849,4100,4351,4604,4704,5446,6249],[3758,4023,4290,4555,4821,4927,5678,6492],[3918,4198,4478,4758,5038,5150,5908,6733],[4079,4368,4667,4961,5256,5373,6140,6976],[4239,4547,4856,5164,5472,5595,6371,7217],[4399,4721,5044,5367,5689,5819,6602,7459],[4559,4897,5233,5575,5907,6041,6805,7703],[4720,5071,5422,5773,6124,6263,7065,7945],[4881,5245,5611,5976,6341,6486,7301,8186],[5040,5420,5799,6178,6558,6708,7526,8428],[5202,5595,5988,6382,6774,6932,7758,8671],[5362,5768,6177,6584,6992,7155,7989,8913],[5522,5944,6366,6788,7209,7378,8220,9154],[5682,6118,6554,6991,7425,7600,9075,9995],[5843,6292,6742,7193,7643,7823,9307,10236],[6004,6467,6932,7395,7860,8046,9538,10480],[6164,6642,7120,7599,8078,8268,9769,10722],[6324,6818,7310,7802,8293,8490,10000,10964]];
+
+const lengthsMap = [2000,2200,2400,2600,2800,3000,3200,3400,3600,3800,4000,4200,4400,4600,4800,5000,5200,5400,5600,5800,6000];
+
+const SYSTEMS = {
+  U130: { name:"130 Önhordó", maxW:4500, maxL:5000, wMap:[2000,2500,3000,3500,4000,4200,4500], matrix:m130 },
+  U131: { name:"131 Fali",    maxW:4500, maxL:5000, wMap:[2000,2500,3000,3500,4000,4200,4500], matrix:m131 },
+  U160: { name:"160 Önhordó", maxW:5000, maxL:5000, wMap:[2000,2500,3000,3500,4000,4200,4500,5000], matrix:m160 },
+  U161: { name:"161 Fali",    maxW:5000, maxL:5000, wMap:[2000,2500,3000,3500,4000,4200,4500,5000], matrix:m161 },
+  U200: { name:"200 Önhordó", maxW:5000, maxL:6000, wMap:[2000,2500,3000,3500,4000,4200,4500,5000], matrix:m200 },
+  U201: { name:"201 Fali",    maxW:5000, maxL:6000, wMap:[2000,2500,3000,3500,4000,4200,4500,5000], matrix:m201 },
+};
+
+const DEFAULT_ADDONS = {
+  remote:   { name:"Távirányító",   price:85,  active:false, qty:1, hasQty:false },
+  heat2400: { name:"Fűtés 2400W",   price:375, active:false, qty:1, hasQty:false },
+  heat1000: { name:"Fűtés 1000W",   price:260, active:false, qty:1, hasQty:false },
+  pvc:      { name:"PVC lefolyó cső",price:55, active:false, qty:1, hasQty:true },
+  tray:     { name:"Csapadék tálca", price:21, active:false, qty:1, hasQty:true },
+  spot:     { name:"SPOT LED",       price:100, active:false, qty:1, hasQty:false },
+};
+
+/* ══════════════════════════════════════════
+   STATE
+══════════════════════════════════════════ */
+let currentSystem = 'U130';
+let currentLegs = 4;
+let addons = JSON.parse(JSON.stringify(DEFAULT_ADDONS));
+
+/* ══════════════════════════════════════════
+   INIT
+══════════════════════════════════════════ */
+function init() {
+  loadState();
+  renderSystemNav();
+  renderAddons();
+  renderAdminPrices();
+  calculate();
+  updateDate();
+
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => showTab(tab.dataset.tab));
+  });
+}
+
+function updateDate() {
+  const now = new Date();
+  const str = now.toLocaleDateString('hu-HU', { year:'numeric', month:'long', day:'numeric' });
+  const el = document.getElementById('topbar-date');
+  if (el) el.textContent = str;
+  const pl = document.getElementById('print-date-line');
+  if (pl) pl.textContent = 'Kelt: ' + str;
+}
+
+/* ══════════════════════════════════════════
+   RENDSZER NAV
+══════════════════════════════════════════ */
+function renderSystemNav() {
+  const nav = document.getElementById('system-nav');
+  nav.innerHTML = '';
+  Object.entries(SYSTEMS).forEach(([key, sys]) => {
+    const b = document.createElement('button');
+    b.className = 'system-btn' + (key === currentSystem ? ' active' : '');
+    b.textContent = sys.name;
+    b.onclick = () => {
+      currentSystem = key;
+      document.querySelectorAll('.system-btn').forEach(btn => btn.classList.remove('active'));
+      b.classList.add('active');
+      calculate();
+    };
+    nav.appendChild(b);
+  });
+}
+
+/* ══════════════════════════════════════════
+   KIEGÉSZÍTŐK
+══════════════════════════════════════════ */
+function renderAddons() {
+  const cont = document.getElementById('addons-container');
+  cont.innerHTML = '';
+  Object.entries(addons).forEach(([key, a]) => {
+    const qtyHtml = a.hasQty
+      ? `<input type="number" id="qty-${key}" class="input-box qty-input" value="${a.qty}" min="1" oninput="calculate()">`
+      : '';
+    const div = document.createElement('div');
+    div.className = 'addon-item' + (a.active ? ' checked' : '');
+    div.id = `addon-item-${key}`;
+    div.innerHTML = `
+      <label class="addon-left" style="cursor:pointer;">
+        <input type="checkbox" id="chk-${key}" ${a.active ? 'checked' : ''} onchange="toggleAddon('${key}')">
+        ${a.name}
+      </label>
+      <div class="addon-right">
+        ${qtyHtml}
+        <span class="addon-price" id="p-price-${key}">0 €</span>
+      </div>
+    `;
+    cont.appendChild(div);
+  });
+}
+
+function toggleAddon(key) {
+  addons[key].active = document.getElementById(`chk-${key}`).checked;
+  document.getElementById(`addon-item-${key}`).classList.toggle('checked', addons[key].active);
+  calculate();
+}
+
+/* ══════════════════════════════════════════
+   ADMIN ÁRAK
+══════════════════════════════════════════ */
+function renderAdminPrices() {
+  const adm = document.getElementById('admin-prices-list');
+  adm.innerHTML = '<span class="section-label">Kiegészítők alapárai (€)</span>';
+  Object.entries(addons).forEach(([key, a]) => {
+    const row = document.createElement('div');
+    row.className = 'admin-row';
+    row.innerHTML = `
+      <span>${a.name}</span>
+      <input type="number" class="input-box" value="${a.price}" style="width:80px;"
+        oninput="addons['${key}'].price=parseFloat(this.value)||0; calculate()">
+    `;
+    adm.appendChild(row);
+  });
+}
+
+function resetAdmin() {
+  addons = JSON.parse(JSON.stringify(DEFAULT_ADDONS));
+  document.getElementById('global-multiplier').value = '1.0';
+  renderAddons();
+  renderAdminPrices();
+  calculate();
+  showToast('Alaphelyzet visszaállítva');
+}
+
+/* ══════════════════════════════════════════
+   KALKULÁCIÓ
+══════════════════════════════════════════ */
+function calculate() {
+  const wVal = parseInt(document.getElementById('width').value) || 0;
+  const lVal = parseInt(document.getElementById('length').value) || 0;
+  const multiplier = parseFloat(document.getElementById('global-multiplier').value) || 1;
+  const sys = SYSTEMS[currentSystem];
+  const resultDiv = document.getElementById('price-display');
+
+  if (!wVal || !lVal || wVal < 2000 || wVal > sys.maxW || lVal < 2000 || lVal > sys.maxL) {
+    resultDiv.innerHTML = `<div class="error-box">⚠ MÉRET TARTOMÁNYON KÍVÜL<br><small>Szélesség: 2000–${sys.maxW} mm<br>Kinyúlás: 2000–${sys.maxL} mm</small></div>`;
+    document.getElementById('tech-specs').innerHTML = '';
+    document.getElementById('summary-info').innerHTML = '';
+    document.getElementById('price-breakdown').innerHTML = '';
+    return;
+  }
+
+  const lRaster = Math.ceil(lVal / 200) * 200;
+  const rasterEl = document.getElementById('raster-warning');
+  rasterEl.textContent = (lVal % 200 !== 0) ? `⚠ Raszter kerekítés: ${lVal} → ${lRaster} mm` : '';
+
+  const isWall = currentSystem.includes('131') || currentSystem.includes('161') || currentSystem.includes('201');
+  currentLegs = isWall ? 2 : 4;
+  let motors = 1;
+  if (wVal >= 4500 || lRaster >= 5000) { motors = 2; currentLegs = isWall ? 3 : 6; }
+
+  const wIdx = sys.wMap.findIndex(w => w >= wVal);
+  const lIdx = lengthsMap.findIndex(l => l >= lRaster);
+  if (sys.wMap[wIdx] === 4500) motors = 2;
+
+  const basePrice = sys.matrix[lIdx][wIdx] * multiplier;
+
+  let addonSum = 0;
+  let addonBreakdown = '';
+  Object.entries(addons).forEach(([key, a]) => {
+    const unitPrice = a.price * multiplier;
+    if (a.hasQty) {
+      const qEl = document.getElementById(`qty-${key}`);
+      if (qEl) {
+        let qVal = Math.min(parseInt(qEl.value) || 0, currentLegs);
+        qEl.value = qVal;
+        a.qty = qVal;
+      }
+    }
+    const totalPrice = unitPrice * a.qty;
+    const priceEl = document.getElementById(`p-price-${key}`);
+    if (priceEl) priceEl.textContent = Math.round(totalPrice).toLocaleString('hu-HU') + ' €';
+    if (a.active) {
+      addonSum += totalPrice;
+      addonBreakdown += `<div class="breakdown-row"><span>${a.name}${a.hasQty && a.qty > 1 ? ' ×'+a.qty : ''}</span><span>+${Math.round(totalPrice).toLocaleString('hu-HU')} €</span></div>`;
+    }
+  });
+
+  const finalTotal = Math.round(basePrice + addonSum);
+  resultDiv.innerHTML = `<div class="price-big">${finalTotal.toLocaleString('hu-HU')} €</div>`;
+
+  document.getElementById('tech-specs').innerHTML = `
+    <span class="badge">${currentLegs} LÁB</span>
+    <span class="badge">${motors} MOTOR</span>
+    <span class="badge">RASZTER: ${lRaster} mm</span>
+  `;
+
+  const frameLbl = document.getElementById('frame-label').textContent;
+  const bladeLbl = document.getElementById('blade-label').textContent;
+
+  document.getElementById('summary-info').innerHTML = `
+    <div class="summary-row"><span>Típus</span><span>${sys.name}</span></div>
+    <div class="summary-row"><span>Szélesség</span><span>${wVal} mm</span></div>
+    <div class="summary-row"><span>Kinyúlás</span><span>${lRaster} mm</span></div>
+    <div class="summary-row"><span>Váz szín</span><span>${frameLbl}</span></div>
+    <div class="summary-row"><span>Lamella szín</span><span>${bladeLbl}</span></div>
+  `;
+
+  const breakdownEl = document.getElementById('price-breakdown');
+  if (addonBreakdown) {
+    breakdownEl.innerHTML = `
+      <div class="breakdown-row"><span>Alap ár</span><span>${Math.round(basePrice).toLocaleString('hu-HU')} €</span></div>
+      ${addonBreakdown}
+      <div class="breakdown-row total"><span>Összesen</span><span>${finalTotal.toLocaleString('hu-HU')} €</span></div>
+    `;
+  } else {
+    breakdownEl.innerHTML = '';
+  }
+}
+
+/* ══════════════════════════════════════════
+   TABS
+══════════════════════════════════════════ */
+function showTab(t) {
+  document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+  document.getElementById(t + '-section').classList.add('active');
+  document.querySelector(`.tab[data-tab="${t}"]`).classList.add('active');
+}
+
+/* ══════════════════════════════════════════
+   SWATCHES
+══════════════════════════════════════════ */
+function setSwatch(el, type) {
+  el.parentElement.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(type + '-label').textContent = 'RAL ' + el.dataset.ral + ' – ' + el.dataset.name;
+  calculate();
+}
+
+/* ══════════════════════════════════════════
+   MENTÉS / BETÖLTÉS
+══════════════════════════════════════════ */
+function saveState() {
+  const state = {
+    system: currentSystem,
+    width: document.getElementById('width').value,
+    length: document.getElementById('length').value,
+    multiplier: document.getElementById('global-multiplier').value,
+    addons: addons,
+    client: {
+      name: document.getElementById('client-name').value,
+      phone: document.getElementById('client-phone').value,
+      email: document.getElementById('client-email').value,
+      note: document.getElementById('client-note').value,
+    },
+    frameRal: document.getElementById('frame-label').textContent,
+    bladeRal: document.getElementById('blade-label').textContent,
+  };
+  localStorage.setItem('pergola_state', JSON.stringify(state));
+  showToast('Mentve!');
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem('pergola_state');
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    if (s.system && SYSTEMS[s.system]) currentSystem = s.system;
+    if (s.addons) addons = { ...JSON.parse(JSON.stringify(DEFAULT_ADDONS)), ...s.addons };
+    setTimeout(() => {
+      if (s.width) document.getElementById('width').value = s.width;
+      if (s.length) document.getElementById('length').value = s.length;
+      if (s.multiplier) document.getElementById('global-multiplier').value = s.multiplier;
+      if (s.client) {
+        document.getElementById('client-name').value = s.client.name || '';
+        document.getElementById('client-phone').value = s.client.phone || '';
+        document.getElementById('client-email').value = s.client.email || '';
+        document.getElementById('client-note').value = s.client.note || '';
+      }
+      if (s.frameRal) document.getElementById('frame-label').textContent = s.frameRal;
+      if (s.bladeRal) document.getElementById('blade-label').textContent = s.bladeRal;
+      renderSystemNav();
+      renderAddons();
+      renderAdminPrices();
+      calculate();
+    }, 50);
+  } catch {}
+}
+
+/* ══════════════════════════════════════════
+   NYOMTATÁS
+══════════════════════════════════════════ */
+function printOffer() {
+  const name = document.getElementById('client-name').value;
+  const phone = document.getElementById('client-phone').value;
+  const email = document.getElementById('client-email').value;
+  const note = document.getElementById('client-note').value;
+
+  document.getElementById('pc-name').textContent = name || '—';
+  document.getElementById('pc-phone').textContent = phone || '—';
+  document.getElementById('pc-email').textContent = email || '—';
+  document.getElementById('pc-note').textContent = note || '—';
+
+  const clientSection = document.getElementById('print-client-section');
+  const printHeader = document.getElementById('print-header');
+  clientSection.style.display = (name || phone || email) ? 'block' : 'none';
+  printHeader.style.display = 'block';
+
+  window.print();
+
+  clientSection.style.display = 'none';
+  printHeader.style.display = 'none';
+}
+
+/* ══════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════ */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = '✓ ' + msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+/* ══════════════════════════════════════════
+   START
+══════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
