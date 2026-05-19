@@ -1,0 +1,999 @@
+
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Üvegfal Kalkulátor — Minőségi Ablak</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #121212;
+    --surface2: #1a1a1a;
+    --surface3: #222;
+    --border: #2a2a2a;
+    --red: #e63946;
+    --text: #e0e0e0;
+    --muted: #666;
+    --warning: #f1c40f;
+    --error: #ff4444;
+    --success: #4caf50;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --radius: 6px;
+    --radius-lg: 10px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ── TOP BAR ─────────────────────────────────── */
+  .topbar {
+    width: 100%;
+    max-width: 1140px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .back-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: var(--radius);
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .back-btn:hover { color: var(--text); border-color: #444; }
+
+  .topbar-title {
+    font-family: var(--font-display);
+    font-size: 24px;
+    letter-spacing: 2px;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .topbar-title span { color: var(--red); }
+
+  .topbar-date {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: var(--font-mono);
+  }
+
+  /* ── CARD ────────────────────────────────────── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    width: 100%;
+    max-width: 1140px;
+  }
+
+  /* ── TABS ────────────────────────────────────── */
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+
+  .tab {
+    padding: 10px 22px;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 12px;
+    font-family: var(--font-display);
+    letter-spacing: 2px;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .tab.active { color: var(--red); border-bottom-color: var(--red); }
+  .tab:hover:not(.active) { color: var(--text); }
+
+  .content-section { display: none; }
+  .content-section.active { display: block; }
+
+  /* ── MAIN LAYOUT ─────────────────────────────── */
+  .main-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  /* ── SECTION LABEL ───────────────────────────── */
+  .section-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: block;
+    margin: 18px 0 8px;
+  }
+
+  .section-label:first-child { margin-top: 0; }
+
+  /* ── INPUTS ──────────────────────────────────── */
+  .input-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 12px;
+    width: 100%;
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.15s;
+    margin-bottom: 10px;
+  }
+
+  .input-box:focus { border-color: var(--red); }
+
+  select.input-box { cursor: pointer; }
+
+  /* ── OPT BUTTONS ─────────────────────────────── */
+  .opt-row { display: flex; gap: 6px; margin-bottom: 10px; }
+
+  .opt-btn {
+    flex: 1;
+    text-align: center;
+    padding: 9px 8px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    font-size: 12px;
+    font-family: var(--font-display);
+    letter-spacing: 1px;
+    border-radius: var(--radius);
+    background: var(--surface2);
+    color: var(--muted);
+    transition: all 0.15s;
+  }
+
+  .opt-btn.active { border-color: var(--red); color: var(--text); background: rgba(230,57,70,0.12); }
+  .opt-btn.disabled { opacity: 0.25; cursor: not-allowed; text-decoration: line-through; }
+  .opt-btn:hover:not(.active):not(.disabled) { border-color: #444; color: var(--text); }
+
+  /* ── CHECKBOX / RADIO ────────────────────────── */
+  .check-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+
+  .check-row input { accent-color: var(--red); cursor: pointer; width: 15px; height: 15px; }
+
+  .radio-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+
+  .radio-row label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .radio-row input { accent-color: var(--red); cursor: pointer; }
+
+  /* ── INPUTS GRID ─────────────────────────────── */
+  .inputs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+    background: rgba(255,255,255,0.02);
+    padding: 16px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+
+  .input-group label {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+  }
+
+  /* ── MESSAGES ────────────────────────────────── */
+  .msg {
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    margin-bottom: 14px;
+    display: none;
+    line-height: 1.5;
+  }
+
+  .msg-error { color: var(--error); background: rgba(255,68,68,0.08); border: 1px solid rgba(255,68,68,0.3); }
+  .msg-info  { color: var(--warning); background: rgba(241,196,15,0.08); border: 1px solid rgba(241,196,15,0.3); }
+
+  /* ── VISUALIZER ──────────────────────────────── */
+  .visualizer-wrap {
+    background: #050505;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    text-align: center;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .view-toggle {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .btn-toggle {
+    padding: 6px 20px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 1px;
+    border-radius: var(--radius);
+    transition: all 0.15s;
+  }
+
+  .btn-toggle.active { background: var(--red); color: white; border-color: var(--red); }
+
+  #svgCanvas { max-width: 100%; height: auto; }
+
+  /* ── RESULT PANEL ────────────────────────────── */
+  .result-panel {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+  }
+
+  .result-summary {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .price-display {
+    font-family: var(--font-mono);
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--red);
+    margin: 8px 0 16px;
+    line-height: 1.1;
+  }
+
+  /* ── BUTTONS ─────────────────────────────────── */
+  .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .btn {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn-primary { background: var(--red); color: white; }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-secondary { background: var(--surface3); color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:hover { border-color: #555; }
+
+  /* ── ADMIN ───────────────────────────────────── */
+  .admin-warning {
+    background: rgba(241,196,15,0.06);
+    border: 1px solid var(--warning);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .admin-warning-label {
+    color: var(--warning);
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .admin-warning small {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 3px;
+  }
+
+  .admin-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  /* ── CLIENT TAB ──────────────────────────────── */
+  .client-grid { max-width: 500px; }
+
+  /* ── TOAST ───────────────────────────────────── */
+  #toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--success);
+    color: white;
+    padding: 10px 18px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  #toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ──────────────────────────────── */
+  @media (max-width: 820px) {
+    .main-layout { grid-template-columns: 1fr; }
+    .inputs-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 500px) {
+    body { padding: 10px; }
+    .card { padding: 16px; }
+    .inputs-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── PRINT ───────────────────────────────────── */
+  @media print {
+    body { background: white; color: black; padding: 0; }
+    .topbar, .tabs, .settings-panel, .view-toggle, .btn-row, #toast { display: none !important; }
+    .card { border: none; padding: 0; max-width: 100%; }
+    .main-layout { grid-template-columns: 1fr; }
+    .visualizer-wrap { background: white; border-color: #ccc; }
+    .result-panel { background: white; border-color: #ccc; }
+    .price-display { color: #c0392b; }
+    .print-header { display: block !important; }
+    .print-client-section { display: block !important; }
+    .inputs-grid { background: #f9f9f9; border-color: #ddd; }
+  }
+
+  .print-header { display: none; padding-bottom: 16px; border-bottom: 2px solid #ccc; margin-bottom: 20px; }
+  .print-client-section { display: none; margin-bottom: 20px; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a href="index.html" class="back-btn">← Vissza</a>
+  <div class="topbar-title">ÜVEGFAL <span>KALKULÁTOR</span></div>
+  <div class="topbar-date" id="topbar-date"></div>
+</div>
+
+<!-- PRINT HEADER -->
+<div class="print-header" id="print-header">
+  <div style="font-size:28px; font-family:'Bebas Neue',sans-serif; letter-spacing:2px;">ÜVEGFAL ÁRAJÁNLAT</div>
+  <div style="font-size:12px; color:#666; margin-top:4px;" id="print-date-line"></div>
+</div>
+
+<!-- MAIN CARD -->
+<div class="card" id="printable-area">
+
+  <!-- PRINT CLIENT -->
+  <div class="print-client-section" id="print-client-section">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; padding:16px; border:1px solid #ccc; border-radius:6px;">
+      <div><div style="font-size:10px;color:#888;margin-bottom:3px;">ÜGYFÉL NEVE</div><div id="pc-name"></div></div>
+      <div><div style="font-size:10px;color:#888;margin-bottom:3px;">TELEFONSZÁM</div><div id="pc-phone"></div></div>
+      <div><div style="font-size:10px;color:#888;margin-bottom:3px;">E-MAIL</div><div id="pc-email"></div></div>
+      <div><div style="font-size:10px;color:#888;margin-bottom:3px;">MEGJEGYZÉS</div><div id="pc-note"></div></div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active" data-tab="calc">Konfigurátor</div>
+    <div class="tab" data-tab="client">Ügyfél adatok</div>
+    <div class="tab" data-tab="admin">Admin</div>
+  </div>
+
+  <!-- KONFIGURÁTOR -->
+  <div id="calc-section" class="content-section active">
+    <div id="errorBox" class="msg msg-error"></div>
+    <div id="infoBox" class="msg msg-info"></div>
+
+    <!-- INPUTS GRID -->
+    <div class="inputs-grid">
+      <div class="input-group">
+        <label>Szélesség (mm)</label>
+        <input type="number" id="width" class="input-box" value="3000" min="500" oninput="calculate()">
+      </div>
+      <div class="input-group">
+        <label>Magasság (mm)</label>
+        <input type="number" id="height" class="input-box" value="2400" min="500" oninput="calculate()">
+      </div>
+      <div class="input-group">
+        <label>Üvegvastagság</label>
+        <div class="opt-row">
+          <div id="opt8" class="opt-btn active" onclick="setGlass(8)">8 mm</div>
+          <div id="opt10" class="opt-btn" onclick="setGlass(10)">10 mm</div>
+        </div>
+      </div>
+      <div class="input-group">
+        <label>Pályaszám</label>
+        <div class="opt-row">
+          <div id="optTrack3" class="opt-btn active" onclick="setTrack(3)">3 Pályás</div>
+          <div id="optTrack5" class="opt-btn" onclick="setTrack(5)">5 Pályás</div>
+        </div>
+      </div>
+      <div class="input-group">
+        <label>Profil szín</label>
+        <select id="colorSelect" class="input-box" onchange="calculate()">
+          <option value="#bdc3c7">Natúr Alumínium</option>
+          <option value="#FFFFFF">Fehér</option>
+          <option value="#44312E">Barna</option>
+          <option value="#373F47">Antracit</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Fogantyú</label>
+        <div class="radio-row">
+          <label><input type="radio" name="handleType" value="rud" checked onchange="calculate()"> Rúd</label>
+          <label><input type="radio" name="handleType" value="kagylo" onchange="calculate()"> Kagyló</label>
+        </div>
+        <label class="check-row">
+          <input type="checkbox" id="biDirectional" onchange="calculate()">
+          Kétirányú nyitás
+        </label>
+        <label class="check-row">
+          <input type="checkbox" id="bothSides" onchange="calculate()">
+          Széleken is
+        </label>
+      </div>
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <div class="main-layout">
+
+      <!-- LEFT: VISUALIZER + RESULT -->
+      <div style="grid-column: 1 / -1;">
+
+        <!-- VISUALIZER -->
+        <div class="visualizer-wrap">
+          <div class="view-toggle" id="toggleArea">
+            <button id="btnClosed" class="btn-toggle active" onclick="setView(false)">ZÁRT</button>
+            <button id="btnOpen" class="btn-toggle" onclick="setView(true)">NYITOTT</button>
+          </div>
+          <svg id="svgCanvas" width="600" height="300" viewBox="0 0 600 300">
+            <defs>
+              <linearGradient id="glassShine" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="45%" style="stop-color:white;stop-opacity:0"/>
+                <stop offset="50%" style="stop-color:white;stop-opacity:0.15"/>
+                <stop offset="55%" style="stop-color:white;stop-opacity:0"/>
+              </linearGradient>
+            </defs>
+            <text x="300" y="155" fill="rgba(255,255,255,0.03)" font-size="32" font-weight="bold"
+              text-anchor="middle" transform="rotate(-15,300,155)" pointer-events="none">MINOSEGIABLAK.HU</text>
+          </svg>
+        </div>
+
+        <!-- RESULT -->
+        <div class="result-panel">
+          <div class="result-summary" id="summary"></div>
+          <div class="price-display" id="totalPrice">0,- Ft + áfa</div>
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="generatePDF()">🖨 PDF mentése</button>
+            <button class="btn btn-secondary" onclick="printOffer()">🖨 Nyomtatás</button>
+            <button class="btn btn-secondary" onclick="saveState()">💾 Mentés</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ÜGYFÉL ADATOK -->
+  <div id="client-section" class="content-section">
+    <div class="client-grid">
+      <span class="section-label">Ügyfél neve</span>
+      <input type="text" id="client-name" class="input-box" placeholder="Pl. Kiss János">
+      <span class="section-label">Telefonszám</span>
+      <input type="text" id="client-phone" class="input-box" placeholder="+36 30 123 4567">
+      <span class="section-label">E-mail cím</span>
+      <input type="email" id="client-email" class="input-box" placeholder="pelda@email.hu">
+      <span class="section-label">Megjegyzés</span>
+      <textarea id="client-note" class="input-box" rows="4" placeholder="Egyéb megjegyzések..." style="resize:vertical; font-family:var(--font-body);"></textarea>
+      <div style="margin-top:12px;">
+        <button class="btn btn-primary" style="flex:none; padding:10px 20px; display:inline-flex;" onclick="saveState()">💾 Adatok mentése</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN -->
+  <div id="admin-section" class="content-section">
+    <div class="admin-warning">
+      <div>
+        <div class="admin-warning-label">Haszonkulcs</div>
+        <small>Az eladási árat befolyásolja</small>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <input type="number" id="marginPercent" class="input-box" value="20" step="1" min="0" oninput="calculate()" style="width:70px; margin:0; border-color:var(--warning);">
+        <span style="color:var(--warning); font-family:var(--font-display); font-size:16px;">%</span>
+      </div>
+    </div>
+    <div id="admin-prices-list"></div>
+    <div style="margin-top:16px; display:flex; gap:8px;">
+      <button class="btn btn-primary" style="flex:none; padding:10px 20px;" onclick="saveState()">💾 Beállítások mentése</button>
+      <button class="btn btn-secondary" style="flex:none; padding:10px 20px;" onclick="resetAdmin()">↺ Alaphelyzet</button>
+    </div>
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+const svgNS = "http://www.w3.org/2000/svg";
+
+/* ══════════════════════════════════════
+   ALAPÁRAK
+══════════════════════════════════════ */
+const DEFAULT_PRICES = {
+  p8:    22990,
+  p10:   29990,
+  p3tr:  225000,
+  p5tr:  285000,
+  pKagylo: 5500,
+  pRud:  12500,
+};
+
+let prices = { ...DEFAULT_PRICES };
+let selectedGlass = 8;
+let selectedTrack = 3;
+let isOpen = false;
+
+/* ══════════════════════════════════════
+   INIT
+══════════════════════════════════════ */
+function init() {
+  loadState();
+  renderAdminPrices();
+  updateDate();
+  calculate();
+
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => showTab(tab.dataset.tab));
+  });
+}
+
+function updateDate() {
+  const now = new Date();
+  const str = now.toLocaleDateString('hu-HU', { year:'numeric', month:'long', day:'numeric' });
+  const el = document.getElementById('topbar-date');
+  if (el) el.textContent = str;
+  const pl = document.getElementById('print-date-line');
+  if (pl) pl.textContent = 'Kelt: ' + str;
+}
+
+/* ══════════════════════════════════════
+   TABS
+══════════════════════════════════════ */
+function showTab(t) {
+  document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+  document.getElementById(t + '-section').classList.add('active');
+  document.querySelector(`.tab[data-tab="${t}"]`).classList.add('active');
+}
+
+/* ══════════════════════════════════════
+   SETTERS
+══════════════════════════════════════ */
+function setGlass(val) {
+  const h = parseFloat(document.getElementById('height').value) || 0;
+  if (h > 2600 && val === 8) return;
+  selectedGlass = val;
+  calculate();
+}
+
+function setTrack(val) {
+  const w = parseFloat(document.getElementById('width').value) || 0;
+  if (w > 3250 && val === 3) return;
+  selectedTrack = val;
+  calculate();
+}
+
+function setView(open) {
+  isOpen = open;
+  document.getElementById('btnOpen').classList.toggle('active', open);
+  document.getElementById('btnClosed').classList.toggle('active', !open);
+  calculate();
+}
+
+/* ══════════════════════════════════════
+   KALKULÁCIÓ
+══════════════════════════════════════ */
+function calculate() {
+  const w = parseFloat(document.getElementById('width').value) || 0;
+  const h = parseFloat(document.getElementById('height').value) || 0;
+  const margin = 1 + (parseFloat(document.getElementById('marginPercent').value) || 0) / 100;
+  const biDir = document.getElementById('biDirectional').checked;
+  const both  = document.getElementById('bothSides').checked;
+  const handleType = document.querySelector('input[name="handleType"]:checked').value;
+
+  const errorBox = document.getElementById('errorBox');
+  const infoBox  = document.getElementById('infoBox');
+  const svg      = document.getElementById('svgCanvas');
+  const toggleArea = document.getElementById('toggleArea');
+
+  errorBox.style.display = 'none';
+  infoBox.style.display  = 'none';
+  svg.style.display      = 'block';
+  toggleArea.style.display = 'flex';
+
+  if (w > 6500) {
+    showError('Maximum szélesség 6500 mm!'); return;
+  }
+  if (h > 3000) {
+    showError('Maximum magasság 3000 mm!'); return;
+  }
+
+  let track = selectedTrack;
+
+  if (w > 3250) {
+    if (track === 3) {
+      track = 3;
+      infoBox.textContent = 'ℹ 3250 mm felett automatikusan 5 pályás rendszerre váltottunk.';
+      infoBox.style.display = 'block';
+      track = 5;
+    }
+    document.getElementById('optTrack3').classList.add('disabled');
+  } else {
+    document.getElementById('optTrack3').classList.remove('disabled');
+  }
+
+  if (h > 2600) {
+    selectedGlass = 10;
+    document.getElementById('opt8').classList.add('disabled');
+  } else {
+    document.getElementById('opt8').classList.remove('disabled');
+  }
+
+  document.querySelectorAll('.opt-btn').forEach(b => {
+    if (['opt8','opt10','optTrack3','optTrack5'].includes(b.id)) b.classList.remove('active');
+  });
+  document.getElementById(selectedGlass === 8 ? 'opt8' : 'opt10').classList.add('active');
+  document.getElementById(track === 3 ? 'optTrack3' : 'optTrack5').classList.add('active');
+
+  const totalPanels = biDir ? track * 2 : track;
+  const panelWidth = w / totalPanels;
+
+  if (w > 0 && panelWidth < 500) {
+    showError(`Az üveglapok túl keskenyek (${Math.round(panelWidth)} mm). Minimum 500 mm szükséges!`);
+    return;
+  }
+
+  const area = (w * h) / 1000000;
+  const glassPrice  = (selectedGlass === 8 ? prices.p8 : prices.p10) * area;
+  const structPrice = track === 3 ? prices.p3tr : prices.p5tr;
+
+  let hQty = biDir ? 2 : 1;
+  if (both) hQty += biDir ? 2 : 1;
+  const hPrice = handleType === 'rud' ? prices.pRud : prices.pKagylo;
+  const handleTotal = hPrice * hQty;
+
+  const finalTotal = Math.round((glassPrice + structPrice + handleTotal) * margin);
+
+  document.getElementById('summary').innerHTML = `
+    <span>${w}×${h} mm | ${selectedGlass}mm ESG üveg</span>
+    <span>${track} pályás | ${totalPanels} lap | ${hQty} fogantyú</span>
+  `;
+  document.getElementById('totalPrice').textContent = finalTotal.toLocaleString('hu-HU') + ',- Ft + áfa';
+
+  draw(w, h, track, biDir, both, document.getElementById('colorSelect').value, handleType);
+}
+
+function showError(msg) {
+  const errorBox = document.getElementById('errorBox');
+  errorBox.textContent = '⚠ ' + msg;
+  errorBox.style.display = 'block';
+  document.getElementById('svgCanvas').style.display = 'none';
+  document.getElementById('toggleArea').style.display = 'none';
+  document.getElementById('totalPrice').textContent = 'Nem gyártható';
+}
+
+/* ══════════════════════════════════════
+   SVG RAJZ
+══════════════════════════════════════ */
+function draw(w, h, tracks, biDir, both, pColor, hType) {
+  const svg = document.getElementById('svgCanvas');
+
+  // Csak a dinamikus elemeket töröljük, a defs és watermark marad
+  Array.from(svg.children).forEach(el => {
+    if (el.tagName !== 'defs' && el.tagName !== 'text') el.remove();
+  });
+
+  const startX = 60, startY = 80;
+  const scale  = Math.min(480 / w, 160 / h);
+  const dW = w * scale, dH = h * scale;
+  const tPanels = biDir ? tracks * 2 : tracks;
+  const pW = dW / tPanels;
+  const stop = 120 * scale;
+
+  const mkRect = (x, y, width, height, fill, stroke, sw) => {
+    const r = document.createElementNS(svgNS, 'rect');
+    r.setAttribute('x', x); r.setAttribute('y', y);
+    r.setAttribute('width', width); r.setAttribute('height', height);
+    r.setAttribute('fill', fill);
+    if (stroke) { r.setAttribute('stroke', stroke); r.setAttribute('stroke-width', sw || 1); }
+    svg.appendChild(r);
+    return r;
+  };
+
+  // Frame
+  mkRect(startX - 8, startY - 8, dW + 16, 8, pColor);
+  mkRect(startX - 8, startY,     8,        dH, pColor);
+  mkRect(startX + dW, startY,    8,        dH, pColor);
+  mkRect(startX - 8, startY + dH, dW + 16, 6, '#888');
+
+  // Panels
+  for (let i = 0; i < tPanels; i++) {
+    let xPos;
+    if (isOpen) {
+      xPos = biDir
+        ? (i < tracks ? startX + stop * (i / tracks) : startX + dW - pW - stop * ((tPanels - i) / tracks))
+        : startX + stop * (i / tPanels);
+    } else {
+      xPos = startX + i * pW;
+    }
+
+    mkRect(xPos, startY, pW, dH, 'rgba(52,152,219,0.18)', pColor, 1);
+
+    const shine = document.createElementNS(svgNS, 'rect');
+    shine.setAttribute('x', xPos); shine.setAttribute('y', startY);
+    shine.setAttribute('width', pW); shine.setAttribute('height', dH);
+    shine.setAttribute('fill', 'url(#glassShine)');
+    svg.appendChild(shine);
+
+    // Fogantyú logika
+    let drawH = false, side = 'left';
+    if (biDir) {
+      if (i === tracks - 1) { drawH = true; side = 'right'; }
+      if (i === tracks)     { drawH = true; side = 'left'; }
+      if (both) {
+        if (i === 0)           { drawH = true; side = 'left'; }
+        if (i === tPanels - 1) { drawH = true; side = 'right'; }
+      }
+    } else {
+      if (i === 0) { drawH = true; side = 'left'; }
+      if (both && i === tPanels - 1) { drawH = true; side = 'right'; }
+    }
+
+    if (drawH) {
+      const hX = side === 'left' ? xPos + 8 : xPos + pW - 8;
+      const midY = startY + dH / 2;
+      if (hType === 'rud') {
+        const line = document.createElementNS(svgNS, 'line');
+        line.setAttribute('x1', hX); line.setAttribute('y1', midY - 30);
+        line.setAttribute('x2', hX); line.setAttribute('y2', midY + 30);
+        line.setAttribute('stroke', '#ddd'); line.setAttribute('stroke-width', '3');
+        line.setAttribute('stroke-linecap', 'round');
+        svg.appendChild(line);
+      } else {
+        const c = document.createElementNS(svgNS, 'circle');
+        c.setAttribute('cx', hX); c.setAttribute('cy', midY);
+        c.setAttribute('r', 5); c.setAttribute('fill', '#666');
+        svg.appendChild(c);
+      }
+    }
+  }
+
+  // Méret felirat
+  const dimText = document.createElementNS(svgNS, 'text');
+  dimText.setAttribute('x', startX + dW / 2);
+  dimText.setAttribute('y', startY + dH + 24);
+  dimText.setAttribute('text-anchor', 'middle');
+  dimText.setAttribute('fill', '#555');
+  dimText.setAttribute('font-size', '11');
+  dimText.setAttribute('font-family', 'JetBrains Mono, monospace');
+  dimText.textContent = `${w} × ${h} mm`;
+  svg.appendChild(dimText);
+}
+
+/* ══════════════════════════════════════
+   ADMIN ÁRAK
+══════════════════════════════════════ */
+function renderAdminPrices() {
+  const adm = document.getElementById('admin-prices-list');
+  const fields = [
+    { key:'p8',      label:'8mm üveg / m² (Ft)' },
+    { key:'p10',     label:'10mm üveg / m² (Ft)' },
+    { key:'p3tr',    label:'3 pályás szerkezet (Ft)' },
+    { key:'p5tr',    label:'5 pályás szerkezet (Ft)' },
+    { key:'pKagylo', label:'Kagyló fogantyú / db (Ft)' },
+    { key:'pRud',    label:'Rúd fogantyú / db (Ft)' },
+  ];
+  adm.innerHTML = '<span class="section-label">Alapárak (Ft, áfa nélkül)</span>';
+  fields.forEach(f => {
+    const row = document.createElement('div');
+    row.className = 'admin-row';
+    row.innerHTML = `
+      <span>${f.label}</span>
+      <input type="number" class="input-box" value="${prices[f.key]}" style="width:110px; margin:0;"
+        oninput="prices['${f.key}']=parseFloat(this.value)||0; calculate()">
+    `;
+    adm.appendChild(row);
+  });
+}
+
+function resetAdmin() {
+  prices = { ...DEFAULT_PRICES };
+  document.getElementById('marginPercent').value = '20';
+  renderAdminPrices();
+  calculate();
+  showToast('Alaphelyzet visszaállítva');
+}
+
+/* ══════════════════════════════════════
+   MENTÉS / BETÖLTÉS
+══════════════════════════════════════ */
+function saveState() {
+  const state = {
+    width:  document.getElementById('width').value,
+    height: document.getElementById('height').value,
+    glass:  selectedGlass,
+    track:  selectedTrack,
+    color:  document.getElementById('colorSelect').value,
+    biDir:  document.getElementById('biDirectional').checked,
+    both:   document.getElementById('bothSides').checked,
+    handle: document.querySelector('input[name="handleType"]:checked').value,
+    margin: document.getElementById('marginPercent').value,
+    prices: prices,
+    client: {
+      name:  document.getElementById('client-name').value,
+      phone: document.getElementById('client-phone').value,
+      email: document.getElementById('client-email').value,
+      note:  document.getElementById('client-note').value,
+    },
+  };
+  localStorage.setItem('uvegfal_state', JSON.stringify(state));
+  showToast('Mentve!');
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem('uvegfal_state');
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    if (s.glass)  selectedGlass = s.glass;
+    if (s.track)  selectedTrack = s.track;
+    if (s.prices) prices = { ...DEFAULT_PRICES, ...s.prices };
+    setTimeout(() => {
+      if (s.width)  document.getElementById('width').value  = s.width;
+      if (s.height) document.getElementById('height').value = s.height;
+      if (s.color)  document.getElementById('colorSelect').value = s.color;
+      if (s.biDir !== undefined) document.getElementById('biDirectional').checked = s.biDir;
+      if (s.both  !== undefined) document.getElementById('bothSides').checked = s.both;
+      if (s.handle) {
+        const radio = document.querySelector(`input[name="handleType"][value="${s.handle}"]`);
+        if (radio) radio.checked = true;
+      }
+      if (s.margin) document.getElementById('marginPercent').value = s.margin;
+      if (s.client) {
+        document.getElementById('client-name').value  = s.client.name  || '';
+        document.getElementById('client-phone').value = s.client.phone || '';
+        document.getElementById('client-email').value = s.client.email || '';
+        document.getElementById('client-note').value  = s.client.note  || '';
+      }
+      renderAdminPrices();
+      calculate();
+    }, 50);
+  } catch {}
+}
+
+/* ══════════════════════════════════════
+   PDF / NYOMTATÁS
+══════════════════════════════════════ */
+function fillPrintClient() {
+  document.getElementById('pc-name').textContent  = document.getElementById('client-name').value  || '—';
+  document.getElementById('pc-phone').textContent = document.getElementById('client-phone').value || '—';
+  document.getElementById('pc-email').textContent = document.getElementById('client-email').value || '—';
+  document.getElementById('pc-note').textContent  = document.getElementById('client-note').value  || '—';
+  const hasClient = document.getElementById('client-name').value || document.getElementById('client-phone').value;
+  document.getElementById('print-client-section').style.display = hasClient ? 'block' : 'none';
+  document.getElementById('print-header').style.display = 'block';
+}
+
+function generatePDF() {
+  fillPrintClient();
+  const noPdf = document.querySelectorAll('.tabs, .topbar, .inputs-grid, .view-toggle, .btn-row, .back-btn');
+  noPdf.forEach(el => el.style.display = 'none');
+  html2pdf().set({
+    margin: 10,
+    filename: 'MinosegiAblak_Uvegfal_Ajanlat.pdf',
+    html2canvas: { scale: 2, backgroundColor: '#ffffff' },
+    jsPDF: { unit: 'mm', format: 'a4' }
+  }).from(document.getElementById('printable-area')).save().then(() => {
+    noPdf.forEach(el => el.style.display = '');
+    document.getElementById('print-client-section').style.display = 'none';
+    document.getElementById('print-header').style.display = 'none';
+  });
+}
+
+function printOffer() {
+  fillPrintClient();
+  window.print();
+  document.getElementById('print-client-section').style.display = 'none';
+  document.getElementById('print-header').style.display = 'none';
+}
+
+/* ══════════════════════════════════════
+   TOAST
+══════════════════════════════════════ */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = '✓ ' + msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
