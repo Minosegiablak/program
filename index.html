@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)file:///C:/Users/hori7/Downloads/index_16.html -->
+<html lang="hu"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minőségi Ablak — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./index_files/css2" rel="stylesheet">
+<script src="./index_files/Sortable.min.js.letöltés"></script>
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #161616;
+    --surface2: #1e1e1e;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(230,57,70,0.5);
+    --red: #e63946;
+    --red-dim: rgba(230,57,70,0.12);
+    --text: #f0ede8;
+    --muted: #6b6b6b;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --radius: 6px;
+    --radius-lg: 10px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── HEADER ─────────────────────────────────── */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    height: 60px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    gap: 16px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-family: var(--font-display);
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .logo-text span { color: var(--red); }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .week-badge {
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    border-radius: var(--radius);
+  }
+
+  .week-badge span { color: var(--red); margin-left: 4px; }
+
+  #clock {
+    font-family: var(--font-display);
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  /* ── LAYOUT ──────────────────────────────────── */
+  .layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* ── WORKSPACE ───────────────────────────────── */
+  .workspace {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    scrollbar-width: thin;
+    scrollbar-color: #2a2a2a transparent;
+  }
+
+  .section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+  }
+
+  .section-label {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--red);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+    min-height: 60px;
+  }
+
+  /* ── CARD ────────────────────────────────────── */
+  .card {
+    position: relative;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text);
+    text-align: center;
+    transition: border-color 0.18s, background 0.18s, transform 0.12s;
+    user-select: none;
+    min-height: 100px;
+  }
+
+  .card:hover {
+    border-color: var(--border-hover);
+    background: #222;
+    transform: translateY(-1px);
+  }
+
+  .card:active { transform: scale(0.97); }
+
+  .card-icon {
+    font-size: 28px;
+    line-height: 1;
+    display: block;
+  }
+
+  .card-title {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    line-height: 1.3;
+  }
+
+  .card:hover .card-title { color: var(--text); }
+
+  .badge-test {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: #f1c40f;
+    color: #000;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 2px 5px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+
+  /* Drag ghost */
+  .sortable-ghost { opacity: 0.3; }
+  .sortable-drag { opacity: 0.9; cursor: grabbing; }
+
+  /* ── SIDEBAR ─────────────────────────────────── */
+  .sidebar {
+    width: 360px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid var(--border);
+    border-left-color: rgba(230,57,70,0.3);
+    background: var(--surface);
+    overflow: hidden;
+  }
+
+  .sidebar-panel {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .panel-title {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--muted);
+  }
+
+  /* CALENDAR */
+  .calendar-frame {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .calendar-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    filter: invert(92%) hue-rotate(180deg) brightness(0.95) saturate(0.9);
+  }
+
+  /* TRELLO */
+  .trello-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  #trello-list-selector {
+    flex: 1;
+    background: var(--surface2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 5px 8px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .btn-sm {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    font-family: var(--font-body);
+    padding: 5px 10px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .btn-sm:hover { border-color: var(--red); color: var(--text); }
+
+  #trello-config-panel {
+    display: none;
+    padding: 14px 16px;
+    background: #111;
+    border-bottom: 1px solid var(--border);
+    gap: 8px;
+    flex-direction: column;
+  }
+
+  #trello-config-panel input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 12px;
+    padding: 7px 10px;
+    border-radius: var(--radius);
+    outline: none;
+  }
+
+  #trello-config-panel input:focus { border-color: rgba(230,57,70,0.4); }
+
+  .btn-save {
+    background: var(--red);
+    color: white;
+    border: none;
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding: 8px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .btn-save:hover { opacity: 0.85; }
+
+  #trello-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #2a2a2a transparent;
+  }
+
+  .trello-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--red);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    margin-bottom: 7px;
+    font-size: 12px;
+    color: var(--text);
+    text-decoration: none;
+    display: block;
+    transition: border-color 0.15s, background 0.15s;
+    line-height: 1.4;
+  }
+
+  .trello-card:hover { background: #242424; border-left-color: #ff6b76; }
+
+  .trello-empty {
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+    padding: 24px 0;
+  }
+
+  /* ── MODAL OVERLAY ───────────────────────────── */
+  #link-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #link-modal.open { display: flex; }
+
+  .modal-box {
+    background: var(--surface);
+    border: 1px solid rgba(230,57,70,0.3);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px 20px;
+    width: 340px;
+    max-width: 90vw;
+  }
+
+  .modal-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .modal-url {
+    font-size: 11px;
+    color: var(--muted);
+    word-break: break-all;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+
+  .btn-cancel {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-size: 13px;
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    cursor: pointer;
+  }
+
+  .btn-open {
+    background: var(--red);
+    color: white;
+    border: none;
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 8px 20px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .btn-open:hover { opacity: 0.85; }
+
+  /* ── FOOTER ──────────────────────────────────── */
+  footer {
+    padding: 6px 24px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #333;
+    text-transform: uppercase;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────── */
+  @media (max-width: 900px) {
+    body { height: auto; overflow: auto; }
+    .layout { flex-direction: column; overflow: visible; }
+    .sidebar { width: 100%; border-left: none; border-top: 1px solid rgba(230,57,70,0.3); }
+    .sidebar-panel { min-height: 380px; }
+    .workspace { overflow: visible; }
+    #clock { font-size: 22px; }
+  }
+
+  @media (max-width: 600px) {
+    .logo-text { font-size: 16px; }
+    .week-badge { display: none; }
+    .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <svg class="logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="4" width="12" height="24" rx="1" stroke="white" stroke-width="1.5"></rect>
+      <rect x="8" y="2" width="12" height="24" rx="1" stroke="#e63946" stroke-width="1.5"></rect>
+      <rect x="5.5" y="14.5" width="3" height="3" fill="#e63946" rx="0.5"></rect>
+    </svg>
+    <span class="logo-text">minőségi<span>ablak</span>.hu</span>
+  </div>
+  <div class="header-right">
+    <div class="week-badge">HÉT<span id="week-num">21</span></div>
+    <div id="clock">11:33</div>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- WORKSPACE -->
+  <main class="workspace">
+    <div class="section">
+      <div class="section-label">Programok</div>
+      <div class="cards-grid" id="grid-apps"><div class="card" data-id="1" role="button" tabindex="0" aria-label="Pergola">
+        
+        <span class="card-icon">📐</span>
+        <span class="card-title">Pergola</span>
+      </div><div class="card" data-id="2" role="button" tabindex="0" aria-label="Üvegfal">
+        
+        <span class="card-icon">🚪</span>
+        <span class="card-title">Üvegfal</span>
+      </div><div class="card" data-id="3" role="button" tabindex="0" aria-label="Karton Készítő">
+        
+        <span class="card-icon">📝</span>
+        <span class="card-title">Karton Készítő</span>
+      </div><div class="card" data-id="4" role="button" tabindex="0" aria-label="Napellenző">
+        <span class="badge-test">Teszt</span>
+        <span class="card-icon">⛱️</span>
+        <span class="card-title">Napellenző</span>
+      </div><div class="card" data-id="5" role="button" tabindex="0" aria-label="VisualWindow">
+        
+        <span class="card-icon">💻</span>
+        <span class="card-title">VisualWindow</span>
+      </div></div>
+    </div>
+    <div class="section">
+      <div class="section-label">Fájlok</div>
+      <div class="cards-grid" id="grid-files"><div class="card" data-id="6" role="button" tabindex="0" aria-label="2026 Árlisták">
+        
+        <span class="card-icon">📁</span>
+        <span class="card-title">2026 Árlisták</span>
+      </div><div class="card" data-id="7" role="button" tabindex="0" aria-label="2026 Ajánlatok">
+        
+        <span class="card-icon">📂</span>
+        <span class="card-title">2026 Ajánlatok</span>
+      </div></div>
+    </div>
+    <div class="section">
+      <div class="section-label">Egyéb</div>
+      <div class="cards-grid" id="grid-other"><div class="card" data-id="8" role="button" tabindex="0" aria-label="Trello">
+        
+        <span class="card-icon">📋</span>
+        <span class="card-title">Trello</span>
+      </div></div>
+    </div>
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- NAPTÁR -->
+    <div class="sidebar-panel">
+      <div class="panel-header">
+        <span class="panel-title">NAPTÁR</span>
+      </div>
+      <div class="calendar-frame">
+        <iframe src="./index_files/embed.html" loading="lazy" title="Google Naptár">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- TRELLO -->
+    <div class="sidebar-panel" style="flex: 1.2;">
+      <div class="panel-header">
+        <span class="panel-title">FELADATOK</span>
+        <button class="btn-sm" onclick="toggleTrelloConfig()">⚙ Beállítás</button>
+      </div>
+      <div id="trello-config-panel">
+        <input type="text" id="trello-key" placeholder="Trello API Key">
+        <input type="text" id="trello-token" placeholder="Trello Token">
+        <input type="text" id="trello-lists" placeholder="Lista ID-k (vesszővel elválasztva)">
+        <button class="btn-save" onclick="saveTrelloConfig()">MENTÉS</button>
+      </div>
+      <div class="trello-controls">
+        <select id="trello-list-selector" onchange="changeTrelloList()"></select>
+        <button class="btn-sm" onclick="fetchTrelloTasks(document.getElementById(&#39;trello-list-selector&#39;).value)">↻</button>
+      </div>
+      <div id="trello-container">
+        <p class="trello-empty">Állítsd be a Trello kapcsolatot a ⚙ gombbal.</p>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- LINK MODAL -->
+<div id="link-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-el">
+  <div class="modal-box">
+    <div class="modal-title" id="modal-title-el">Megnyitás</div>
+    <div class="modal-url" id="modal-url-el"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Mégse</button>
+      <button class="btn-open" id="modal-open-btn">Megnyitás ↗</button>
+    </div>
+  </div>
+</div>
+
+<footer>Belső használatra — minőségiablak.hu</footer>
+
+<script>
+/* ════════════════════════════════════════════════
+   KONFIGURÁCIÓ
+   ════════════════════════════════════════════════
+   A kártyák adatait itt szerkeszd.
+   url: Google Drive megosztott link, vagy bármilyen https:// cím
+   isExternal: true → új lapon nyílik meg; false → megerősítő modal
+*/
+const CARDS = [
+  { id: 1,  section: 'apps',  icon: '📐', title: 'Pergola',        url: 'https://drive.google.com/file/d/PERGOLA_ID/view',      isExternal: true },
+  { id: 2,  section: 'apps',  icon: '🚪', title: 'Üvegfal',        url: 'https://drive.google.com/file/d/UVEGFAL_ID/view',      isExternal: true },
+  { id: 3,  section: 'apps',  icon: '📝', title: 'Karton Készítő', url: 'https://drive.google.com/file/d/KARTON_ID/view',        isExternal: true },
+  { id: 4,  section: 'apps',  icon: '⛱️', title: 'Napellenző',     url: 'https://drive.google.com/file/d/NAPELLENZO_ID/view',   isExternal: true, isTest: true },
+  { id: 5,  section: 'apps',  icon: '💻', title: 'VisualWindow',   url: 'https://visualwindow.example.com',                     isExternal: true },
+  { id: 6,  section: 'files', icon: '📁', title: '2026 Árlisták',  url: 'https://drive.google.com/drive/folders/ARLISTAK_ID',   isExternal: true },
+  { id: 7,  section: 'files', icon: '📂', title: '2026 Ajánlatok', url: 'https://drive.google.com/drive/folders/AJANLATOK_ID',  isExternal: true },
+  { id: 8,  section: 'other', icon: '📋', title: 'Trello',         url: 'https://trello.com/b/BOARD_ID',                        isExternal: true },
+];
+
+const SECTION_MAP = { apps: 'grid-apps', files: 'grid-files', other: 'grid-other' };
+
+/* ── KÁRTYÁK RENDERELÉSE ──────────────────────── */
+function renderGrids() {
+  const saved = getSavedLayout();
+  Object.entries(SECTION_MAP).forEach(([sec, gridId]) => {
+    const grid = document.getElementById(gridId);
+    grid.innerHTML = '';
+    const ids = saved[sec] || CARDS.filter(c => c.section === sec).map(c => c.id);
+    ids.forEach(id => {
+      const card = CARDS.find(c => c.id == id);
+      if (!card) return;
+      const el = document.createElement('div');
+      el.className = 'card';
+      el.dataset.id = card.id;
+      el.setAttribute('role', 'button');
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('aria-label', card.title);
+      el.innerHTML = `
+        ${card.isTest ? '<span class="badge-test">Teszt</span>' : ''}
+        <span class="card-icon">${card.icon}</span>
+        <span class="card-title">${card.title}</span>
+      `;
+      el.addEventListener('click', () => openCard(card));
+      el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openCard(card); });
+      grid.appendChild(el);
+    });
+  });
+}
+
+/* ── LINK MEGNYITÁS ───────────────────────────── */
+function openCard(card) {
+  if (card.isExternal) {
+    window.open(card.url, '_blank', 'noopener');
+  } else {
+    showModal(card.title, card.url);
+  }
+}
+
+function showModal(title, url) {
+  document.getElementById('modal-title-el').textContent = title;
+  document.getElementById('modal-url-el').textContent = url;
+  document.getElementById('modal-open-btn').onclick = () => { window.open(url, '_blank', 'noopener'); closeModal(); };
+  document.getElementById('link-modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('link-modal').classList.remove('open');
+}
+
+document.getElementById('link-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('link-modal')) closeModal();
+});
+
+/* ── LAYOUT MENTÉS ────────────────────────────── */
+function getSavedLayout() {
+  try {
+    return JSON.parse(localStorage.getItem('ma_layout')) || {};
+  } catch { return {}; }
+}
+
+function saveLayout() {
+  const layout = {};
+  Object.entries(SECTION_MAP).forEach(([sec, gridId]) => {
+    layout[sec] = Array.from(document.getElementById(gridId).children).map(el => +el.dataset.id);
+  });
+  localStorage.setItem('ma_layout', JSON.stringify(layout));
+}
+
+/* ── DRAG & DROP ──────────────────────────────── */
+function initSortable() {
+  Object.values(SECTION_MAP).forEach(gridId => {
+    new Sortable(document.getElementById(gridId), {
+      group: 'workspace',
+      animation: 150,
+      ghostClass: 'sortable-ghost',
+      dragClass: 'sortable-drag',
+      onEnd: saveLayout,
+    });
+  });
+}
+
+/* ── ÓRA ──────────────────────────────────────── */
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.toLocaleTimeString('hu-HU', { hour: '2-digit', minute: '2-digit' });
+
+  const d = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const week = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+  document.getElementById('week-num').textContent = week;
+}
+
+/* ── TRELLO ───────────────────────────────────── */
+function toggleTrelloConfig() {
+  const panel = document.getElementById('trello-config-panel');
+  const isOpen = panel.style.display === 'flex';
+  panel.style.display = isOpen ? 'none' : 'flex';
+  if (!isOpen) {
+    document.getElementById('trello-key').value = localStorage.getItem('t_key') || '';
+    document.getElementById('trello-token').value = localStorage.getItem('t_token') || '';
+    document.getElementById('trello-lists').value = localStorage.getItem('t_lists') || '';
+  }
+}
+
+function saveTrelloConfig() {
+  localStorage.setItem('t_key', document.getElementById('trello-key').value.trim());
+  localStorage.setItem('t_token', document.getElementById('trello-token').value.trim());
+  localStorage.setItem('t_lists', document.getElementById('trello-lists').value.trim());
+  document.getElementById('trello-config-panel').style.display = 'none';
+  initTrelloSelector();
+}
+
+async function initTrelloSelector() {
+  const key = localStorage.getItem('t_key');
+  const token = localStorage.getItem('t_token');
+  const listsStr = localStorage.getItem('t_lists') || '';
+  const selector = document.getElementById('trello-list-selector');
+  selector.innerHTML = '';
+  if (!key || !token || !listsStr) return;
+
+  for (const id of listsStr.split(',').map(s => s.trim()).filter(Boolean)) {
+    try {
+      const res = await fetch(`https://api.trello.com/1/lists/${id}?key=${key}&token=${token}`);
+      if (!res.ok) continue;
+      const data = await res.json();
+      const opt = document.createElement('option');
+      opt.value = id;
+      opt.textContent = data.name;
+      selector.appendChild(opt);
+    } catch {}
+  }
+  if (selector.options.length > 0) fetchTrelloTasks(selector.value);
+}
+
+async function fetchTrelloTasks(listId) {
+  const key = localStorage.getItem('t_key');
+  const token = localStorage.getItem('t_token');
+  const container = document.getElementById('trello-container');
+  if (!key || !token || !listId) return;
+
+  container.innerHTML = '<p class="trello-empty">Betöltés…</p>';
+  try {
+    const res = await fetch(`https://api.trello.com/1/lists/${listId}/cards?key=${key}&token=${token}`);
+    if (!res.ok) throw new Error();
+    const cards = await res.json();
+    if (cards.length === 0) {
+      container.innerHTML = '<p class="trello-empty">Nincs kártya ebben a listában.</p>';
+      return;
+    }
+    container.innerHTML = cards.map(c =>
+      `<a href="${c.shortUrl}" target="_blank" rel="noopener" class="trello-card">${c.name}</a>`
+    ).join('');
+  } catch {
+    container.innerHTML = '<p class="trello-empty">Hiba a betöltés során. Ellenőrizd a beállításokat.</p>';
+  }
+}
+
+function changeTrelloList() {
+  fetchTrelloTasks(document.getElementById('trello-list-selector').value);
+}
+
+/* ── INIT ─────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  renderGrids();
+  initSortable();
+  initTrelloSelector();
+  updateClock();
+  setInterval(updateClock, 30000);
+});
+</script>
+
+
+</body></html>
