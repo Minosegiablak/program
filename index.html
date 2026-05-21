@@ -528,8 +528,13 @@
     <div class="sidebar-panel">
       <div class="panel-header">
         <span class="panel-title">NAPTÁR</span>
+        <button class="btn-sm" id="cal-lock-btn" onclick="unlockSidebar()">🔒 Feloldás</button>
       </div>
-      <div class="calendar-frame">
+      <div id="cal-locked" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; color:#555; font-size:13px;">
+        <div style="font-size:28px;">🔒</div>
+        <div>Védett tartalom</div>
+      </div>
+      <div class="calendar-frame" id="cal-frame" style="display:none;">
         <iframe
           src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FBudapest&showPrint=0&showTitle=0&showNav=0&showDate=0&showTabs=0&showCalendars=0&showTz=0&mode=AGENDA&src=c2xvYmVyc3pAZ21haWwuY29t&color=%23ff2968"
           loading="lazy"
@@ -542,20 +547,17 @@
     <div class="sidebar-panel" style="flex: 1.2;">
       <div class="panel-header">
         <span class="panel-title">FELADATOK</span>
-        <button class="btn-sm" onclick="toggleTrelloConfig()">⚙ Beállítás</button>
+        <button class="btn-sm" id="trello-refresh-btn" onclick="fetchTrelloTasks(document.getElementById('trello-list-selector').value)" style="display:none;">↻</button>
       </div>
-      <div id="trello-config-panel">
-        <input type="text" id="trello-key" placeholder="Trello API Key">
-        <input type="text" id="trello-token" placeholder="Trello Token">
-        <input type="text" id="trello-lists" placeholder="Lista ID-k (vesszővel elválasztva)">
-        <button class="btn-save" onclick="saveTrelloConfig()">MENTÉS</button>
-      </div>
-      <div class="trello-controls">
+      <div class="trello-controls" id="trello-controls" style="display:none;">
         <select id="trello-list-selector" onchange="changeTrelloList()"></select>
-        <button class="btn-sm" onclick="fetchTrelloTasks(document.getElementById('trello-list-selector').value)">↻</button>
       </div>
-      <div id="trello-container">
-        <p class="trello-empty">Állítsd be a Trello kapcsolatot a ⚙ gombbal.</p>
+      <div id="trello-locked" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; color:#555; font-size:13px;">
+        <div style="font-size:28px;">🔒</div>
+        <div>Védett tartalom</div>
+      </div>
+      <div id="trello-container" style="display:none; flex:1; overflow-y:auto; padding:10px;">
+        <p class="trello-empty">Betöltés…</p>
       </div>
     </div>
 
@@ -761,37 +763,51 @@ function updateClock() {
   document.getElementById('week-num').textContent = week;
 }
 
-/* ── TRELLO ───────────────────────────────────── */
-function toggleTrelloConfig() {
-  const panel = document.getElementById('trello-config-panel');
-  const isOpen = panel.style.display === 'flex';
-  panel.style.display = isOpen ? 'none' : 'flex';
-  if (!isOpen) {
-    document.getElementById('trello-key').value = localStorage.getItem('t_key') || '';
-    document.getElementById('trello-token').value = localStorage.getItem('t_token') || '';
-    document.getElementById('trello-lists').value = localStorage.getItem('t_lists') || '';
+/* ── JELSZÓVÉDELEM (SHA-256) ──────────────────── */
+const SIDEBAR_HASH = '20f3765880a5c269b747e1e906054a4b4a3a991259f1e16b5dde4742cec2319a';
+let sidebarUnlocked = false;
+
+async function hashStr(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function unlockSidebar() {
+  if (sidebarUnlocked) return;
+  const pw = prompt('Kód megadása:');
+  if (pw === null) return;
+  const hash = await hashStr(pw);
+  if (hash === SIDEBAR_HASH) {
+    sidebarUnlocked = true;
+    sessionStorage.setItem('sb_unlocked', '1');
+    showSidebarContent();
+  } else {
+    alert('Hibás kód!');
   }
 }
 
-function saveTrelloConfig() {
-  localStorage.setItem('t_key', document.getElementById('trello-key').value.trim());
-  localStorage.setItem('t_token', document.getElementById('trello-token').value.trim());
-  localStorage.setItem('t_lists', document.getElementById('trello-lists').value.trim());
-  document.getElementById('trello-config-panel').style.display = 'none';
+function showSidebarContent() {
+  document.getElementById('cal-locked').style.display = 'none';
+  document.getElementById('cal-frame').style.display = 'flex';
+  document.getElementById('cal-lock-btn').style.display = 'none';
+  document.getElementById('trello-locked').style.display = 'none';
+  document.getElementById('trello-container').style.display = 'block';
+  document.getElementById('trello-controls').style.display = 'flex';
+  document.getElementById('trello-refresh-btn').style.display = 'block';
   initTrelloSelector();
 }
 
+/* ── TRELLO (beégett API) ─────────────────────── */
+const T_KEY   = '49419d9e44bd9cf53c6a846769b360c3';
+const T_TOKEN = 'ATTA584e1d9af9dd4fc35a9fba89036b36c3a68476ac4cf44e4124606868068a0a3bE40922F1';
+const T_LISTS = '5e2575e00375728838dc731c,5e2575e0b69e79578a152506,5e2579581be1cc6c14ac9331,6131f16668a3834df661ecf4,68b7e4d185661f41a77b0c19,5e6773c2ad8e8761b7f267a0,5e25798446afde6b64a023d8,607535389e61a68a908f4d84,69c3b1cea1e2ce8411a408fa,69e23806a337d8a9f1ba0844,688b0abb49aa0d61d7ebc47f,696e2c33ed3c61c2f86ce3cf,5e8448f2a0fc4b2cba9bee0e,5e844a3b17a1bf53d1cde4af,5e8448fc37ab1e40d78fcb8d,635a286df2011c05593f761a,69689f6c804feaebf7f7a2f0';
+
 async function initTrelloSelector() {
-  const key = localStorage.getItem('t_key');
-  const token = localStorage.getItem('t_token');
-  const listsStr = localStorage.getItem('t_lists') || '';
   const selector = document.getElementById('trello-list-selector');
   selector.innerHTML = '';
-  if (!key || !token || !listsStr) return;
-
-  for (const id of listsStr.split(',').map(s => s.trim()).filter(Boolean)) {
+  for (const id of T_LISTS.split(',').map(s => s.trim()).filter(Boolean)) {
     try {
-      const res = await fetch(`https://api.trello.com/1/lists/${id}?key=${key}&token=${token}`);
+      const res = await fetch(`https://api.trello.com/1/lists/${id}?key=${T_KEY}&token=${T_TOKEN}`);
       if (!res.ok) continue;
       const data = await res.json();
       const opt = document.createElement('option');
@@ -804,14 +820,11 @@ async function initTrelloSelector() {
 }
 
 async function fetchTrelloTasks(listId) {
-  const key = localStorage.getItem('t_key');
-  const token = localStorage.getItem('t_token');
   const container = document.getElementById('trello-container');
-  if (!key || !token || !listId) return;
-
+  if (!listId) return;
   container.innerHTML = '<p class="trello-empty">Betöltés…</p>';
   try {
-    const res = await fetch(`https://api.trello.com/1/lists/${listId}/cards?key=${key}&token=${token}`);
+    const res = await fetch(`https://api.trello.com/1/lists/${listId}/cards?key=${T_KEY}&token=${T_TOKEN}`);
     if (!res.ok) throw new Error();
     const cards = await res.json();
     if (cards.length === 0) {
@@ -822,7 +835,7 @@ async function fetchTrelloTasks(listId) {
       `<a href="${c.shortUrl}" target="_blank" rel="noopener" class="trello-card">${c.name}</a>`
     ).join('');
   } catch {
-    container.innerHTML = '<p class="trello-empty">Hiba a betöltés során. Ellenőrizd a beállításokat.</p>';
+    container.innerHTML = '<p class="trello-empty">Hiba a betöltés során.</p>';
   }
 }
 
@@ -834,9 +847,12 @@ function changeTrelloList() {
 document.addEventListener('DOMContentLoaded', () => {
   renderGrids();
   initSortable();
-  initTrelloSelector();
   updateClock();
   setInterval(updateClock, 30000);
+  if (sessionStorage.getItem('sb_unlocked') === '1') {
+    sidebarUnlocked = true;
+    showSidebarContent();
+  }
 });
 </script>
 </body>
