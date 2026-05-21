@@ -507,15 +507,77 @@ function acc(str) {
 }
 
 /* ── TRELLO PARSE ────────────────────── */
-function getData(lines, label) {
-  const cleanLabel = acc(label);
-  const line = lines.find(l => {
-    const parts = l.split(':');
-    if (parts.length < 2) return false;
-    return acc(parts[0]) === cleanLabel;
-  });
-  if (!line) return "";
-  return line.split(':').slice(1).join(':').trim();
+// Több lehetséges feliratot is elfogad ugyanahhoz a mezőhöz
+const FIELD_ALIASES = {
+  megrenev:   ['nev', 'neve', 'megrendelo neve', 'megrendelo'],
+  tel:        ['tel', 'tel.', 'tel. szam', 'telefon', 'megrendelo tel.', 'megrendelo tel'],
+  beephely:   ['beep. cim', 'beepites helye', 'beepites cime', 'beep.cim', 'cim'],
+  megredatum: ['megrendeles datuma', 'datum'],
+  szlanevcim: ['szamlazasi nev es cim', 'szamlazasi cim'],
+  ugyintezo:  ['ugyintezo'],
+  mokna:      ['m-okna rendelesszam', 'm/okna', 'mokna'],
+  eloleg:     ['eloleg osszege', 'eloleg'],
+  szlaszama:  ['szla szama', 'szamlaszam'],
+  bobe:       ['bo-be', 'beepites', 'bobe'],
+  hull:       ['hull.elsz', 'hulladek'],
+  szallitas:  ['vevo szallitja / kiszallitas', 'szallitas', 'kiszallitas'],
+  megj:       ['megjegyzes', 'megjeg.'],
+};
+
+function getDataByAliases(lines, aliases) {
+  for (const alias of aliases) {
+    for (const line of lines) {
+      const colonIdx = line.indexOf(':');
+      if (colonIdx === -1) continue;
+      const label = acc(line.substring(0, colonIdx));
+      if (label === alias) {
+        return line.substring(colonIdx + 1).trim();
+      }
+    }
+  }
+  return '';
+}
+
+/* ── TÉTELEK FELISMERÉSE ─────────────── */
+// Felismeri a "* 2 db ablak" és "2 db ablak" formátumokat
+const ITEM_KEYWORDS = [
+  { k:'ablak',      words:['ablak'] },
+  { k:'ajto',       words:['bejárati ajtó','bejárati ajto','bej. ajto','bej.ajto'] },
+  { k:'panel',      words:['díszpanel','diszpanel','ajtópanel','ajtopanel','panel'] },
+  { k:'belter',     words:['beltéri ajtó','belteri ajto'] },
+  { k:'technikai',  words:['technikai ajtó','technikai ajto'] },
+  { k:'kilincs',    words:['kilincs'] },
+  { k:'redony',     words:['redőny','redony'] },
+  { k:'zsaluzia',   words:['zsalúzia','zsaluzia'] },
+  { k:'halo',       words:['szúnyogháló','szunyoghalo','háló','halo'] },
+  { k:'plisze',     words:['pliszé','plisze'] },
+  { k:'haloajto',   words:['szúnyogháló ajtó','szunyoghalo ajto','háló ajtó'] },
+  { k:'halorolos',  words:['szúnyogháló rolós','szunyoghalo rolos','háló rolós'] },
+  { k:'halotolo',   words:['szúnyogháló toló','szunyoghalo tolo','háló toló'] },
+  { k:'parkan',     words:['párkány','parkany'] },
+  { k:'konyoklo',   words:['könyöklő','konyoklo'] },
+  { k:'takar',      words:['takaróléc','takarolec'] },
+  { k:'garazskapu', words:['garázskapu','garazskapu'] },
+];
+
+function parseItems(lines) {
+  const found = {};
+  for (const line of lines) {
+    const cleanLine = acc(line.replace(/^\*\s*/, '').trim());
+    // Számot keres a sorban
+    const numMatch = line.match(/(\d+)\s*db/i);
+    const qty = numMatch ? numMatch[1] : '1';
+    for (const item of ITEM_KEYWORDS) {
+      if (found[item.k]) continue;
+      for (const word of item.words) {
+        if (cleanLine.includes(acc(word))) {
+          found[item.k] = qty;
+          break;
+        }
+      }
+    }
+  }
+  return found;
 }
 
 /* ── TRELLO INPUT ────────────────────── */
@@ -523,37 +585,31 @@ function processTrelloInput() {
   const text = document.getElementById('trelloInput').value;
   const lines = text.split('\n');
 
-  // Alapadatok törlése majd kitöltése
   clearFields();
 
-  document.getElementById('out-megrenev').value   = getData(lines, "Megrendelő neve");
-  document.getElementById('out-tel').value         = getData(lines, "Megrendelő TEL.");
-  document.getElementById('out-beephely').value    = getData(lines, "Beépítés helye");
-  document.getElementById('out-megredatum').value  = getData(lines, "Megrendelés dátuma");
-  document.getElementById('out-szlanevcim').value  = getData(lines, "Számlázási név és cím");
-  document.getElementById('out-ugyintezo').value   = getData(lines, "Ügyintéző");
-  document.getElementById('out-mokna').value        = getData(lines, "M-OKNA rendelésszám");
-  document.getElementById('out-eloleg').value       = getData(lines, "Előleg összege");
-  document.getElementById('out-szlaszama').value    = getData(lines, "Szla száma");
-  document.getElementById('out-bobe').value         = getData(lines, "BO-BE") || getData(lines, "Beépítés");
-  document.getElementById('out-hull').value         = getData(lines, "Hull.elsz");
-  document.getElementById('out-szallitas').value    = getData(lines, "Vevő szállítja / Kiszállítás");
-  document.getElementById('out-megj').value         = getData(lines, "Megjegyzés");
+  // Alapadatok
+  document.getElementById('out-megrenev').value   = getDataByAliases(lines, FIELD_ALIASES.megrenev);
+  document.getElementById('out-tel').value         = getDataByAliases(lines, FIELD_ALIASES.tel);
+  document.getElementById('out-beephely').value    = getDataByAliases(lines, FIELD_ALIASES.beephely);
+  document.getElementById('out-megredatum').value  = getDataByAliases(lines, FIELD_ALIASES.megredatum);
+  document.getElementById('out-szlanevcim').value  = getDataByAliases(lines, FIELD_ALIASES.szlanevcim);
+  document.getElementById('out-ugyintezo').value   = getDataByAliases(lines, FIELD_ALIASES.ugyintezo);
+  document.getElementById('out-mokna').value        = getDataByAliases(lines, FIELD_ALIASES.mokna);
+  document.getElementById('out-eloleg').value       = getDataByAliases(lines, FIELD_ALIASES.eloleg);
+  document.getElementById('out-szlaszama').value    = getDataByAliases(lines, FIELD_ALIASES.szlaszama);
+  document.getElementById('out-bobe').value         = getDataByAliases(lines, FIELD_ALIASES.bobe);
+  document.getElementById('out-hull').value         = getDataByAliases(lines, FIELD_ALIASES.hull);
+  document.getElementById('out-szallitas').value    = getDataByAliases(lines, FIELD_ALIASES.szallitas);
+  document.getElementById('out-megj').value         = getDataByAliases(lines, FIELD_ALIASES.megj);
 
-  const gyartoi = lines.filter(l => acc(l.split(':')[0]) === acc("Gyártói r.szám"));
-  document.getElementById('out-gyartoi1').value = gyartoi[0]?.split(':')[1]?.trim() || "";
-  document.getElementById('out-gyartoi2').value = gyartoi[1]?.split(':')[1]?.trim() || "";
-  document.getElementById('out-gyartoi3').value = gyartoi[2]?.split(':')[1]?.trim() || "";
-
-  // Tételek
+  // Tételek felismerése
   modalQueue = [];
+  const foundItems = parseItems(lines);
   ITEMS.forEach(item => {
-    const val = getData(lines, item.l);
     const row = document.getElementById(`row-${item.k}`);
-    if (val !== "") {
+    if (foundItems[item.k]) {
       row.classList.remove('hidden-row');
-      const dbInput = document.getElementById(`db-${item.k}`);
-      dbInput.value = val.match(/\d+/) ? val.match(/\d+/)[0] : val;
+      document.getElementById(`db-${item.k}`).value = foundItems[item.k];
       const bszEl = document.getElementById(`bsz-${item.k}`);
       if (bszEl && !bszEl.classList.contains('selected')) {
         modalQueue.push({ key: item.k, name: item.l });
@@ -565,18 +621,23 @@ function processTrelloInput() {
     }
   });
 
-  // Dinamikus egyéb sorok
-  const extraContainer = document.getElementById('dynamicExtraRows');
-  extraContainer.innerHTML = '';
-  lines.filter(l => acc(l.split(':')[0]) === "egyeb").forEach(line => {
-    const content = line.split(':').slice(1).join(':').trim();
-    if (!content) return;
-    const dbVal = content.match(/\d+/) ? content.match(/\d+/)[0] : "";
-    const textPart = content.replace(dbVal, "").trim();
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td colspan="4" class="wrap-text">Egyéb: ${textPart}</td><td class="center bold">${dbVal}</td><td colspan="3"><input type="text"></td><td colspan="2"><input type="text"></td><td colspan="2"><input type="text"></td>`;
-    extraContainer.appendChild(tr);
+  // Megjegyzés: a nem felismert sorok bekerülnek a megjegyzés mezőbe
+  const ignoredLines = lines.filter(line => {
+    const l = line.trim();
+    if (!l) return false;
+    if (l.startsWith('*')) return false;
+    const colonIdx = l.indexOf(':');
+    if (colonIdx > 0) {
+      const label = acc(l.substring(0, colonIdx));
+      const allAliases = Object.values(FIELD_ALIASES).flat();
+      if (allAliases.includes(label)) return false;
+    }
+    return true;
   });
+
+  if (!document.getElementById('out-megj').value && ignoredLines.length > 0) {
+    document.getElementById('out-megj').value = ignoredLines.join('\n').trim();
+  }
 
   if (modalQueue.length > 0) showNextInQueue();
 }
