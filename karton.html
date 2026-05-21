@@ -519,8 +519,8 @@ function getData(lines, label) {
 }
 
 /* ── TRELLO INPUT ────────────────────── */
-document.getElementById('trelloInput').addEventListener('input', function() {
-  const text = this.value;
+function processTrelloInput() {
+  const text = document.getElementById('trelloInput').value;
   const lines = text.split('\n');
 
   // Alapadatok törlése majd kitöltése
@@ -579,6 +579,12 @@ document.getElementById('trelloInput').addEventListener('input', function() {
   });
 
   if (modalQueue.length > 0) showNextInQueue();
+}
+
+const trelloEl = document.getElementById('trelloInput');
+trelloEl.addEventListener('input', processTrelloInput);
+trelloEl.addEventListener('paste', function() {
+  setTimeout(processTrelloInput, 50);
 });
 
 /* ── MODAL ───────────────────────────── */
